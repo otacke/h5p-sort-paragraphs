@@ -57,8 +57,8 @@ export default class SortParagraphsContent {
     this.content.appendChild(this.list);
 
     // Use previous state or shuffle paragraphs
-    if (params.previousState) {
-      this.setDraggablesTexts(params.previousState);
+    if (params.previousState && params.previousState.order) {
+      this.reorderDraggables(params.previousState.order);
     }
     else {
       Util.shuffleDOMElements(this.paragraphs.map(paragraph => paragraph.getDOM()));
@@ -68,6 +68,21 @@ export default class SortParagraphsContent {
     this.resetAriaLabels();
     this.resetDraggablesTabIndex();
     this.resetDraggables();
+  }
+
+  /**
+   * Reorder draggables.
+   * @param {number[]} newOrder New order.
+   */
+  reorderDraggables(newOrder) {
+    let draggables;
+    for (let i = 0; i < newOrder.length; i++) {
+      draggables = this.getDraggables();
+      const currentOrder = this.getDraggablesOrder();
+      if (currentOrder[i] !== newOrder[i]) {
+        Util.swapDOMElements(draggables[i], draggables[currentOrder.indexOf(newOrder[i])]);
+      }
+    }
   }
 
   /**
@@ -520,7 +535,7 @@ export default class SortParagraphsContent {
       // Store state in case user cancels
       this.undoState = {
         position: this.getDraggableIndex(draggable),
-        texts: this.getDraggablesTexts()
+        order: this.getDraggablesOrder()
       };
     }
     else {
@@ -551,7 +566,7 @@ export default class SortParagraphsContent {
 
     // Restore paragraphs' state and focus to start paragraph
     if (this.undoState) {
-      this.setDraggablesTexts(this.undoState.texts);
+      this.reorderDraggables(this.undoState.order);
 
       paragraph.setTabIndex(-1);
       const oldFocusDraggable = this.getDraggableAt(this.undoState.position);
@@ -560,6 +575,8 @@ export default class SortParagraphsContent {
       oldFocusDraggable.focus();
 
       // Keep this afer focus() or focusout handler will reset aria
+      this.resetDraggables();
+      this.resetAriaLabels();
       this.setAriaLabel(oldFocusDraggable, {action: 'cancelled'});
 
       this.undoState = null;
@@ -614,7 +631,8 @@ export default class SortParagraphsContent {
    * @return {number[]} Sequence of positions of draggables in contrast to solution.
    */
   getDraggablesOrder() {
-    return this.paragraphs.map(paragraph => this.getDraggableIndex(paragraph.getDOM()));
+    return this.getDraggables()
+      .map(draggable => this.paragraphs.indexOf(this.getParagraph(draggable)));
   }
 
   /**
@@ -647,31 +665,6 @@ export default class SortParagraphsContent {
 
       return (paragraph.getDOM() === draggable) ? paragraph : null;
     }, null);
-  }
-
-  /**
-   * Get draggables' texts, e.g. for storing state or xAPI response.
-   * @param {string[]}
-   */
-  getDraggablesTexts() {
-    // Get paragraph for each draggable and return text
-    return this.getDraggables().map(draggable => this.getParagraph(draggable).getText());
-  }
-
-  /**
-   * Set draggables' texts, e.g. on reset or restoring state.
-   * @param {string[]} texts Texts to set for paragraphs.
-   */
-  setDraggablesTexts(texts) {
-    const draggables = this.getDraggables();
-    if (texts.length !== draggables.length) {
-      return;
-    }
-
-    // Find paragraph for draggable and set text
-    texts.forEach((text, index) => {
-      this.getParagraph(draggables[index]).setText(text);
-    });
   }
 
   /**

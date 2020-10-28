@@ -67,6 +67,9 @@ export default class SortParagraphs extends H5P.Question {
     const defaultLanguage = (extras && extras.metadata) ? extras.metadata.defaultLanguage || 'en' : 'en';
     this.languageTag = Util.formatLanguageCode(defaultLanguage);
 
+    // Current user view
+    this.viewState = 'task';
+
     // this.previousState now holds the saved content state of the previous session
     this.previousState = this.extras.previousState || null;
 
@@ -102,6 +105,14 @@ export default class SortParagraphs extends H5P.Question {
       // Register content with H5P.Question
       this.setContent(this.content.getDOM());
 
+      if (this.previousState !== null && (this.previousState.view === 'results' || this.previousState.view === 'solutions')) {
+        // Need to wait until DOM is ready for us
+        H5P.externalDispatcher.on('initialized', () => {
+          this.viewState = 'results';
+          this.checkAnswer();
+        });
+      }
+
       // Register Buttons
       this.addButtons();
 
@@ -114,16 +125,6 @@ export default class SortParagraphs extends H5P.Question {
     this.addButtons = () => {
       // Check answer button
       this.addButton('check-answer', this.params.l10n.checkAnswer, () => {
-        this.hideButton('check-answer');
-
-        if (this.params.behaviour.enableSolutionsButton && this.getScore() !== this.getMaxScore()) {
-          this.showButton('show-solution');
-        }
-
-        if (this.params.behaviour.enableRetry) {
-          this.showButton('try-again');
-        }
-
         this.checkAnswer();
       }, true, {}, {});
 
@@ -178,6 +179,7 @@ export default class SortParagraphs extends H5P.Question {
      * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-4}
      */
     this.showSolutions = () => {
+      this.viewState = 'solutions';
       this.content.showSolutions();
       this.trigger('resize');
     };
@@ -189,6 +191,7 @@ export default class SortParagraphs extends H5P.Question {
     this.resetTask = () => {
       this.removeFeedback();
       this.content.reset();
+      this.viewState = 'task';
       this.trigger('resize');
     };
 
@@ -217,7 +220,7 @@ export default class SortParagraphs extends H5P.Question {
     };
 
     /**
-     * Create an xAPI event for Dictation.
+     * Create an xAPI event.
      * @param {string} verb Short id of the verb we want to trigger.
      * @return {H5P.XAPIEvent} Event template.
      */
@@ -267,6 +270,16 @@ export default class SortParagraphs extends H5P.Question {
     this.checkAnswer = () => {
       this.content.disable();
 
+      this.hideButton('check-answer');
+
+      if (this.params.behaviour.enableSolutionsButton && this.getScore() !== this.getMaxScore()) {
+        this.showButton('show-solution');
+      }
+
+      if (this.params.behaviour.enableRetry) {
+        this.showButton('try-again');
+      }
+
       this.content.showResults({
         mode: this.params.behaviour.scoringMode,
         penalties: this.params.behaviour.applyPenalties
@@ -287,7 +300,13 @@ export default class SortParagraphs extends H5P.Question {
         ariaMessage
       );
 
-      this.trigger(this.getXAPIAnswerEvent());
+      if (this.viewState === 'task') {
+        // checkAnswer was mot triggered to recreate previous state
+        this.trigger(this.getXAPIAnswerEvent());
+        this.trigger(this.createXAPIEvent('completed')); // Store state
+      }
+
+      this.viewState = 'results';
     };
 
     /**
@@ -322,7 +341,10 @@ export default class SortParagraphs extends H5P.Question {
      * @return {object} Current state.
      */
     this.getCurrentState = () => {
-      return this.content.getDraggablesTexts();
+      return {
+        order: this.content.getDraggablesOrder(),
+        view: this.viewState
+      };
     };
   }
 }
