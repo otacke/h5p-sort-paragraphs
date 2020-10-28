@@ -71,7 +71,7 @@ export default class SortParagraphs extends H5P.Question {
     this.viewState = 'task';
 
     // this.previousState now holds the saved content state of the previous session
-    this.previousState = this.extras.previousState || null;
+    this.previousState = (this.extras.previousState && this.extras.previousState.order) || null;
 
     /**
      * Register the DOM elements with H5P.Question
