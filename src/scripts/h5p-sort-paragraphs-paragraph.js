@@ -73,9 +73,8 @@ export default class SortParagraphsParagraph {
     const containerLeft = this.buildContainerLeft();
     paragraph.appendChild(containerLeft);
 
-    // Buttons for movement
-    this.containerButtons = this.buildContainerButtons();
-    containerLeft.appendChild(this.containerButtons);
+    this.buttons['up'] = this.buildButtonUp();
+    containerLeft.appendChild(this.buttons['up'].getDOM());
 
     // Container for correct/wrong markers
     this.containerCorrections = this.buildContainerCorrections();
@@ -88,6 +87,9 @@ export default class SortParagraphsParagraph {
     // Right container for information
     const containerRight = this.buildContainerRight();
     paragraph.appendChild(containerRight);
+
+    this.buttons['down'] = this.buildButtonDown();
+    containerRight.appendChild(this.buttons['down'].getDOM());
 
     // H5P Question score explanations
     this.scoreExplanations = this.buildScoreExplanations();
@@ -112,15 +114,11 @@ export default class SortParagraphsParagraph {
   }
 
   /**
-   * Build container for buttons.
-   * @return {HTMLElement} Container for buttons.
+   * Build button for moving up.
+   * @return {Button} Button for moving up.
    */
-  buildContainerButtons() {
-    const buttons = document.createElement('div');
-    buttons.classList.add('h5p-sort-paragraphs-paragraph-buttons');
-
-    // Up button
-    this.buttons['up'] = new Button(
+  buildButtonUp() {
+    return new Button(
       {
         a11y: {
           active: this.l10n.up,
@@ -134,26 +132,6 @@ export default class SortParagraphsParagraph {
         })
       }
     );
-    buttons.appendChild(this.buttons['up'].getDOM());
-
-    // Down button
-    this.buttons['down'] = new Button(
-      {
-        a11y: {
-          active: this.l10n.down,
-          disabled: this.l10n.disabled
-        },
-        classes: ['h5p-sort-paragraphs-button', 'h5p-sort-paragraphs-paragraph-button-down']
-      },
-      {
-        onClick: (() => {
-          this.callbacks.onMoveDown(this.content);
-        })
-      }
-    );
-    buttons.appendChild(this.buttons['down'].getDOM());
-
-    return buttons;
   }
 
   /**
@@ -188,6 +166,27 @@ export default class SortParagraphsParagraph {
     contentRight.classList.add('h5p-sort-paragraphs-paragraph-container-right');
 
     return contentRight;
+  }
+
+  /**
+   * Build button for moving down.
+   * @return {Button} Button for moving down.
+   */
+  buildButtonDown() {
+    return new Button(
+      {
+        a11y: {
+          active: this.l10n.down,
+          disabled: this.l10n.disabled
+        },
+        classes: ['h5p-sort-paragraphs-button', 'h5p-sort-paragraphs-paragraph-button-down']
+      },
+      {
+        onClick: (() => {
+          this.callbacks.onMoveDown(this.content);
+        })
+      }
+    );
   }
 
   /**
@@ -396,14 +395,18 @@ export default class SortParagraphsParagraph {
    * Show buttons container.
    */
   showButtons() {
-    this.containerButtons.classList.remove('h5p-sort-paragraphs-no-display');
+    for (let button in this.buttons) {
+      this.buttons[button].show();
+    }
   }
 
   /**
    * Hide buttons container.
    */
   hideButtons() {
-    this.containerButtons.classList.add('h5p-sort-paragraphs-no-display');
+    for (let button in this.buttons) {
+      this.buttons[button].hide();
+    }
   }
 
   /**

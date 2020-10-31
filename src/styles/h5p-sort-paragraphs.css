@@ -17,6 +17,7 @@
   -ms-user-select: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
+  word-break: break-word;
 }
 
 .h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph.h5p-sort-paragraphs-ghosted {
@@ -54,21 +55,6 @@
   width: 4em;
 }
 
-
-.h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph-buttons {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph-buttons.h5p-sort-paragraphs-no-display {
-  display: none;
-}
-
-.h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph-buttons:last-child {
-  margin-bottom: 0;
-}
-
 .h5p-sort-paragraphs .h5p-sort-paragraphs-button {
   align-items: center;
   background-color: #fff;
@@ -91,8 +77,12 @@
   width: 2.75em;
 }
 
+.h5p-sort-paragraphs .h5p-sort-paragraphs-button.h5p-sort-paragraphs-no-display {
+  display: none;
+}
+
 .h5p-sort-paragraphs .h5p-sort-paragraphs-button.h5p-sort-paragraphs-disabled {
-  background-color: #dddddd; /* #eeeeee */
+  background-color: #dddddd; /* Originally #eeeeee as in many H5P contents */
   color: #878787;
   cursor: auto;
 }
@@ -156,6 +146,9 @@
 }
 
 .h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
 }
 
@@ -164,8 +157,11 @@
 }
 
 .h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph-container-right {
+  display: flex;
+  flex-direction: row;
   flex-shrink: 0;
-  padding: 0 .25em;
+  justify-content: center;
+  padding: 0 0.25em;
   width: 4em;
 }
 
