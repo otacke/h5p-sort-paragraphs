@@ -70,7 +70,6 @@
   flex-shrink: 0;
   height: 2.75em;
   justify-content: center;
-  margin-bottom: 0.5em;
   min-height: 42px;
   min-width: 42px;
   padding: 0;
@@ -146,8 +145,11 @@
 }
 
 .h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph-container {
+  border: 2px solid transparent;
   display: flex;
   flex-direction: column;
+  height: 2.75em;
+  min-height: 42px;
   justify-content: center;
   width: 100%;
 }
@@ -179,14 +181,14 @@
 }
 
 .h5p-sort-paragraphs .h5p-sort-paragraphs-separator {
-  height: 3em;
+  height: 2.75em;
   border-radius: 0.3em;
   margin-left: auto;
   margin-bottom: 1em;
   margin-right: auto;
-  line-height: 3em;
+  line-height: 2.75em;
   text-align: center;
-  width: 3em;
+  width: 2.75em;
 }
 
 .h5p-sort-paragraphs .h5p-sort-paragraphs-separator.h5p-sort-paragraphs-no-display {
