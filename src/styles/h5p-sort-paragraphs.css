@@ -148,8 +148,7 @@
   border: 2px solid transparent;
   display: flex;
   flex-direction: column;
-  height: 2.75em;
-  min-height: 42px;
+  min-height: 2.75em; /* Button height to prevent jumping */
   justify-content: center;
   width: 100%;
 }
