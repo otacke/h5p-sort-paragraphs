@@ -112,6 +112,7 @@
 
 .h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph .h5p-sort-paragraphs-paragraph-corrections {
   font-size: 1.5em;
+  padding-top: 0.5em;
 }
 
 .h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph.h5p-sort-paragraphs-correct {
@@ -167,9 +168,10 @@
 }
 
 .h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph-score-explanations {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding-top: 0.5em;
 }
 
 .h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph-score-explanations .h5p-question-plus-one,
