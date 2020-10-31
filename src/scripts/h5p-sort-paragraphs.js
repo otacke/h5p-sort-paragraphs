@@ -64,6 +64,11 @@ export default class SortParagraphs extends H5P.Question {
     this.contentId = contentId;
     this.extras = extras;
 
+    // Sanitize for use as text
+    for (let word in this.params.l10n) {
+      this.params.l10n[word] = Util.stripHTML(Util.htmlDecode(this.params.l10n[word]));
+    }
+
     const defaultLanguage = (extras && extras.metadata) ? extras.metadata.defaultLanguage || 'en' : 'en';
     this.languageTag = Util.formatLanguageCode(defaultLanguage);
 
