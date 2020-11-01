@@ -69,7 +69,7 @@ export default class Button {
       this.enable();
     }
 
-    this.button.addEventListener('click', (event) => {
+    this.button.addEventListener('mouseup', (event) => {
       if (this.disabled) {
         return;
       }
