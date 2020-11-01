@@ -310,7 +310,8 @@ export default class SortParagraphsContent {
         onKeyboardUp: (draggable => this.handleDraggableKeyboardUp(draggable)),
         onKeyboardDown: (draggable => this.handleDraggableKeyboardDown(draggable)),
         onKeyboardSelect: (draggable => this.handleDraggableKeyboardSelect(draggable)),
-        onKeyboardCancel: (draggable => this.handleDraggableKeyboardCancel(draggable))
+        onKeyboardCancel: (draggable => this.handleDraggableKeyboardCancel(draggable)),
+        onMouseSelect: (draggable => this.handleDraggableMouseSelect(draggable))
       }
     );
     return paragraph;
@@ -580,6 +581,43 @@ export default class SortParagraphsContent {
       this.setAriaLabel(oldFocusDraggable, {action: 'cancelled'});
 
       this.undoState = null;
+    }
+  }
+
+  /**
+   * Handle user grabbed/ungrabbed a draggable
+   * @param {HTMLElement} draggable Draggable that was grabbed/ungrabbed.
+   */
+  handleDraggableMouseSelect(draggable) {
+    this.movingWithKeyboard = false;
+
+    this.movingWithMouse = !this.movingWithMouse;
+    const paragraph = this.getParagraph(draggable);
+
+    if (this.movingWithMouse) {
+      // Starting to grab.
+      this.setAriaLabel(draggable, {action: 'grabbed'});
+      paragraph.toggleEffect('selected', true);
+
+      this.movingWithMousePosition = this.getDraggableIndex(draggable);
+    }
+    else {
+      // Stopped grabbing.
+      if (this.movingWithMousePosition !== this.getDraggableIndex(draggable)) {
+        this.answerGiven = true; // Moved to different position.
+        const draggableTarget = this.getDraggableAt(this.movingWithMousePosition);
+        Util.swapDOMElements(draggable, draggableTarget);
+
+        this.resetDraggables();
+        this.resetAriaLabels();
+
+        this.setAriaLabel(draggableTarget, {action: 'dropped'});
+
+        // Moving node triggers focusout, get focus state and moving state back
+        draggableTarget.focus();
+      }
+
+      paragraph.toggleEffect('selected', false);
     }
   }
 

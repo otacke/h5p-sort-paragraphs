@@ -45,6 +45,8 @@ export default class SortParagraphsParagraph {
     this.callbacks.onKeyboardSelect = this.callbacks.onKeyboardSelect || (() => {});
     this.callbacks.onKeyboardCancel = this.callbacks.onKeyboardCancel || (() => {});
 
+    this.callbacks.onMouseSelect = this.callbacks.onMouseSelect || (() => {});
+
     // Buttons
     this.buttons = [];
 
@@ -265,6 +267,9 @@ export default class SortParagraphsParagraph {
         event.target === this.buttons['down'].getDOM()
       ) {
         this.content.setAttribute('draggable', true);
+      }
+      else {
+        this.callbacks.onMouseSelect(event.currentTarget);
       }
     });
 
