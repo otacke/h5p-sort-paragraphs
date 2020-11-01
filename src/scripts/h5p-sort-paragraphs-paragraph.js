@@ -277,6 +277,10 @@ export default class SortParagraphsParagraph {
 
     // Drag start
     paragraph.addEventListener('dragstart', event => {
+      if (this.disabled) {
+        return;
+      }
+
       this.toggleEffect('ghosted', true);
       event.dataTransfer.effectAllowed = 'move';
 
@@ -318,6 +322,24 @@ export default class SortParagraphsParagraph {
 
       this.callbacks.onDragEnd(event.currentTarget);
     });
+
+    // Prevent visual dragging mode on mobile
+    paragraph.addEventListener('touchstart', (event) => {
+      if (!event.cancelable || this.disabled) {
+        return;
+      }
+
+      paragraph.setAttribute('draggable', false);
+    });
+
+    // Allow dragging again, device might allow mouse and touch
+    paragraph.addEventListener('touchend', () => {
+      if (this.disabled) {
+        return;
+      }
+
+      paragraph.setAttribute('draggable', true);
+    });
   }
 
   /**
@@ -330,12 +352,16 @@ export default class SortParagraphsParagraph {
     for (let id in this.buttons) {
       this.buttons[id].enable();
     }
+
+    this.disabled = false;
   }
 
   /**
    * Disable paragraph. Paragraph not movable via dragging or buttons.
    */
   disable() {
+    this.disabled = true;
+
     this.content.setAttribute('draggable', false);
     this.toggleEffect('disabled', true);
 

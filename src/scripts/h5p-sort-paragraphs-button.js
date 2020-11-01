@@ -77,7 +77,11 @@ export default class Button {
       if (this.params.type === 'toggle') {
         this.toggle();
       }
-      this.callbacks.onClick(event);
+
+      setTimeout(() => {
+        // Give button extra highlight effect on mobile time to disappear
+        this.callbacks.onClick(event);
+      }, 100);
     });
   }
 
