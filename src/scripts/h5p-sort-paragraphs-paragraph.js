@@ -286,6 +286,7 @@ export default class SortParagraphsParagraph {
         return;
       }
 
+      this.toggleEffect('over', true);
       this.toggleEffect('ghosted', true);
       event.dataTransfer.effectAllowed = 'move';
 
@@ -296,15 +297,11 @@ export default class SortParagraphsParagraph {
     paragraph.addEventListener('dragover', event => {
       event.preventDefault();
 
-      // Helps some browsers to keep effect
-      this.toggleEffect('over', true);
-
       this.callbacks.onDragOver(event.currentTarget);
     });
 
     // Drag enter
     paragraph.addEventListener('dragenter', event => {
-      this.toggleEffect('over', true);
 
       this.callbacks.onDragEnter(event.currentTarget);
     });
@@ -314,8 +311,6 @@ export default class SortParagraphsParagraph {
       if (paragraph !== event.target || paragraph.contains(event.fromElement)) {
         return;
       }
-
-      this.toggleEffect('over', false);
 
       this.callbacks.onDragLeave(event.currentTarget);
     });

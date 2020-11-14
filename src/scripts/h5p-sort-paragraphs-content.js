@@ -20,6 +20,7 @@ export default class SortParagraphsContent {
     this.draggedElement = null; // Currently dragged element
     this.answerGiven = false; // Anser given for H5P question type contract
     this.enabled = true; // Enabled state of content
+    this.oldOrder = null; // Old order when dragging
 
     // View/handling options
     this.options = {
@@ -397,6 +398,7 @@ export default class SortParagraphsContent {
    */
   handleDraggableDragStart(draggable) {
     this.movingWithKeyboard = false;
+    this.oldOrder = this.getDraggablesOrder();
     this.draggedElement = draggable;
   }
 
@@ -410,16 +412,13 @@ export default class SortParagraphsContent {
    * Handle draggable entered another draggable.
    */
   handleDraggableDragEnter(draggable) {
-    // Take care of swift movements
-    this.paragraphs.forEach(paragraph => {
-      if (paragraph.getDOM() === draggable) {
-        return; // Don't cancel out current over
-      }
-
-      paragraph.toggleEffect('over', false);
-    });
-
     this.dropzoneElement = draggable;
+
+    // Swap dragged draggable and draggable that's dragged to if not identical
+    if (this.dropzoneElement && this.draggedElement !== this.dropzoneElement) {
+      Util.swapDOMElements(this.draggedElement, this.dropzoneElement);
+    }
+
   }
 
   /**
@@ -433,17 +432,17 @@ export default class SortParagraphsContent {
    * Handle dragging ended.
    */
   handleDraggableDragEnd() {
-    // Swap dragged draggable and draggable that's dragged to if not identical
-    if (this.dropzoneElement && this.draggedElement !== this.dropzoneElement) {
+    // Check whether a draggable has been moved
+    const newOrder = this.getDraggablesOrder();
+    if (this.oldOrder.some((item, index) => item !== newOrder[index])) {
       this.answerGiven = true; // For H5P question type contract.
-
-      Util.swapDOMElements(this.draggedElement, this.dropzoneElement);
     }
 
     this.resetDraggables();
 
     this.draggedElement = null;
     this.dropzoneElement = null;
+    this.oldOrder = null;
   }
 
   /**
