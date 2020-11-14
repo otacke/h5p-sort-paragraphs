@@ -167,6 +167,15 @@
         }
       },
       {
+        "name": "duplicatesInterchangeable",
+        "label": "Duplicate parapraphs interchangeable",
+        "description": "If set, when checking the answer, duplicate paragraphs will be treated as identical if their plain text is equal.",
+        "type": "boolean",
+        "importance": "low",
+        "default": true,
+        "optional": true
+      },
+      {
         "name": "enableRetry",
         "label": "Enable \"Retry\" button",
         "type": "boolean",

@@ -27,6 +27,7 @@ export default class SortParagraphs extends H5P.Question {
       taskDescription: null,
       paragraphs: [],
       behaviour: {
+        duplicatesInterchangeable: true,
         enableSolutionsButton: true,
         enableRetry: true,
         scoringMode: 'transitions',
@@ -95,6 +96,7 @@ export default class SortParagraphs extends H5P.Question {
           paragraphs: this.params.paragraphs,
           taskDescription: this.params.taskDescription,
           showArrows: showArrows,
+          duplicatesInterchangeable: this.params.behaviour.duplicatesInterchangeable,
           penalties: this.params.behaviour.applyPenalties,
           scoringMode: this.params.behaviour.scoringMode,
           previousState: this.previousState,

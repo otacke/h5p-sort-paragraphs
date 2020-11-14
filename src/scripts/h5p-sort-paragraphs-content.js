@@ -26,7 +26,8 @@ export default class SortParagraphsContent {
     this.options = {
       scoringMode: params.scoringMode || 'transitions',
       penalties: (typeof params.penalties !== 'boolean') ? true : params.penalties,
-      showArrows: params.showArrows
+      showArrows: params.showArrows,
+      duplicatesInterchangeable: params.duplicatesInterchangeable
     };
 
     // ARIA label texts
@@ -231,7 +232,8 @@ export default class SortParagraphsContent {
 
       // +1 if match, -1 if no match only if penalty is on
       score = ids.reduce((score, id, index) => {
-        const match = (id === index);
+        const match = (id === index) ||
+          (this.options.duplicatesInterchangeable && draggables[index].innerText === paragraphs[index].innerText);
 
         correctAnswers[index] = match;
 
@@ -244,9 +246,27 @@ export default class SortParagraphsContent {
     else if (this.options.scoringMode === 'transitions') {
       correctAnswers = Util.createArray(this.paragraphs.length - 1);
 
+      const draggablesPlain = draggables.map(draggable => draggable.innerText);
+      const paragraphsPlain = paragraphs.map(paragraph => paragraph.innerText);
+
       // +1 for every correct sequence regardless of position
       for (let index = 0; index < ids.length - 1; index++) {
-        if (ids[index] === ids[index + 1] - 1) {
+        const inputSequence = [draggablesPlain[index], draggablesPlain[index + 1]];
+
+        // Determine if current plain sequence is found in solution
+        const matchPlain = paragraphsPlain.reduce((result, current, index) => {
+          if (result === true) {
+            return true;
+          }
+
+          if (index === paragraphsPlain.length - 1) {
+            return false;
+          }
+
+          return current === inputSequence[0] && paragraphsPlain[index + 1] === inputSequence[1];
+        }, false);
+
+        if ((this.options.duplicatesInterchangeable && matchPlain) || ids[index] === ids[index + 1] - 1) {
           correctAnswers[index] = true;
 
           score++;

@@ -73,6 +73,10 @@
           }
         },
         {
+          "label": "Duplicate parapraphs interchangeable",
+          "description": "If set, when checking the answer, duplicate paragraphs will be treated as identical if their plain text is equal."
+        },
+        {
           "label": "Enable \"Retry\" button"
         },
         {
