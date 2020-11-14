@@ -252,6 +252,27 @@
     "importance": "low",
     "fields": [
       {
+        "name": "check",
+        "type": "text",
+        "label": "Assistive technology description for \"Check\" button",
+        "importance": "low",
+        "default": "Check the answers. The responses will be marked as correct or incorrect."
+      },
+      {
+        "name": "showSolution",
+        "type": "text",
+        "label": "Assistive technology description for \"Show Solution\" button",
+        "importance": "low",
+        "default": "Show the solution. The correct solution will be displayed."
+      },
+      {
+        "name": "retry",
+        "type": "text",
+        "label": "Assistive technology description for \"Retry\" button",
+        "importance": "low",
+        "default": "Retry the task. Reset all elements and start the task over again."
+      },
+      {
         "name": "yourResult",
         "type": "text",
         "label": "Your result",

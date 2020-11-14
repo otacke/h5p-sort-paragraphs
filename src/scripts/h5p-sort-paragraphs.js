@@ -43,6 +43,9 @@ export default class SortParagraphs extends H5P.Question {
         disabled: 'Disabled'
       },
       a11y: {
+        check: 'Check the answers. The responses will be marked as correct or incorrect.',
+        showSolution: 'Show the solution. The correct solution will be displayed.',
+        retry: 'Retry the task. Reset all elements and start the task over again.',
         paragraph: 'Paragraph',
         sevenOfNine: '@current of @total',
         instructionsSelected: 'Press spacebar to reorder',
@@ -133,13 +136,17 @@ export default class SortParagraphs extends H5P.Question {
       // Check answer button
       this.addButton('check-answer', this.params.l10n.checkAnswer, () => {
         this.checkAnswer();
-      }, true, {}, {});
+      }, true, {
+        'aria-label': this.params.a11y.check
+      }, {});
 
       // Show solution button
       this.addButton('show-solution', this.params.l10n.showSolution, () => {
         this.hideButton('show-solution');
         this.showSolutions();
-      }, false, {}, {});
+      }, false, {
+        'aria-label': this.params.a11y.showSolution
+      }, {});
 
       // Retry button
       this.addButton('try-again', this.params.l10n.tryAgain, () => {
@@ -150,7 +157,9 @@ export default class SortParagraphs extends H5P.Question {
         this.resetTask();
 
         this.trigger('resize');
-      }, false, {}, {});
+      }, false, {
+        'aria-label': this.params.a11y.retry
+      }, {});
     };
 
     /**
