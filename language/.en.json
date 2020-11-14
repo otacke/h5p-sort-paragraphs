@@ -117,6 +117,18 @@
       "label": "Readspeaker",
       "fields": [
         {
+          "label": "Assistive technology description for \"Check\" button",
+          "default": "Check the answers. The responses will be marked as correct or incorrect."
+        },
+        {
+          "label": "Assistive technology description for \"Show Solution\" button",
+          "default": "Show the solution. The correct solution will be displayed."
+        },
+        {
+          "label": "Assistive technology description for \"Retry\" button",
+          "default": "Retry the task. Reset all elements and start the task over again."
+        },
+        {
           "label": "Your result",
           "description": "@score will be replaced by the number of points. @total will be replaced by the maximum possible points.",
           "default": "You got @score out of @total points"
