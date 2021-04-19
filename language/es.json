@@ -1,0 +1,199 @@
+{
+  "semantics": [
+    {
+      "label": "Descripción del trabajo",
+      "placeholder": "Describa lo que deberían hacer sus estudiantes ...",
+      "description": "Lo que sus estudiantes deberían saber."
+    },
+    {
+      "label": "párrafos",
+      "entity": "párrafo"
+    },
+    {
+      "label": "Retroalimentación Global",
+      "fields": [
+        {
+          "widgets": [
+            {
+              "label": "Predeterminado"
+            }
+          ],
+          "label": "Definir retroalimentación personalizada para cualquier rango de puntaje",
+          "description": "Haga clic en el botón \"Añadir rango\" para añadir cuantos rangos necesite. Ejemplo: 0-20% Mal puntaje, 21-91% Puntaje Promedio, 91-100% ¡Magnífico Puntaje!",
+          "entity": "rango",
+          "field": {
+            "fields": [
+              {
+                "label": "Rango del Puntaje"
+              },
+              {},
+              {
+                "label": "Retroalimentación para rango de puntaje definido",
+                "placeholder": "Complete la retroalimentación"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "Configuraciones del comportamiento",
+      "description": "Estas opciones le permitirán controlar como se comporta el trabajo.",
+      "fields": [
+        {
+          "label": "Modo de puntaje",
+          "description": "Decidir si quiere contar las transiciones correctas (sin importar las posiciones absolutas del párrafo) o si prefiere contar las posiciones correctas.",
+          "default": "transiciones",
+          "options": [
+            {
+              "label": "transiciones"
+            },
+            {
+              "label": "posiciones"
+            }
+          ]
+        },
+        {
+          "label": "Aplicar penalizaciones",
+          "description": "Decidir si quiere deducir un punto por cada párrafo que no esté correctamente posicionado."
+        },
+        {
+          "label": "Mostrar flechas",
+          "description": "Si se activa, los párrafos estarán separados por flechas para indicar el orden"
+        },
+        {
+          "label": "Párrafos duplicados intercambiables",
+          "description": "Si se activa, al comprobar la respuesta, los párrafos duplicados serán tratados como idénticos si sus textos simples son iguales."
+        },
+        {
+          "label": "Habilitar botón \"Reintentar\""
+        },
+        {
+          "label": "Habilitar botón \"Mostrar Solución\""
+        }
+      ]
+    },
+    {
+      "label": "Interfaz del usuario",
+      "fields": [
+        {
+          "label": "Texto para botón \"Comprobar\"",
+          "default": "Comprobar"
+        },
+        {
+          "label": "Texto para botón \"Reintentar\"",
+          "default": "Reintentar"
+        },
+        {
+          "label": "Texto para botón \"Mostrar solución\"",
+          "default": "Mostrar solución"
+        },
+        {
+          "label": "Texto para botón \"Arriba\"",
+          "default": "Arriba"
+        },
+        {
+          "label": "Título para botón \"Abajo\"",
+          "default": "Abajo"
+        },
+        {
+          "label": "Título para botón que está deshabilitado",
+          "default": "Deshabilitado"
+        }
+      ]
+    },
+    {
+      "label": "Lector de texto en voz alta",
+      "fields": [
+        {
+          "label": "Descripción de tecnología asistiva para botón \"Comprobar\"",
+          "default": "Comprobar las respuestas. Las respuestas serán marcadas como correcta o incorrecta."
+        },
+        {
+          "label": "Descripción de tecnología asistiva para botón \"Mostrar Solución\"",
+          "default": "Mostrar la solución. La solución correcta será mostrada."
+        },
+        {
+          "label": "Descripción de tecnología asistiva para botón \"Reintentar\"",
+          "default": "Reintentar el trabajo. Reiniciar todos los elementos y comenzar el trabajo de nuevo."
+        },
+        {
+          "label": "Su resultado",
+          "description": "@score será remplazado por el número de puntos. @total será remplazado por el número máximo posible de puntos.",
+          "default": "Usted obtuvo @score de un total de @total puntos"
+        },
+        {
+          "label": "Párrafo",
+          "default": "Párrafo"
+        },
+        {
+          "description": "Será seguido por el texto del párrafo actual.",
+          "label": "Texto del párrafo",
+          "default": "Texto del párrafo"
+        },
+        {
+          "label": "Correcto",
+          "default": "correcto"
+        },
+        {
+          "label": "Incorrecto",
+          "default": "incorrecto"
+        },
+        {
+          "description": "@score será remplazado por 1 o -1.",
+          "label": "Explicación del puntaje",
+          "default": "@score punto"
+        },
+        {
+          "description": "@current será remplazado por el número de párrafo actual. @total será remplazado por el número de párrafos.",
+          "label": "Numeración de párrafo",
+          "default": "@current de @total"
+        },
+        {
+          "description": "Será seguido por \"Numeración de párrafo\".",
+          "label": "Posición actual en lista",
+          "default": "Posición actual en lista"
+        },
+        {
+          "label": "Instrucción cuando párrafo es seleccionado",
+          "default": "Presione la barra espaciadora para reordenar"
+        },
+        {
+          "label": "Instrucciones cuando el párrafo es agarrado",
+          "default": "Presione las teclas de flechas arriba y abajo para cambiar posición, barra espaciadora para soltar, escape para cancelar"
+        },
+        {
+          "label": "Agarrada",
+          "default": "Agarrada"
+        },
+        {
+          "label": "Movida",
+          "default": "Movida"
+        },
+        {
+          "label": "Soltada",
+          "default": "Soltada"
+        },
+        {
+          "label": "Reordenar cancelado",
+          "default": "Reordenar cancelado"
+        },
+        {
+          "description": "Será seguido por \"Numeración de párrafo\".",
+          "label": "Posición final",
+          "default": "Posición final"
+        },
+        {
+          "description": "Será seguido por \"correcto\" o \"incorrecto\".",
+          "label": "Párrafo siguiente",
+          "default": "Párrafo siguiente"
+        },
+        {
+          "description": "Será seguido por \"Numeración de párrafo\".",
+          "label": "Párrafo Correcto",
+          "default": "Párrafo correcto en posición"
+        }
+      ]
+    }
+  ]
+}
