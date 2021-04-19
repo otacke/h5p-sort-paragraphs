@@ -160,7 +160,7 @@
         },
         {
           "label": "Instrucciones cuando el párrafo es agarrado",
-          "default": "Presione las teclas de flechas arriba y abajo para cambiar posisción, barra espaciadora para soltar, escape para cancelar"
+          "default": "Presione las teclas de flechas arriba y abajo para cambiar posición, barra espaciadora para soltar, escape para cancelar"
         },
         {
           "label": "Agarrada",
