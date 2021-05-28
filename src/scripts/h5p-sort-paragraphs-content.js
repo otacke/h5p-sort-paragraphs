@@ -9,16 +9,21 @@ export default class SortParagraphsContent {
   /**
    * @constructor
    * @param {object} params Parameters.
+   * @param {object} [callbacks = {}] Callbacks.
    */
-  constructor(params) {
+  constructor(params = {}, callbacks = {}) {
     this.params = params;
+
+    this.callbacks = Util.extend({
+      onInteracted: () => {}
+    }, callbacks);
 
     this.content = document.createElement('div');
     this.content.classList.add('h5p-sort-paragraphs-content');
 
     this.movingWithKeyboard = false; // Does user use keyboard for movement?
     this.draggedElement = null; // Currently dragged element
-    this.answerGiven = false; // Anser given for H5P question type contract
+    this.answerGiven = false; // Answer given for H5P question type contract
     this.enabled = true; // Enabled state of content
     this.oldOrder = null; // Old order when dragging
 
@@ -380,6 +385,7 @@ export default class SortParagraphsContent {
     const position = this.getDraggableIndex(draggable);
     if (position > 0) {
       this.answerGiven = true; // For H5P question type contract.
+      this.callbacks.onInteracted();
 
       Util.swapDOMElements(draggable, this.getDraggableAt(position - 1));
 
@@ -396,6 +402,7 @@ export default class SortParagraphsContent {
     const position = this.getDraggableIndex(draggable);
     if (position < this.paragraphs.length) {
       this.answerGiven = true; // For H5P question type contract.
+      this.callbacks.onInteracted();
 
       Util.swapDOMElements(draggable, this.getDraggableAt(position + 1));
 
@@ -456,6 +463,7 @@ export default class SortParagraphsContent {
     const newOrder = this.getDraggablesOrder();
     if (this.oldOrder.some((item, index) => item !== newOrder[index])) {
       this.answerGiven = true; // For H5P question type contract.
+      this.callbacks.onInteracted();
     }
 
     this.resetDraggables();
@@ -562,6 +570,7 @@ export default class SortParagraphsContent {
       // Stopped grabbing.
       if (this.undoState.position !== this.getDraggableIndex(draggable)) {
         this.answerGiven = true; // Moved to different position.
+        this.callbacks.onInteracted();
       }
 
       this.setAriaLabel(draggable, {action: 'dropped'});
@@ -624,6 +633,7 @@ export default class SortParagraphsContent {
       // Stopped grabbing.
       if (this.movingWithMousePosition !== this.getDraggableIndex(draggable)) {
         this.answerGiven = true; // Moved to different position.
+        this.callbacks.onInteracted();
         const draggableTarget = this.getDraggableAt(this.movingWithMousePosition);
         Util.swapDOMElements(draggable, draggableTarget);
 
@@ -638,6 +648,13 @@ export default class SortParagraphsContent {
 
       paragraph.toggleEffect('selected', false);
     }
+  }
+
+  /**
+   * Handle user interacted.
+   */
+  handleInteracted() {
+    this.callbacks.onInteracted();
   }
 
   /**

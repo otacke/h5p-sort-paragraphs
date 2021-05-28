@@ -109,6 +109,11 @@ export default class SortParagraphs extends H5P.Question {
             down: this.params.l10n.down,
             disabled: this.params.l10n.disabled
           }
+        },
+        {
+          onInteracted: () => {
+            this.handleInteracted();
+          }
         }
       );
 
@@ -367,6 +372,13 @@ export default class SortParagraphs extends H5P.Question {
         order: this.content.getDraggablesOrder(),
         view: this.viewState
       };
+    };
+
+    /**
+     * Handle user interacted.
+     */
+    this.handleInteracted = () => {
+      this.triggerXAPI('interacted');
     };
   }
 }
