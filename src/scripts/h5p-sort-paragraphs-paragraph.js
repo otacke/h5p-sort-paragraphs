@@ -208,6 +208,10 @@ export default class SortParagraphsParagraph {
    */
   addKeyboardHandlers(paragraph) {
     paragraph.addEventListener('keydown', event => {
+      if (this.disabled) {
+        return;
+      }
+
       switch (event.keyCode) {
         case 38: // Up
           event.preventDefault(); // No scrolling
@@ -252,6 +256,10 @@ export default class SortParagraphsParagraph {
   addDragHandlers(paragraph) {
     // Mouse down. Prevent dragging when using buttons.
     paragraph.addEventListener('mousedown', event => {
+      if (this.disabled) {
+        return;
+      }
+
       if (
         event.target === this.buttons['up'].getDOM() ||
         event.target === this.buttons['down'].getDOM()
@@ -262,6 +270,10 @@ export default class SortParagraphsParagraph {
 
     // Mouse up. Allow dragging after using buttons.
     paragraph.addEventListener('mouseup', event => {
+      if (this.disabled) {
+        return;
+      }
+
       if (
         event.target === this.buttons['up'].getDOM() ||
         event.target === this.buttons['down'].getDOM()

@@ -122,7 +122,7 @@ export default class SortParagraphsContent {
       this.setAriaLabel(this.getDraggables().pop(), {action: 'neutral'});
     }
 
-    this.resetDraggablesTabIndex();
+    this.resetDraggablesTabIndex(0);
   }
 
   /**
@@ -158,7 +158,7 @@ export default class SortParagraphsContent {
     });
 
     this.resetAriaLabels();
-    this.resetDraggablesTabIndex();
+    this.resetDraggablesTabIndex(0);
     this.getDraggables().forEach(draggable => {
       this.setAriaLabel(draggable, {action: 'solution'});
     });
@@ -783,16 +783,17 @@ export default class SortParagraphsContent {
 
   /**
    * Reset paragraphs' tabIndex to make first paragraph next tab stop.
+   * @param {number} [value=null] Tabindex to set.
    */
-  resetDraggablesTabIndex() {
+  resetDraggablesTabIndex(value = null) {
     const draggables = this.getDraggables();
     draggables.forEach((draggable, index) => {
       const paragraph = this.getParagraph(draggable);
       if (index === 0) {
-        paragraph.setTabIndex(0);
+        paragraph.setTabIndex(value !== null ? value : 0);
       }
       else {
-        paragraph.setTabIndex(-1);
+        paragraph.setTabIndex(value !== null ? value : -1);
       }
     });
   }

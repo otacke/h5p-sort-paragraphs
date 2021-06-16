@@ -20,7 +20,7 @@
   word-break: break-word;
 }
 
-.h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph:focus {
+.h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph:focus:not(.h5p-sort-paragraphs-disabled) {
   outline: none;
   box-shadow: 0 0 .5em 0 #7fb8ff;
   border-color: #7fb8ff;
