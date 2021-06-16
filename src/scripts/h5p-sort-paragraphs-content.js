@@ -484,6 +484,10 @@ export default class SortParagraphsContent {
       return; // Already at top.
     }
 
+    if (draggable.classList.contains('h5p-sort-paragraphs-selected')) {
+      this.movingWithKeyboard = true;
+    }
+
     // Get previous draggable
     const previousDraggable = this.getDraggables()[position - 1];
     const paragraph = this.getParagraph(draggable);
@@ -521,6 +525,10 @@ export default class SortParagraphsContent {
       return; // Already at bottom.
     }
 
+    if (draggable.classList.contains('h5p-sort-paragraphs-selected')) {
+      this.movingWithKeyboard = true;
+    }
+
     // Get next draggable
     const nextDraggable = this.getDraggables()[position + 1];
     const paragraph = this.getParagraph(draggable);
@@ -553,6 +561,10 @@ export default class SortParagraphsContent {
    * @param {HTMLElement} draggable Draggable that was grabbed/ungrabbed.
    */
   handleDraggableKeyboardSelect(draggable) {
+    if (draggable.classList.contains('h5p-sort-paragraphs-selected')) {
+      this.movingWithKeyboard = true;
+    }
+
     this.movingWithKeyboard = !this.movingWithKeyboard;
     const paragraph = this.getParagraph(draggable);
 
@@ -569,7 +581,7 @@ export default class SortParagraphsContent {
     }
     else {
       // Stopped grabbing.
-      if (this.undoState.position !== this.getDraggableIndex(draggable)) {
+      if (this.undoState && this.undoState.position !== this.getDraggableIndex(draggable)) {
         this.answerGiven = true; // Moved to different position.
         this.callbacks.onInteracted();
       }
