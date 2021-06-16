@@ -26,11 +26,13 @@
     "name": "paragraphs",
     "label": "Paragraph",
     "type": "list",
-    "label": "paragraphs",
+    "label": "Paragraphs",
     "entity": "paragraph",
     "min": 3,
     "field": {
       "name": "paragraph",
+      "label": "Paragraph",
+      "importance": "high",
       "type": "text",
       "widget": "html",
       "enterMode": "div",
@@ -123,11 +125,11 @@
         "options": [
           {
             "value": "transitions",
-            "label": "transitions"
+            "label": "Transitions"
           },
           {
             "value": "positions",
-            "label": "positions"
+            "label": "Positions"
           }
         ]
       },

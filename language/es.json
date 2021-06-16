@@ -6,8 +6,11 @@
       "description": "Lo que sus estudiantes deberían saber."
     },
     {
-      "label": "párrafos",
-      "entity": "párrafo"
+      "label": "Párrafos",
+      "entity": "párrafo",
+      "field": {
+        "label": "Párrafo"
+      }
     },
     {
       "label": "Retroalimentación Global",
@@ -46,10 +49,10 @@
           "default": "transiciones",
           "options": [
             {
-              "label": "transiciones"
+              "label": "Transiciones"
             },
             {
-              "label": "posiciones"
+              "label": "Posiciones"
             }
           ]
         },

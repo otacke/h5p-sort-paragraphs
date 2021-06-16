@@ -6,9 +6,11 @@
       "description": "What your students should know."
     },
     {
-      "label": "paragraphs",
+      "label": "Paragraphs",
       "entity": "paragraph",
-      "field": {}
+      "field": {
+        "label": "Paragraph"
+      }
     },
     {
       "label": "Overall Feedback",
@@ -47,10 +49,10 @@
           "default": "transitions",
           "options": [
             {
-              "label": "transitions"
+              "label": "Transitions"
             },
             {
-              "label": "positions"
+              "label": "Positions"
             }
           ]
         },

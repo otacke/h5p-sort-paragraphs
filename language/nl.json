@@ -6,9 +6,11 @@
       "description": "Wat je gebruikers moeten weten."
     },
     {
-      "label": "paragrafen",
+      "label": "Paragrafen",
       "entity": "paragraaf",
-      "field": {}
+      "field": {
+        "label": "Paragraaf"
+      }
     },
     {
       "label": "Algehele feedback",
@@ -47,10 +49,10 @@
           "default": "overgangen",
           "options": [
             {
-              "label": "overgangen"
+              "label": "Overgangen"
             },
             {
-              "label": "posities"
+              "label": "Posities"
             }
           ]
         },
