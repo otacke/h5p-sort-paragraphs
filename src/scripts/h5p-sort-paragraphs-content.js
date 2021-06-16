@@ -417,6 +417,7 @@ export default class SortParagraphsContent {
    */
   handleDraggableFocusOut() {
     this.resetAriaLabels();
+    this.movingWithMouse = false;
     this.movingWithKeyboard = false; // State not clear here, reset if needed later
   }
 
