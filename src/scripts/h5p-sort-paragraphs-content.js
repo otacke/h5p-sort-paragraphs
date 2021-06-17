@@ -351,10 +351,10 @@ export default class SortParagraphsContent {
   buildAriaTemplates() {
     return {
       // draggable was selected by giving focus
-      selected: `Listbox. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.params.a11y.instructionsSelected}. ${this.params.a11y.paragraphText}: @text`,
+      selected: `Listbox. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}${this.params.a11y.paragraphText}: @text`,
 
       // draggable was grabbed
-      grabbed: `${this.params.a11y.paragraph} ${this.params.a11y.grabbed}. ${this.params.a11y.currentPosition}: ${this.params.a11y.sevenOfNine}. ${this.params.a11y.instructionsGrabbed}.`,
+      grabbed: `${this.params.a11y.paragraph} ${this.params.a11y.grabbed}. ${this.params.a11y.currentPosition}: ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsGrabbed + '.'}`,
 
       // draggable was moved
       moved: `${this.params.a11y.paragraph} ${this.params.a11y.moved}. ${this.params.a11y.currentPosition}: ${this.params.a11y.sevenOfNine}.`,
@@ -363,7 +363,7 @@ export default class SortParagraphsContent {
       dropped: `${this.params.a11y.paragraph} ${this.params.a11y.dropped}. ${this.params.a11y.finalPosition}: ${this.params.a11y.sevenOfNine}.`,
 
       // draggable reordering was cancelled
-      cancelled: `${this.params.a11y.reorderCancelled}. Listbox. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.params.a11y.instructionsSelected}. ${this.params.a11y.paragraphText}: @text`,
+      cancelled: `${this.params.a11y.reorderCancelled}. Listbox. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}${this.params.a11y.paragraphText}: @text`,
 
       // Anncouncing results for scoring mode 'positions'
       resultPositions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. @result. @points.@text`,
@@ -767,11 +767,17 @@ export default class SortParagraphsContent {
   }
 
   /**
-   * Reset aria labels to default state beiing selected.
+   * Reset aria labels to default state beeing selected.
    */
   resetAriaLabels() {
     if (!this.enabled) {
       return;
+    }
+
+    // Update aria label texts
+    if (this.previousAnswerState !== this.isAnswerGiven()) {
+      this.previousAnswerState = this.isAnswerGiven();
+      this.ariaTemplates = this.buildAriaTemplates();
     }
 
     this.getDraggables().forEach(draggable => {
