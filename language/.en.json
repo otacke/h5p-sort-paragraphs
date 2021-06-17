@@ -58,21 +58,11 @@
         },
         {
           "label": "Apply penalties",
-          "description": "Decide whether to deduce a point for each paragraph that's not positioned correctly.",
-          "showWhen": {
-            "rules": [
-              {}
-            ]
-          }
+          "description": "Decide whether to deduce a point for each paragraph that's not positioned correctly."
         },
         {
           "label": "Show arrows",
-          "description": "If checked, the paragraphs will be separated by arrows to indicate the order",
-          "showWhen": {
-            "rules": [
-              {}
-            ]
-          }
+          "description": "If checked, the paragraphs will be separated by arrows to indicate the order"
         },
         {
           "label": "Duplicate parapraphs interchangeable",
