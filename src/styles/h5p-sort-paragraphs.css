@@ -31,6 +31,9 @@
 }
 
 .h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph.h5p-sort-paragraphs-disabled {
+  background-color: #bbb;
+  border: 1px solid #bbb;
+  color: #505050;
   cursor: auto;
 }
 
