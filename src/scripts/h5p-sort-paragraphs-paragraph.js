@@ -1,5 +1,6 @@
 // Import required classes
 import Button from './h5p-sort-paragraphs-button';
+import Util from './h5p-sort-paragraphs-util';
 
 /** Class representing the content */
 export default class SortParagraphsParagraph {
@@ -26,26 +27,21 @@ export default class SortParagraphsParagraph {
     this.text = params.text;
     this.l10n = params.l10n;
 
-    // Callbacks for button movement
-    this.callbacks = callbacks || {};
-    this.callbacks.onMoveUp = this.callbacks.onMoveUp || (() => {});
-    this.callbacks.onMoveDown = this.callbacks.onMoveDown || (() => {});
-
-    // Callbacks for dragging
-    this.callbacks.onFocusOut = this.callbacks.onFocusOut || (() => {});
-    this.callbacks.onDragStart = this.callbacks.onDragStart || (() => {});
-    this.callbacks.onDragOver = this.callbacks.onDragOver || (() => {});
-    this.callbacks.onDragEnter = this.callbacks.onDragEnter || (() => {});
-    this.callbacks.onDragLeave = this.callbacks.onDragLeave || (() => {});
-    this.callbacks.onDragEnd = this.callbacks.onDragEnd || (() => {});
-
-    // Callbacks for keyboard movement
-    this.callbacks.onKeyboardUp = this.callbacks.onKeyboardUp || (() => {});
-    this.callbacks.onKeyboardDown = this.callbacks.onKeyboardDown || (() => {});
-    this.callbacks.onKeyboardSelect = this.callbacks.onKeyboardSelect || (() => {});
-    this.callbacks.onKeyboardCancel = this.callbacks.onKeyboardCancel || (() => {});
-
-    this.callbacks.onMouseSelect = this.callbacks.onMouseSelect || (() => {});
+    this.callbacks = Util.extend({
+      onMoveUp: () => {}, // Button up
+      onMoveDown: () => {}, // Button down
+      onFocusOut: () => {}, // Paragraph lost focus
+      onMouseSelect: () => {}, // Select with mouse
+      onDragStart: () => {}, // Drag start
+      onDragOver: () => {}, // Drag over other paragraph
+      onDragEnter: () => {}, // Drag entered other paragraph
+      onDragLeave: () => {}, // Drag left other paragraph
+      onDragEnd: () => {}, // Drag end
+      onKeyboardUp: () => {}, // Keyboard up
+      onKeyboardDown: () => {}, // Keyboard down
+      onKeyboardSelect: () => {}, // Select with keyboard
+      onKeyboardCancel: () => {} // Cancel with keyboard
+    }, callbacks);
 
     // Selected state
     this.selected = false;
