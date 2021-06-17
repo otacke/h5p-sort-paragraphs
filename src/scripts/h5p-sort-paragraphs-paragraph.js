@@ -207,10 +207,6 @@ export default class SortParagraphsParagraph {
    */
   addKeyboardHandlers(paragraph) {
     paragraph.addEventListener('keydown', event => {
-      if (this.disabled) {
-        return;
-      }
-
       switch (event.keyCode) {
         case 38: // Up
           event.preventDefault(); // No scrolling
@@ -236,10 +232,18 @@ export default class SortParagraphsParagraph {
           // Intentional fallthrough
         case 32: // Space
           // Toggle state
+          if (this.disabled) {
+            return;
+          }
+
           this.callbacks.onKeyboardSelect(event.currentTarget);
           break;
 
         case 27: // Escape
+          if (this.disabled) {
+            return;
+          }
+
           this.callbacks.onKeyboardCancel(event.currentTarget);
           break;
 

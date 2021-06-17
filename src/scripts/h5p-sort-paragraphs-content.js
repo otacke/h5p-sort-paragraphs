@@ -123,7 +123,7 @@ export default class SortParagraphsContent {
       this.setAriaLabel(this.getDraggables().pop(), {action: 'neutral'});
     }
 
-    this.resetDraggablesTabIndex(0);
+    this.resetDraggablesTabIndex();
   }
 
   /**
@@ -159,7 +159,7 @@ export default class SortParagraphsContent {
     });
 
     this.resetAriaLabels();
-    this.resetDraggablesTabIndex(0);
+    this.resetDraggablesTabIndex();
     this.getDraggables().forEach(draggable => {
       this.setAriaLabel(draggable, {action: 'solution'});
     });
