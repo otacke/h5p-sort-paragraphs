@@ -58,21 +58,11 @@
         },
         {
           "label": "Minpunten toepassen",
-          "description": "Beslis of je een punt moet aftrekken voor elke paragraaf die niet correct gepositioneerd is.",
-          "showWhen": {
-            "rules": [
-              {}
-            ]
-          }
+          "description": "Beslis of je een punt moet aftrekken voor elke paragraaf die niet correct gepositioneerd is."
         },
         {
           "label": "Toon pijlen",
-          "description": "Indien aangevinkt, worden de paragrafen gescheiden door pijlen om de volgorde aan te geven.",
-          "showWhen": {
-            "rules": [
-              {}
-            ]
-          }
+          "description": "Indien aangevinkt, worden de paragrafen gescheiden door pijlen om de volgorde aan te geven."
         },
         {
           "label": "Uitwisselbaarheid van de gedupliceerde paragrafen",
