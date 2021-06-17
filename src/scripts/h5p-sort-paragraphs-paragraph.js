@@ -47,6 +47,9 @@ export default class SortParagraphsParagraph {
 
     this.callbacks.onMouseSelect = this.callbacks.onMouseSelect || (() => {});
 
+    // Selected state
+    this.selected = false;
+
     // Buttons
     this.buttons = [];
 
@@ -355,6 +358,30 @@ export default class SortParagraphsParagraph {
   }
 
   /**
+   * Determine whether paragraph is selected.
+   * @return {boolean} True, if paragraph is selected.
+   */
+  isSelected() {
+    return this.selected;
+  }
+
+  /**
+   * Select paragraph.
+   */
+  select() {
+    this.selected = true;
+    this.toggleEffect('selected', true);
+  }
+
+  /**
+   * Unselect paragraph.
+   */
+  unselect() {
+    this.selected = false;
+    this.toggleEffect('selected', false);
+  }
+
+  /**
    * Enable paragraph. Paragraph movable via dragging or buttons.
    */
   enable() {
@@ -427,6 +454,7 @@ export default class SortParagraphsParagraph {
   reset() {
     this.content.classList.remove('disabled');
     this.content.classList.remove('solution');
+    this.unselect();
   }
 
   /**
