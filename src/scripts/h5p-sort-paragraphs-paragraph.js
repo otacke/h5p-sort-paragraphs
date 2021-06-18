@@ -13,6 +13,8 @@ export default class SortParagraphsParagraph {
    * @param {function} [callbacks.onMoveUp] Callback button move up.
    * @param {function} [callbacks.onMoveDown] Callback button move down.
    * @param {function} [callbacks.onFocusOut] Callback paragraph loses focus.
+   * @param {function} [callbacks.onMouseUp] Callback mouse button up.
+   * @param {function} [callbacks.onMouseDown] Callback mouse button down.
    * @param {function} [callbacks.onDragStart] Callback drag start.
    * @param {function} [callbacks.onDragOver] Callback drag over.
    * @param {function} [callbacks.onDragEnter] Callback drag enter.
@@ -31,7 +33,8 @@ export default class SortParagraphsParagraph {
       onMoveUp: () => {}, // Button up
       onMoveDown: () => {}, // Button down
       onFocusOut: () => {}, // Paragraph lost focus
-      onMouseSelect: () => {}, // Select with mouse
+      onMouseDown: () => {}, // Select with mouse
+      onMouseUp: () => {}, // Select with mouse
       onDragStart: () => {}, // Drag start
       onDragOver: () => {}, // Drag over other paragraph
       onDragEnter: () => {}, // Drag entered other paragraph
@@ -269,6 +272,9 @@ export default class SortParagraphsParagraph {
       ) {
         this.content.setAttribute('draggable', false);
       }
+      else {
+        this.callbacks.onMouseDown(event.currentTarget);
+      }
     });
 
     // Mouse up. Allow dragging after using buttons.
@@ -284,7 +290,7 @@ export default class SortParagraphsParagraph {
         this.content.setAttribute('draggable', true);
       }
       else {
-        this.callbacks.onMouseSelect(event.currentTarget);
+        this.callbacks.onMouseUp(event.currentTarget);
       }
     });
 

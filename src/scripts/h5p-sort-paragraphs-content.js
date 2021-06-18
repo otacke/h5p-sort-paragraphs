@@ -26,7 +26,11 @@ export default class SortParagraphsContent {
     this.enabled = true; // Enabled state of content
     this.oldOrder = null; // Old order when dragging
 
-    this.selectedDraggablePosition = null; // Original position of selected draggable
+    // Original position of selected draggable
+    this.selectedDraggable = null;
+
+    // Register state of mouse button on draggable
+    this.isMouseDownOnDraggable = false;
 
     // View/handling options
     this.options = {
@@ -338,7 +342,8 @@ export default class SortParagraphsContent {
         onKeyboardDown: (draggable => this.handleDraggableKeyboardDown(draggable)),
         onKeyboardSelect: (draggable => this.handleDraggableKeyboardSelect(draggable)),
         onKeyboardCancel: (draggable => this.handleDraggableKeyboardCancel(draggable)),
-        onMouseSelect: (draggable => this.handleDraggableMouseSelect(draggable))
+        onMouseDown: (draggable => this.handleDraggableMouseDown(draggable)),
+        onMouseUp: (draggable => this.handleDraggableMouseUp(draggable))
       }
     );
     return paragraph;
@@ -420,13 +425,10 @@ export default class SortParagraphsContent {
     this.getParagraph(draggable).unselect();
     this.resetAriaLabels();
 
-    /*
-     * focusout will trigger before mouseselect of draggable and reset
-     * previously selected position, but that is needed for 2 click/tap moving
-     */
-    setTimeout(() => {
-      this.selectedDraggablePosition = null;
-    }, 100);
+    // focusout is handled before mouseup, the selectedDraggable may be needed
+    if (!this.isMouseDownOnDraggable) {
+      this.selectedDraggable = null;
+    }
   }
 
   /**
@@ -616,23 +618,30 @@ export default class SortParagraphsContent {
   }
 
   /**
-   * Handle user grabbed/ungrabbed a draggable
+   * Handle user grabbed/ungrabbed a draggable.
+   */
+  handleDraggableMouseDown() {
+    this.isMouseDownOnDraggable = true;
+  }
+
+  /**
+   * Handle user grabbed/ungrabbed a draggable.
    * @param {HTMLElement} draggable Draggable that was grabbed/ungrabbed.
    */
-  handleDraggableMouseSelect(draggable) {
+  handleDraggableMouseUp(draggable) {
     const paragraph = this.getParagraph(draggable);
 
     if (paragraph.isSelected()) {
-      this.selectedDraggablePosition = null;
+      this.selectedDraggable = null;
       this.setAriaLabel(draggable, {action: 'dropped'});
       paragraph.unselect();
     }
     else {
       // Stopped grabbing.
-      if (this.selectedDraggablePosition !== null && this.selectedDraggablePosition !== this.getDraggableIndex(draggable)) {
+      if (this.selectedDraggable !== null && this.selectedDraggable !== draggable) {
         this.answerGiven = true; // Moved to different position.
         this.callbacks.onInteracted();
-        const draggableTarget = this.getDraggableAt(this.selectedDraggablePosition);
+        const draggableTarget = this.selectedDraggable;
         Util.swapDOMElements(draggable, draggableTarget);
 
         this.resetDraggables();
@@ -643,16 +652,18 @@ export default class SortParagraphsContent {
         // Moving node triggers focusout, get focus state and moving state back
         draggableTarget.focus();
 
-        this.selectedDraggablePosition = null;
+        this.selectedDraggable = null;
       }
       else {
         // Starting to grab.
         this.setAriaLabel(draggable, {action: 'grabbed'});
         paragraph.select();
 
-        this.selectedDraggablePosition = this.getDraggableIndex(draggable);
+        this.selectedDraggable = draggable;
       }
     }
+
+    this.isMouseDownOnDraggable = false;
   }
 
   /**
