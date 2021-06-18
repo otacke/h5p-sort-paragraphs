@@ -418,8 +418,15 @@ export default class SortParagraphsContent {
    */
   handleDraggableFocusOut(draggable) {
     this.getParagraph(draggable).unselect();
-    this.selectedDraggablePosition = null;
     this.resetAriaLabels();
+
+    /*
+     * focusout will trigger before mouseselect of draggable and reset
+     * previously selected position, but that is needed for 2 click/tap moving
+     */
+    setTimeout(() => {
+      this.selectedDraggablePosition = null;
+    }, 100);
   }
 
   /**
