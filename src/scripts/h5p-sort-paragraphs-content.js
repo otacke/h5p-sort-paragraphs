@@ -418,7 +418,7 @@ export default class SortParagraphsContent {
    */
   handleDraggableFocusOut(draggable) {
     this.getParagraph(draggable).unselect();
-
+    this.selectedDraggablePosition = null;
     this.resetAriaLabels();
   }
 
