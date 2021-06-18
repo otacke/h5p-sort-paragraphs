@@ -478,6 +478,7 @@ export default class SortParagraphsContent {
 
     this.resetDraggables();
 
+    this.selectedDraggable = null;
     this.draggedElement = null;
     this.dropzoneElement = null;
     this.oldOrder = null;
