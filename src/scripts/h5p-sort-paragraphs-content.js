@@ -616,8 +616,6 @@ export default class SortParagraphsContent {
 
       this.undoState = null;
     }
-
-    this.selectedDraggable = null;
   }
 
   /**
