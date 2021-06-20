@@ -72,29 +72,40 @@ export default class SortParagraphsParagraph {
     paragraph.setAttribute('draggable', true);
 
     // Left container for information
-    const containerLeft = this.buildContainerLeft();
+    const containerLeft = this.buildDIVContainer({
+      classText: 'h5p-sort-paragraphs-paragraph-container-left'
+    });
     paragraph.appendChild(containerLeft);
 
     this.buttons['up'] = this.buildButtonUp();
     containerLeft.appendChild(this.buttons['up'].getDOM());
 
     // Container for correct/wrong markers
-    this.containerCorrections = this.buildContainerCorrections();
+    this.containerCorrections = this.buildDIVContainer({
+      classText: 'h5p-sort-paragraphs-paragraph-corrections'
+    });
     containerLeft.appendChild(this.containerCorrections);
 
     // Conatainer for paragraph text
-    this.containerText = this.buildContainerText();
+    this.containerText = this.buildDIVContainer({
+      classText: 'h5p-sort-paragraphs-paragraph-container',
+      innerHTML: this.text
+    });
     paragraph.appendChild(this.containerText);
 
     // Right container for information
-    const containerRight = this.buildContainerRight();
+    const containerRight = this.buildDIVContainer({
+      classText: 'h5p-sort-paragraphs-paragraph-container-right'
+    });
     paragraph.appendChild(containerRight);
 
     this.buttons['down'] = this.buildButtonDown();
     containerRight.appendChild(this.buttons['down'].getDOM());
 
     // H5P Question score explanations
-    this.scoreExplanations = this.buildScoreExplanations();
+    this.scoreExplanations = this.buildDIVContainer({
+      classText: 'h5p-sort-paragraphs-paragraph-score-explanations'
+    });
     containerRight.appendChild(this.scoreExplanations);
 
     // Handlers
@@ -105,14 +116,22 @@ export default class SortParagraphsParagraph {
   }
 
   /**
-   * Build left container for additional elements.
-   * @return {HTMLElement} Left container for additional elements.
+   * Build general container for elements.
+   * @param {object} [params={}] Parameters.
+   * @param {string} [params.classText] Classes for classList.
+   * @param {string} [params.innerHTML] Inner HTML.
+   * @return {HTMLElement} Container.
    */
-  buildContainerLeft() {
-    const paragraphContentLeft = document.createElement('div');
-    paragraphContentLeft.classList.add('h5p-sort-paragraphs-paragraph-container-left');
+  buildDIVContainer(params = {}) {
+    const container = document.createElement('div');
+    if (params.classText) {
+      container.classList.add(params.classText);
+    }
+    if (params.innerHTML) {
+      container.innerHTML = params.innerHTML;
+    }
 
-    return paragraphContentLeft;
+    return container;
   }
 
   /**
@@ -137,40 +156,6 @@ export default class SortParagraphsParagraph {
   }
 
   /**
-   * Build container for corrections.
-   * @return {HTMLElement} Container for corrections.
-   */
-  buildContainerCorrections() {
-    const corrections = document.createElement('div');
-    corrections.classList.add('h5p-sort-paragraphs-paragraph-corrections');
-
-    return corrections;
-  }
-
-  /**
-   * Build text container.
-   * @return {HTMLElement} Text container.
-   */
-  buildContainerText() {
-    const content = document.createElement('div');
-    content.classList.add('h5p-sort-paragraphs-paragraph-container');
-    content.innerHTML = this.text;
-
-    return content;
-  }
-
-  /**
-   * Build right container for additional elements.
-   * @return {HTMLElement} Right container for additional elements.
-   */
-  buildContainerRight() {
-    const contentRight = document.createElement('div');
-    contentRight.classList.add('h5p-sort-paragraphs-paragraph-container-right');
-
-    return contentRight;
-  }
-
-  /**
    * Build button for moving down.
    * @return {Button} Button for moving down.
    */
@@ -189,17 +174,6 @@ export default class SortParagraphsParagraph {
         })
       }
     );
-  }
-
-  /**
-   * Build H5P Question score explanations holder.
-   * @return {HTMLElement} H5P Question score explanations holder.
-   */
-  buildScoreExplanations() {
-    const explanations = document.createElement('div');
-    explanations.classList.add('h5p-sort-paragraphs-paragraph-score-explanations');
-
-    return explanations;
   }
 
   /**
