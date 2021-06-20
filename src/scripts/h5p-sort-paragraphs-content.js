@@ -178,22 +178,17 @@ export default class SortParagraphsContent {
   addScoreAria(elements, results) {
     results.correctAnswers.forEach((answer, index) => {
       const element = elements[index];
+      const showMinus = (this.options.penalties && this.options.scoringMode === 'positions');
 
-      if (answer === true) {
-        this.setAriaLabel(element, {
-          action: (this.options.scoringMode === 'positions') ? 'resultPositions' : 'resultTransitions',
-          result: this.params.a11y.correct,
-          points: this.params.a11y.point.replace('@score', 1)
-        });
-      }
-      else {
-        const showMinus = (this.options.penalties && this.options.scoringMode === 'positions');
-        this.setAriaLabel(element, {
-          action: (this.options.scoringMode === 'positions') ? 'resultPositions' : 'resultTransitions',
-          result: this.params.a11y.wrong,
-          points: (showMinus) ? this.params.a11y.point.replace('@score', -1) : undefined
-        });
-      }
+      const ariaOptions = {
+        action: (this.options.scoringMode === 'positions') ? 'resultPositions' : 'resultTransitions',
+        result: (answer === true) ? this.params.a11y.correct : this.params.a11y.wrong,
+        points: (answer === true) ?
+          this.params.a11y.point.replace('@score', 1) :
+          (showMinus) ? this.params.a11y.point.replace('@score', -1) : undefined
+      };
+
+      this.setAriaLabel(element, ariaOptions);
     });
   }
 
