@@ -140,7 +140,7 @@ export default class SortParagraphsContent {
       element.toggleEffect('correct', false);
       element.toggleEffect('wrong', false);
       element.setAriaLabel('');
-      element.removeScoreExplanation();
+      element.hideScoreExplanation();
     });
   }
 

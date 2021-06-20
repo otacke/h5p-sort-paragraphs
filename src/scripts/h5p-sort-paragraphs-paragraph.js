@@ -474,16 +474,16 @@ export default class SortParagraphsParagraph {
 
   /**
    * Add H5P Question score explanation.
-   * @param {HTMLElement} explanation H5P Question score explanation.
+   * @param {HTMLElement} scoreExplanation H5P Question score explanation.
    */
-  showScoreExplanation(explanation) {
-    this.scoreExplanations.appendChild(explanation);
+  showScoreExplanation(scoreExplanation) {
+    this.scoreExplanations.appendChild(scoreExplanation);
   }
 
   /**
    * Remove H5P Question score explanation.
    */
-  removeScoreExplanation() {
+  hideScoreExplanation() {
     this.scoreExplanations.innerHTML = '';
   }
 

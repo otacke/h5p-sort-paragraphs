@@ -75,9 +75,9 @@ export default class SortParagraphsSeparator {
 
   /**
    * Add H5P Question score explanation.
-   * @param {HTMLElement} explanation H5P Question score explanation.
+   * @param {HTMLElement} scoreExplanation H5P Question score explanation.
    */
-  showScoreExplanation(explanation) {
+  showScoreExplanation(scoreExplanation) {
     if (
       this.content.classList.contains('h5p-question-plus-one') ||
       this.content.classList.contains('h5p-question-minus-one')
@@ -85,13 +85,13 @@ export default class SortParagraphsSeparator {
       return; // Skip, already contains score explanation
     }
 
-    this.content.appendChild(explanation);
+    this.content.appendChild(scoreExplanation);
   }
 
   /**
    * Remove H5P Question score explanation.
    */
-  removeScoreExplanation() {
+  hideScoreExplanation() {
     const scoreExplanation = this.content.querySelector('.h5p-question-plus-one, .h5p-question-minus.one');
     if (scoreExplanation) {
       this.content.removeChild(scoreExplanation);
