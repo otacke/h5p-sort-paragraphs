@@ -325,8 +325,8 @@ export default class SortParagraphsContent {
         l10n: this.params.l10n
       },
       {
-        onMoveUp: (draggable => this.handleDraggableMoveUp(draggable)),
-        onMoveDown: (draggable => this.handleDraggableMoveDown(draggable)),
+        onMoveUp: (draggable => this.handleDraggableMoved(draggable, 'up')),
+        onMoveDown: (draggable => this.handleDraggableMoved(draggable, 'down')),
         onFocusOut: (draggable => this.handleDraggableFocusOut(draggable)),
         onDragStart: (draggable => this.handleDraggableDragStart(draggable)),
         onDragEnter: (draggable => this.handleDraggableDragEnter(draggable)),
@@ -379,32 +379,26 @@ export default class SortParagraphsContent {
   }
 
   /**
-   * Handle draggable moved up with button.
+   * Handle draggable moved up or down with button.
+   * @param {HTMLElement} draggable Draggable.
+   * @param {string} direction Either 'up' or 'down'.
    */
-  handleDraggableMoveUp(draggable) {
+  handleDraggableMoved(draggable, direction) {
     const position = this.getDraggableIndex(draggable);
-    if (position > 0) {
-      this.answerGiven = true; // For H5P question type contract.
-      this.callbacks.onInteracted();
 
-      Util.swapDOMElements(draggable, this.getDraggableAt(position - 1));
-
-      this.resetDraggablesTabIndex();
-      this.resetDraggables();
-      this.resetAriaLabels();
+    let swapPosition;
+    if (direction === 'up' && position > 0) {
+      swapPosition = position - 1;
     }
-  }
+    else if (direction === 'down' && position < this.paragraphs.length) {
+      swapPosition = position + 1;
+    }
 
-  /**
-   * Handle draggable moved down with button.
-   */
-  handleDraggableMoveDown(draggable) {
-    const position = this.getDraggableIndex(draggable);
-    if (position < this.paragraphs.length) {
+    if (swapPosition) {
       this.answerGiven = true; // For H5P question type contract.
       this.callbacks.onInteracted();
 
-      Util.swapDOMElements(draggable, this.getDraggableAt(position + 1));
+      Util.swapDOMElements(draggable, this.getDraggableAt(swapPosition));
 
       this.resetDraggablesTabIndex();
       this.resetDraggables();
@@ -556,6 +550,8 @@ export default class SortParagraphsContent {
       this.setAriaLabel(draggable, {action: 'grabbed'});
       paragraph.select();
 
+      this.selectedDraggable = draggable;
+
       // Store state in case user cancels
       this.undoState = {
         position: this.getDraggableIndex(draggable),
@@ -571,6 +567,8 @@ export default class SortParagraphsContent {
 
       this.setAriaLabel(draggable, {action: 'dropped'});
       paragraph.unselect();
+
+      this.selectedDraggable = null;
 
       // Collecting garbage
       this.undoState = null;
