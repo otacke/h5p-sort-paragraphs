@@ -16,7 +16,6 @@ export default class SortParagraphsParagraph {
    * @param {function} [callbacks.onMouseUp] Callback mouse button up.
    * @param {function} [callbacks.onMouseDown] Callback mouse button down.
    * @param {function} [callbacks.onDragStart] Callback drag start.
-   * @param {function} [callbacks.onDragOver] Callback drag over.
    * @param {function} [callbacks.onDragEnter] Callback drag enter.
    * @param {function} [callbacks.onDragLeave] Callback drag leave.
    * @param {function} [callbacks.onDragEnd] Callback drag end.
@@ -36,7 +35,6 @@ export default class SortParagraphsParagraph {
       onMouseDown: () => {}, // Select with mouse
       onMouseUp: () => {}, // Select with mouse
       onDragStart: () => {}, // Drag start
-      onDragOver: () => {}, // Drag over other paragraph
       onDragEnter: () => {}, // Drag entered other paragraph
       onDragLeave: () => {}, // Drag left other paragraph
       onDragEnd: () => {}, // Drag end
@@ -317,8 +315,6 @@ export default class SortParagraphsParagraph {
     // Drag over
     paragraph.addEventListener('dragover', event => {
       event.preventDefault();
-
-      this.callbacks.onDragOver(event.currentTarget);
     });
 
     // Drag enter

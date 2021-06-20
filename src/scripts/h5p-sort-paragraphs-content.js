@@ -334,7 +334,6 @@ export default class SortParagraphsContent {
         onMoveDown: (draggable => this.handleDraggableMoveDown(draggable)),
         onFocusOut: (draggable => this.handleDraggableFocusOut(draggable)),
         onDragStart: (draggable => this.handleDraggableDragStart(draggable)),
-        onDragOver: (draggable => this.handleDraggableDragOver(draggable)),
         onDragEnter: (draggable => this.handleDraggableDragEnter(draggable)),
         onDragLeave: (draggable => this.handleDraggableDragLeave(draggable)),
         onDragEnd: (draggable => this.handleDraggableDragEnd(draggable)),
@@ -437,12 +436,6 @@ export default class SortParagraphsContent {
   handleDraggableDragStart(draggable) {
     this.oldOrder = this.getDraggablesOrder();
     this.draggedElement = draggable;
-  }
-
-  /**
-   * Handle draggable over another draggable.
-   */
-  handleDraggableDragOver() {
   }
 
   /**
