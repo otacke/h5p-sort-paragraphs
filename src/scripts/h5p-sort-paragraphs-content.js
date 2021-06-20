@@ -332,8 +332,8 @@ export default class SortParagraphsContent {
         onDragEnter: (draggable => this.handleDraggableDragEnter(draggable)),
         onDragLeave: (draggable => this.handleDraggableDragLeave(draggable)),
         onDragEnd: (draggable => this.handleDraggableDragEnd(draggable)),
-        onKeyboardUp: (draggable => this.handleDraggableKeyboardUp(draggable)),
-        onKeyboardDown: (draggable => this.handleDraggableKeyboardDown(draggable)),
+        onKeyboardUp: (draggable => this.handleDraggableKeyboardMoved(draggable, 'up')),
+        onKeyboardDown: (draggable => this.handleDraggableKeyboardMoved(draggable, 'down')),
         onKeyboardSelect: (draggable => this.handleDraggableKeyboardSelect(draggable)),
         onKeyboardCancel: (draggable => this.handleDraggableKeyboardCancel(draggable)),
         onMouseDown: (draggable => this.handleDraggableMouseDown(draggable)),
@@ -467,23 +467,31 @@ export default class SortParagraphsContent {
   }
 
   /**
-   * Handle user moved up with keyboard
+   * Handle user moved up or down with keyboard
    * @param {HTMLElement} draggable Draggable that was moved.
+   * @param {string} direction Either 'up' or 'down'.
    */
-  handleDraggableKeyboardUp(draggable) {
+  handleDraggableKeyboardMoved(draggable, direction) {
     const position = this.getDraggableIndex(draggable);
-    if (position <= 0) {
-      return; // Already at top.
+
+    if (
+      direction === 'up' && position <= 0 ||
+      direction === 'down' && position >= this.paragraphs.length - 1 ||
+      direction !== 'up' && direction !== 'down'
+    ) {
+      return; // At outer position or invalid direction
     }
 
-    // Get previous draggable
-    const previousDraggable = this.getDraggables()[position - 1];
+    const swapDraggablePosition = position + ((direction === 'up') ? -1 : 1);
+
+    // Get draggable to swap with
+    const swapDraggable = this.getDraggables()[swapDraggablePosition];
     const paragraph = this.getParagraph(draggable);
-    const previousParagraph = this.getParagraph(previousDraggable);
+    const swapParagraph = this.getParagraph(swapDraggable);
 
     if (paragraph.isSelected()) {
       // Was grabbing, so swap draggables
-      Util.swapDOMElements(draggable, previousDraggable);
+      Util.swapDOMElements(draggable, swapDraggable);
 
       this.resetDraggables();
       this.resetAriaLabels();
@@ -497,44 +505,8 @@ export default class SortParagraphsContent {
     else {
       // Only moving focus
       paragraph.setTabIndex(-1);
-      previousParagraph.setTabIndex(0);
-      previousParagraph.focus();
-    }
-  }
-
-  /**
-   * Handle user moved down with keyboard
-   * @param {HTMLElement} draggable Draggable that was moved.
-   */
-  handleDraggableKeyboardDown(draggable) {
-    const position = this.getDraggableIndex(draggable);
-    if (position >= this.paragraphs.length - 1) {
-      return; // Already at bottom.
-    }
-
-    // Get next draggable
-    const nextDraggable = this.getDraggables()[position + 1];
-    const paragraph = this.getParagraph(draggable);
-    const nextParagraph = this.getParagraph(nextDraggable);
-
-    if (paragraph.isSelected()) {
-      // Was grabbing, so swap draggables
-      Util.swapDOMElements(draggable, nextDraggable);
-
-      this.resetDraggables();
-      this.resetAriaLabels();
-      this.setAriaLabel(draggable, {action: 'moved'});
-
-      // Moving node triggers focusout, get focus state and moving state back
-      draggable.focus();
-
-      paragraph.select();
-    }
-    else {
-      // Only moving focus
-      paragraph.setTabIndex(-1);
-      nextParagraph.setTabIndex(0);
-      nextParagraph.focus();
+      swapParagraph.setTabIndex(0);
+      swapParagraph.focus();
     }
   }
 
