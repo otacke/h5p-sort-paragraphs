@@ -506,5 +506,5 @@ export default class SortParagraphsParagraph {
     else {
       this.callbacks[callbackName](event.currentTarget);
     }
-  }  
+  }
 }
