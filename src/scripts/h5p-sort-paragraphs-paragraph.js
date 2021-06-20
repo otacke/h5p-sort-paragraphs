@@ -260,36 +260,12 @@ export default class SortParagraphsParagraph {
   addDragHandlers(paragraph) {
     // Mouse down. Prevent dragging when using buttons.
     paragraph.addEventListener('mousedown', event => {
-      if (this.disabled) {
-        return;
-      }
-
-      if (
-        event.target === this.buttons['up'].getDOM() ||
-        event.target === this.buttons['down'].getDOM()
-      ) {
-        this.content.setAttribute('draggable', false);
-      }
-      else {
-        this.callbacks.onMouseDown(event.currentTarget);
-      }
+      this.handleMouseUpDown(event, 'onMouseDown');
     });
 
     // Mouse up. Allow dragging after using buttons.
     paragraph.addEventListener('mouseup', event => {
-      if (this.disabled) {
-        return;
-      }
-
-      if (
-        event.target === this.buttons['up'].getDOM() ||
-        event.target === this.buttons['down'].getDOM()
-      ) {
-        this.content.setAttribute('draggable', true);
-      }
-      else {
-        this.callbacks.onMouseUp(event.currentTarget);
-      }
+      this.handleMouseUpDown(event, 'onMouseUp');
     });
 
     // Focus out
@@ -536,4 +512,25 @@ export default class SortParagraphsParagraph {
   removeScoreExplanation() {
     this.scoreExplanations.innerHTML = '';
   }
+
+  /**
+   * Handle mouse button up or down.
+   * @param {Event} event Mouse event.
+   * @param {string} callbackName Callback name.
+   */
+  handleMouseUpDown(event, callbackName) {
+    if (this.disabled) {
+      return;
+    }
+
+    if (
+      event.target === this.buttons['up'].getDOM() ||
+      event.target === this.buttons['down'].getDOM()
+    ) {
+      this.content.setAttribute('draggable', true);
+    }
+    else {
+      this.callbacks[callbackName](event.currentTarget);
+    }
+  }  
 }
