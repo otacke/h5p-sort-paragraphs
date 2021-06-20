@@ -1,0 +1,233 @@
+@import './h5p-sort-paragraphs-main';
+
+.h5p-sort-paragraphs {
+  .h5p-sort-paragraphs-paragraph {
+    background-color: $color-enabled;
+    border: .1em solid transparent;
+    border-radius: .3em;
+    box-shadow: 0 0.1em 0 $color-box-shadow-regular;
+    cursor: move;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1em;
+    padding: 0.5em 0em;
+    user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    word-break: break-word;
+
+    &:focus:not(.h5p-sort-paragraphs-disabled) {
+      border-color: $color-focus;
+      box-shadow: 0 0 .5em 0 $color-focus;
+      outline: none;
+    }
+
+    &.h5p-sort-paragraphs-ghosted {
+      opacity: 0.4;
+    }
+
+    &.h5p-sort-paragraphs-disabled {
+      background-color: $color-disabled;
+      border: .1em solid $color-disabled;
+      color: $color-disabled-text;
+      cursor: auto;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &.h5p-sort-paragraphs-over, &.h5p-sort-paragraphs-selected {
+      background: $color-over;
+      box-shadow: 0 0.1em 0 #b1c5e0;
+      color: $color-over-text;
+    }
+  }
+
+  .h5p-sort-paragraphs-paragraph-container-left {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    justify-content: center;
+    padding: 0 0.25em;
+    width: 4em;
+  }
+
+  .h5p-sort-paragraphs-button {
+    align-items: center;
+    background-color: $color-button;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.15em 1.15em;
+    border: 2px solid transparent;
+    border-radius: 0.3em;
+    box-shadow: 0 0.1em 0 $color-box-shadow-regular;
+    color: $color-button-text;
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    height: 2.75em;
+    justify-content: center;
+    min-height: 42px;
+    min-width: 42px;
+    padding: 0;
+    width: 2.75em;
+
+    &.h5p-sort-paragraphs-no-display {
+      display: none;
+    }
+
+    &.h5p-sort-paragraphs-disabled {
+      background-color: $color-button-disabled;
+
+      /* Originally #eeeeee as in many H5P contents */
+      color: $color-button-disabled-text;
+      cursor: auto;
+    }
+
+    &.h5p-sort-paragraphs-no-display {
+      display: none;
+    }
+
+    &:not(.h5p-sort-paragraphs-disabled) {
+      &:hover {
+        background-color: $color-hover;
+      }
+
+      &:active {
+        background-color: $color-active;
+      }
+    }
+  }
+
+  .h5p-sort-paragraphs-paragraph-button-up::before {
+    font-family: 'H5PFontAwesome4';
+    content: $icon-button-up;
+    font-size: 1.5em;
+  }
+
+  .h5p-sort-paragraphs-paragraph-button-down::before {
+    font-family: 'H5PFontAwesome4';
+    content: $icon-button-down;
+    font-size: 1.5em;
+  }
+
+  .h5p-sort-paragraphs-paragraph {
+    .h5p-sort-paragraphs-paragraph-corrections {
+      font-size: 1.5em;
+      padding-top: 0.5em;
+    }
+
+    &.h5p-sort-paragraphs-correct {
+      background: $color-correct-light;
+      border-color: $color-correct-light;
+      box-shadow: 0 0.1em 0 $color-correct-box-shadow;
+      color: $color-correct-dark;
+
+      .h5p-sort-paragraphs-paragraph-corrections::before {
+        content: $icon-correct;
+        font-family: 'H5PFontAwesome4';
+      }
+    }
+
+    &.h5p-sort-paragraphs-wrong {
+      background: $color-wrong-light;
+      border-color: $color-wrong-light;
+      box-shadow: 0 0.1em 0 $color-wrong-box-shadow;
+      color: $color-wrong-dark;
+
+      .h5p-sort-paragraphs-paragraph-corrections::before {
+        content: $icon-wrong;
+        font-family: 'H5PFontAwesome4';
+      }
+    }
+
+    &.h5p-sort-paragraphs-solution .h5p-sort-paragraphs-paragraph-corrections::before {
+      color: $color-disabled-text;
+      content: '\f06e';
+      font-family: 'H5PFontAwesome4';
+    }
+  }
+
+  .h5p-sort-paragraphs-paragraph-container {
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    min-height: 2.75em;
+
+    /* Button height to prevent jumping */
+    justify-content: center;
+    width: 100%;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .h5p-sort-paragraphs-paragraph-container-right {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    justify-content: center;
+    padding: 0 0.25em;
+    width: 4em;
+  }
+
+  .h5p-sort-paragraphs-paragraph-score-explanations {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.5em;
+
+    .h5p-question-plus-one, .h5p-question-minus-one {
+      font-size: 1.25em;
+      position: static;
+      width: 2.4em;
+    }
+  }
+
+  .h5p-sort-paragraphs-separator {
+    height: 2.75em;
+    border-radius: 0.3em;
+    margin-left: auto;
+    margin-bottom: 1em;
+    margin-right: auto;
+    line-height: 2.75em;
+    text-align: center;
+    width: 2.75em;
+
+    &.h5p-sort-paragraphs-no-display {
+      display: none;
+    }
+
+    &.h5p-sort-paragraphs-correct {
+      background: $color-correct-light;
+      border-color: $color-correct-light;
+      box-shadow: 0 0.1em 0 $color-correct-box-shadow;
+      color: $color-correct-dark;
+    }
+
+    &.h5p-sort-paragraphs-wrong {
+      background: $color-wrong-light;
+      border-color: $color-wrong-light;
+      box-shadow: 0 0.1em 0 $color-wrong-box-shadow;
+      color: $color-wrong-dark;
+    }
+
+    &::before {
+      font-family: 'H5PFontAwesome4';
+      content: $icon-separator;
+      font-size: 1.5em;
+    }
+
+    .h5p-question-plus-one, .h5p-question-minus-one {
+      font-size: 1.25em;
+      position: relative;
+      top: -3em;
+      right: -1.75em;
+    }
+  }
+}
