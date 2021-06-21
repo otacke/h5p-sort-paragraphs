@@ -46,7 +46,6 @@
         {
           "label": "Modo de puntaje",
           "description": "Decidir si quiere contar las transiciones correctas (sin importar las posiciones absolutas del párrafo) o si prefiere contar las posiciones correctas.",
-          "default": "transiciones",
           "options": [
             {
               "label": "Transiciones"
@@ -195,6 +194,10 @@
           "description": "Será seguido por \"Numeración de párrafo\".",
           "label": "Párrafo Correcto",
           "default": "Párrafo correcto en posición"
+        },
+        {
+          "label": "Listbox",
+          "default": "Listbox"
         }
       ]
     }

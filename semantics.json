@@ -24,9 +24,8 @@
   },
   {
     "name": "paragraphs",
-    "label": "Paragraph",
-    "type": "list",
     "label": "Paragraphs",
+    "type": "list",
     "entity": "paragraph",
     "min": 3,
     "field": {
@@ -400,6 +399,13 @@
         "label": "Correct Paragraph",
         "importance": "low",
         "default": "Correct paragraph at position"
+      },
+      {
+        "name": "listbox",
+        "type": "text",
+        "label": "Listbox",
+        "importance": "low",
+        "default": "Listbox"
       }
     ]
   }

@@ -46,7 +46,6 @@
         {
           "label": "Scoremodus",
           "description": "Beslis of je correcte overgangen moet tellen (ongeacht de absolute posities van de alinea's) of dat je correcte posities moet tellen.",
-          "default": "overgangen",
           "options": [
             {
               "label": "Overgangen"
@@ -195,6 +194,10 @@
           "description": "Wordt gevolgd door \"Paragraaf nummmering\".",
           "label": "Juiste pragraaf",
           "default": "Juiste pragraaf"
+        },
+        {
+          "label": "Listbox",
+          "default": "Listbox"
         }
       ]
     }

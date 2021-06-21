@@ -343,13 +343,16 @@ export default class SortParagraphsContent {
   }
 
   /**
-   * Build ARIA tamplates for specific purposes.
+   * Build ARIA templates for specific purposes.
+   *
+   * Tries to compose the messages in a way that a screen reader would read.
+   *
    * @return {string[]} ARIA templates.
    */
   buildAriaTemplates() {
     return {
       // draggable was selected by giving focus
-      selected: `Listbox. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}${this.params.a11y.paragraphText}: @text`,
+      selected: `${this.params.a11y.listbox}. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}${this.params.a11y.paragraphText}: @text`,
 
       // draggable was grabbed
       grabbed: `${this.params.a11y.paragraph} ${this.params.a11y.grabbed}. ${this.params.a11y.currentPosition}: ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsGrabbed + '.'}`,
@@ -361,7 +364,7 @@ export default class SortParagraphsContent {
       dropped: `${this.params.a11y.paragraph} ${this.params.a11y.dropped}. ${this.params.a11y.finalPosition}: ${this.params.a11y.sevenOfNine}.`,
 
       // draggable reordering was cancelled
-      cancelled: `${this.params.a11y.reorderCancelled}. Listbox. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}${this.params.a11y.paragraphText}: @text`,
+      cancelled: `${this.params.a11y.reorderCancelled}. ${this.params.a11y.listbox}. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}${this.params.a11y.paragraphText}: @text`,
 
       // Anncouncing results for scoring mode 'positions'
       resultPositions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. @result. @points.@text`,

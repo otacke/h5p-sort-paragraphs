@@ -46,7 +46,6 @@
         {
           "label": "Scoring mode",
           "description": "Decide whether to count correct transitions (regardless of the paragraphs' absolute positions) or to count correct positions.",
-          "default": "transitions",
           "options": [
             {
               "label": "Transitions"
@@ -195,6 +194,10 @@
           "description": "Will be followed by \"Paragraph numbering\".",
           "label": "Correct Paragraph",
           "default": "Correct paragraph at position"
+        },
+        {
+          "label": "Listbox",
+          "default": "Listbox"
         }
       ]
     }
