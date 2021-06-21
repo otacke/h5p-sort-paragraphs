@@ -296,7 +296,6 @@ export default class SortParagraphsContent {
   buildList(paragraphs) {
     const list = document.createElement('div');
     list.setAttribute('role', 'listbox');
-    list.setAttribute('aria-label', 'Listbox');
     list.classList.add('h5p-sort-paragraphs-list');
 
     paragraphs.forEach((paragraph, index) => {
