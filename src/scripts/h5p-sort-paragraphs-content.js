@@ -400,6 +400,9 @@ export default class SortParagraphsContent {
       this.answerGiven = true; // For H5P question type contract.
       this.callbacks.onInteracted();
 
+      // Animate draggables involved for visual feedback
+      this.getParagraph(draggable).animate('shake-right');
+      this.getParagraph(this.getDraggableAt(swapPosition)).animate('shake-left');
       Util.swapDOMElements(draggable, this.getDraggableAt(swapPosition));
 
       this.resetDraggablesTabIndex();
