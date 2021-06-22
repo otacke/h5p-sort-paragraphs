@@ -396,7 +396,7 @@ export default class SortParagraphsContent {
       swapPosition = position + 1;
     }
 
-    if (swapPosition) {
+    if (swapPosition !== undefined) {
       this.answerGiven = true; // For H5P question type contract.
       this.callbacks.onInteracted();
 
