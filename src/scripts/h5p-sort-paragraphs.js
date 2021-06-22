@@ -179,10 +179,7 @@ export default class SortParagraphs extends H5P.Question {
      * @return {number} latest score.
      * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-2}
      */
-    this.getScore = () => (this.content.computeResults({
-      mode: this.params.behaviour.scoringMode,
-      penalties: this.params.behaviour.applyPenalties
-    })).score;
+    this.getScore = () => (this.content.computeResults()).score;
 
     /**
      * Get maximum possible score.
@@ -307,10 +304,7 @@ export default class SortParagraphs extends H5P.Question {
         this.showButton('try-again');
       }
 
-      this.content.showResults({
-        mode: this.params.behaviour.scoringMode,
-        penalties: this.params.behaviour.applyPenalties
-      });
+      this.content.showResults();
 
       const textScore = H5P.Question.determineOverallFeedback(
         this.params.overallFeedback, this.getScore() / this.getMaxScore());
