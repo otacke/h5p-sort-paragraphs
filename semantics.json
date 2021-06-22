@@ -399,13 +399,6 @@
         "label": "Correct Paragraph",
         "importance": "low",
         "default": "Correct paragraph at position"
-      },
-      {
-        "name": "listbox",
-        "type": "text",
-        "label": "Listbox",
-        "importance": "low",
-        "default": "Listbox"
       }
     ]
   }

@@ -194,10 +194,6 @@
           "description": "Será seguido por \"Numeración de párrafo\".",
           "label": "Párrafo Correcto",
           "default": "Párrafo correcto en posición"
-        },
-        {
-          "label": "Listbox",
-          "default": "Listbox"
         }
       ]
     }

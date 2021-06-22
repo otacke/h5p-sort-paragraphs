@@ -194,10 +194,6 @@
           "description": "Will be followed by \"Paragraph numbering\".",
           "label": "Correct Paragraph",
           "default": "Correct paragraph at position"
-        },
-        {
-          "label": "Listbox",
-          "default": "Listbox"
         }
       ]
     }

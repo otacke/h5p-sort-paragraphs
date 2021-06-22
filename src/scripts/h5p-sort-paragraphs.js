@@ -61,8 +61,7 @@ export default class SortParagraphs extends H5P.Question {
         wrong: 'wrong',
         point: '@score point',
         nextParagraph: 'Next paragraph',
-        correctParagraph: 'Correct paragraph at position',
-        listbox: 'Listbox'
+        correctParagraph: 'Correct paragraph at position'
       }
     }, params);
 

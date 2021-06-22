@@ -194,10 +194,6 @@
           "description": "Wordt gevolgd door \"Paragraaf nummmering\".",
           "label": "Juiste pragraaf",
           "default": "Juiste pragraaf"
-        },
-        {
-          "label": "Listbox",
-          "default": "Listbox"
         }
       ]
     }
