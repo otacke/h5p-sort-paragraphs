@@ -52,6 +52,9 @@ export default class SortParagraphsParagraph {
 
     // Build content
     this.content = this.buildParagraph(this.text, this.l10n);
+
+    // Listener for animation ended
+    this.handleAnimationEnded = this.handleAnimationEnded.bind(this);
   }
 
   /**
@@ -369,6 +372,20 @@ export default class SortParagraphsParagraph {
   }
 
   /**
+   * Animate paragraph.
+   * @param {string} style Animation style.
+   */
+  animate(style) {
+    if (this.isAnimating) {
+      return;
+    }
+
+    this.animationStyle = style;
+    this.content.addEventListener('animationend', this.handleAnimationEnded);
+    this.content.classList.add(`h5p-sort-paragraphs-animate-${this.animationStyle}`);
+  }
+
+  /**
    * Get paragraph's HTML text.
    * @return {string} HTML text.
    */
@@ -506,5 +523,14 @@ export default class SortParagraphsParagraph {
     else {
       this.callbacks[callbackName](event.currentTarget);
     }
+  }
+
+  /**
+   * Handle animation ended.
+   */
+  handleAnimationEnded() {
+    this.content.removeEventListener('animationend', this.handleAnimationEnded);
+    this.content.classList.remove(`h5p-sort-paragraphs-animate-${this.animationStyle}`);
+    this.isAnimating = false;
   }
 }

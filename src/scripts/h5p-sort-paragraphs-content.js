@@ -603,6 +603,10 @@ export default class SortParagraphsContent {
         this.answerGiven = true; // Moved to different position.
         this.callbacks.onInteracted();
         const draggableTarget = this.selectedDraggable;
+
+        // Animate draggables involved for visual feedback
+        paragraph.animate('shake-right');
+        this.getParagraph(draggableTarget).animate('shake-left');
         Util.swapDOMElements(draggable, draggableTarget);
 
         this.resetDraggables();

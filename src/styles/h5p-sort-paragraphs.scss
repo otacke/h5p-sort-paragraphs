@@ -45,6 +45,50 @@
       box-shadow: 0 0.1em 0 #b1c5e0;
       color: $color-over-text;
     }
+
+    &.h5p-sort-paragraphs-animate-shake-left {
+      animation: shake-left;
+      animation-duration: 0.5s;
+    }
+
+    @keyframes shake-left {
+      from,
+      to {
+        transform: translate3d(0, 0, 0);
+      }
+
+      25%,
+      75%
+      {
+        transform: translate3d(-0.5em, 0, 0);
+      }
+
+      50% {
+        transform: translate3d(0.5em, 0, 0);
+      }
+    }
+
+    &.h5p-sort-paragraphs-animate-shake-right {
+      animation: shake-right;
+      animation-duration: 0.5s;
+    }
+
+    @keyframes shake-right {
+      from,
+      to {
+        transform: translate3d(0, 0, 0);
+      }
+
+      25%,
+      75%
+      {
+        transform: translate3d(0.5em, 0, 0);
+      }
+
+      50% {
+        transform: translate3d(-0.5em, 0, 0);
+      }
+    }
   }
 
   .h5p-sort-paragraphs-paragraph-container-left {
