@@ -25,6 +25,12 @@
       outline: none;
     }
 
+    &:focus.h5p-sort-paragraphs-disabled {
+      border-color: $color-disabled-focus;
+      box-shadow: 0 0 .5em 0 $color-disabled-focus;
+      outline: none;
+    }
+
     &.h5p-sort-paragraphs-ghosted {
       opacity: 0.4;
     }
