@@ -312,10 +312,10 @@ export default class SortParagraphs extends H5P.Question {
       const textScore = H5P.Question.determineOverallFeedback(
         this.params.overallFeedback, score / maxScore);
 
-      // Output via H5P.Question
+      // Output via H5P.Question - expects :num and :total
       const ariaMessage = this.params.a11y.yourResult
-        .replace('@score', score)
-        .replace('@total', maxScore);
+        .replace('@score', ':num')
+        .replace('@total', ':total');
 
       this.setFeedback(
         textScore.trim(),
