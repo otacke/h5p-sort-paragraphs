@@ -141,11 +141,6 @@
           "default": "Párrafo"
         },
         {
-          "description": "Will be followed by actual paragraph text.",
-          "label": "Texto",
-          "default": "Texto"
-        },
-        {
           "label": "Correcto",
           "default": "correcto"
         },

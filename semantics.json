@@ -310,14 +310,6 @@
         "default": "Paragraph"
       },
       {
-        "name": "paragraphText",
-        "description": "Will be followed by actual paragraph text.",
-        "type": "text",
-        "label": "Text",
-        "importance": "low",
-        "default": "Text"
-      },
-      {
         "name": "correct",
         "type": "text",
         "label": "Correct",

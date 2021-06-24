@@ -141,11 +141,6 @@
           "default": "Paragraph"
         },
         {
-          "description": "Will be followed by actual paragraph text.",
-          "label": "Text",
-          "default": "Text"
-        },
-        {
           "label": "Correct",
           "default": "correct"
         },

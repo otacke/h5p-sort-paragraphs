@@ -141,11 +141,6 @@
           "default": "Paragraaf"
         },
         {
-          "description": "Will be followed by actual paragraph text.",
-          "label": "Tekst",
-          "default": "Tekst"
-        },
-        {
           "label": "Juist",
           "default": "juist"
         },

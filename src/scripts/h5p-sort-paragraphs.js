@@ -52,7 +52,6 @@ export default class SortParagraphs extends H5P.Question {
         paragraph: 'Paragraph',
         sevenOfNine: '@current of @total',
         instructionsSelected: 'Press spacebar to reorder',
-        paragraphText: 'Text',
         grabbed: 'grabbed',
         currentPosition: 'Current position in list',
         instructionsGrabbed: 'Press up and down arrow keys to change position, spacebar to drop, escape to cancel',

@@ -357,7 +357,7 @@ export default class SortParagraphsContent {
   buildAriaTemplates() {
     return {
       // draggable was selected by giving focus
-      selected: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}${this.params.a11y.paragraphText}: @text`,
+      selected: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}@text`,
 
       // draggable was grabbed
       grabbed: `${this.params.a11y.paragraph} ${this.params.a11y.grabbed}. ${this.params.a11y.currentPosition}: ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsGrabbed + '.'}`,
@@ -369,19 +369,19 @@ export default class SortParagraphsContent {
       dropped: `${this.params.a11y.paragraph} ${this.params.a11y.dropped}. ${this.params.a11y.finalPosition}: ${this.params.a11y.sevenOfNine}.`,
 
       // draggable reordering was cancelled
-      cancelled: `${this.params.a11y.reorderCancelled}. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}${this.params.a11y.paragraphText}: @text`,
+      cancelled: `${this.params.a11y.reorderCancelled}. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}@text`,
 
       // Anncouncing results for scoring mode 'positions'
-      resultPositions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. @result. @points. ${this.params.a11y.paragraphText}: @text`,
+      resultPositions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. @result. @points. @text`,
 
       // Anncouncing results for scoring mode 'transitions'
-      resultTransitions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.params.a11y.nextParagraph} @result. @points. ${this.params.a11y.paragraphText}: @text`,
+      resultTransitions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.params.a11y.nextParagraph} @result. @points. @text`,
 
       // Neutral announcement for last draggable for scoring mode 'transitions'
-      neutral: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.params.a11y.paragraphText}: @text`,
+      neutral: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. @text`,
 
       // Anncouncing solution
-      solution: `${this.params.a11y.correctParagraph} ${this.params.a11y.sevenOfNine}. ${this.params.a11y.paragraphText}: @text`
+      solution: `${this.params.a11y.correctParagraph} ${this.params.a11y.sevenOfNine}. @text`
     };
   }
 
