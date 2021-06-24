@@ -125,13 +125,25 @@
           "default": "You got @score out of @total points"
         },
         {
+          "label": "List description",
+          "default": "Sortable list of paragraphs."
+        },
+        {
+          "label": "List description (check answer)",
+          "default": "List of paragraphs with results."
+        },
+        {
+          "label": "List description (show solution)",
+          "default": "List of paragraphs with solutions."
+        },
+        {
           "label": "Paragraph",
           "default": "Paragraph"
         },
         {
           "description": "Will be followed by actual paragraph text.",
-          "label": "Paragraph text",
-          "default": "Paragraph text"
+          "label": "Text",
+          "default": "Text"
         },
         {
           "label": "Correct",

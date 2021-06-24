@@ -125,13 +125,25 @@
           "default": "Je hebt @score van de @total punten"
         },
         {
+          "label": "List description",
+          "default": "Sortable list of paragraphs."
+        },
+        {
+          "label": "List description (check answer)",
+          "default": "List of paragraphs with results."
+        },
+        {
+          "label": "List description (show solution)",
+          "default": "List of paragraphs with solutions."
+        },
+        {
           "label": "Paragraaf",
           "default": "Paragraaf"
         },
         {
-          "description": "Dit zal worden gevolgd door de eigenlijke paragraaftekst.",
-          "label": "Paragraaftekst",
-          "default": "Paragraaftekst"
+          "description": "Will be followed by actual paragraph text.",
+          "label": "Tekst",
+          "default": "Tekst"
         },
         {
           "label": "Juist",

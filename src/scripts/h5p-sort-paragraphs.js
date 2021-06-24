@@ -46,10 +46,13 @@ export default class SortParagraphs extends H5P.Question {
         check: 'Check the answers. The responses will be marked as correct or incorrect.',
         showSolution: 'Show the solution. The correct solution will be displayed.',
         retry: 'Retry the task. Reset all elements and start the task over again.',
+        listDescription: 'Sortable list of paragraphs.',
+        listDescriptionCheckAnswer: 'List of paragraphs with results.',
+        listDescriptionShowSolution: 'List of paragraphs with solutions.',
         paragraph: 'Paragraph',
         sevenOfNine: '@current of @total',
         instructionsSelected: 'Press spacebar to reorder',
-        paragraphText: 'Paragraph text',
+        paragraphText: 'Text',
         grabbed: 'grabbed',
         currentPosition: 'Current position in list',
         instructionsGrabbed: 'Press up and down arrow keys to change position, spacebar to drop, escape to cancel',
@@ -113,6 +116,10 @@ export default class SortParagraphs extends H5P.Question {
         {
           onInteracted: () => {
             this.handleInteracted();
+          },
+          read: (text) => {
+            // Using H5P.Question to let screen reader read text
+            this.read(text);
           }
         }
       );

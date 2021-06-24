@@ -282,6 +282,27 @@
         "default": "You got @score out of @total points"
       },
       {
+        "name": "listDescription",
+        "type": "text",
+        "label": "List description",
+        "importance": "low",
+        "default": "Sortable list of paragraphs."
+      },
+      {
+        "name": "listDescriptionCheckAnswer",
+        "type": "text",
+        "label": "List description (check answer)",
+        "importance": "low",
+        "default": "List of paragraphs with results."
+      },
+      {
+        "name": "listDescriptionShowSolution",
+        "type": "text",
+        "label": "List description (show solution)",
+        "importance": "low",
+        "default": "List of paragraphs with solutions."
+      },
+      {
         "name": "paragraph",
         "type": "text",
         "label": "Paragraph",
@@ -292,9 +313,9 @@
         "name": "paragraphText",
         "description": "Will be followed by actual paragraph text.",
         "type": "text",
-        "label": "Paragraph text",
+        "label": "Text",
         "importance": "low",
-        "default": "Paragraph text"
+        "default": "Text"
       },
       {
         "name": "correct",

@@ -71,12 +71,15 @@ export default class SortParagraphsParagraph {
   buildParagraph() {
     const paragraph = document.createElement('div');
     paragraph.classList.add('h5p-sort-paragraphs-paragraph');
-    paragraph.setAttribute('role', 'option');
+    paragraph.setAttribute('role', 'listitem');
     paragraph.setAttribute('draggable', true);
 
     // Left container for information
     const containerLeft = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-container-left'
+      classText: 'h5p-sort-paragraphs-paragraph-container-left',
+      attributes: {
+        'aria-hidden': 'true'
+      }
     });
     paragraph.appendChild(containerLeft);
 
@@ -92,13 +95,19 @@ export default class SortParagraphsParagraph {
     // Conatainer for paragraph text
     this.containerText = this.buildDIVContainer({
       classText: 'h5p-sort-paragraphs-paragraph-container',
-      innerHTML: this.text
+      innerHTML: this.text,
+      attributes: {
+        'aria-selected': false
+      }
     });
     paragraph.appendChild(this.containerText);
 
     // Right container for information
     const containerRight = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-container-right'
+      classText: 'h5p-sort-paragraphs-paragraph-container-right',
+      attributes: {
+        'aria-hidden': 'true'
+      }
     });
     paragraph.appendChild(containerRight);
 
@@ -132,6 +141,11 @@ export default class SortParagraphsParagraph {
     }
     if (params.innerHTML) {
       container.innerHTML = params.innerHTML;
+    }
+    if (params.attributes) {
+      for (let value in params.attributes) {
+        container.setAttribute(value, params.attributes[value]);
+      }
     }
 
     return container;

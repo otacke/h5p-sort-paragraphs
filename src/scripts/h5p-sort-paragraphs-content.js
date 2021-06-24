@@ -15,7 +15,8 @@ export default class SortParagraphsContent {
     this.params = params;
 
     this.callbacks = Util.extend({
-      onInteracted: () => {}
+      onInteracted: () => {},
+      read: () => {}
     }, callbacks);
 
     this.content = document.createElement('div');
@@ -110,6 +111,7 @@ export default class SortParagraphsContent {
    */
   showResults() {
     const results = this.computeResults();
+    this.list.setAttribute('aria-label', this.params.a11y.listDescriptionCheckAnswer);
 
     // Hide buttons
     this.paragraphs.forEach(paragraph => {
@@ -149,6 +151,8 @@ export default class SortParagraphsContent {
    */
   showSolutions() {
     this.hideResults();
+
+    this.list.setAttribute('aria-label', this.params.a11y.listDescriptionShowSolution);
 
     // Move draggables in correct order
     this.paragraphs.forEach((paragraph, index) => {
@@ -295,7 +299,8 @@ export default class SortParagraphsContent {
    */
   buildList(paragraphs) {
     const list = document.createElement('div');
-    list.setAttribute('role', 'listbox');
+    list.setAttribute('role', 'list');
+    list.setAttribute('aria-label', this.params.a11y.listDescription);
     list.classList.add('h5p-sort-paragraphs-list');
 
     paragraphs.forEach((paragraph, index) => {
@@ -367,16 +372,16 @@ export default class SortParagraphsContent {
       cancelled: `${this.params.a11y.reorderCancelled}. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}${this.params.a11y.paragraphText}: @text`,
 
       // Anncouncing results for scoring mode 'positions'
-      resultPositions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. @result. @points.@text`,
+      resultPositions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. @result. @points. ${this.params.a11y.paragraphText}: @text`,
 
       // Anncouncing results for scoring mode 'transitions'
-      resultTransitions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.params.a11y.nextParagraph} @result. @points.@text`,
+      resultTransitions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.params.a11y.nextParagraph} @result. @points. ${this.params.a11y.paragraphText}: @text`,
 
       // Neutral announcement for last draggable for scoring mode 'transitions'
-      neutral: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. @text`,
+      neutral: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.params.a11y.paragraphText}: @text`,
 
       // Anncouncing solution
-      solution: `${this.params.a11y.correctParagraph} ${this.params.a11y.sevenOfNine}. @text`
+      solution: `${this.params.a11y.correctParagraph} ${this.params.a11y.sevenOfNine}. ${this.params.a11y.paragraphText}: @text`
     };
   }
 
@@ -397,8 +402,7 @@ export default class SortParagraphsContent {
     }
 
     if (swapPosition !== undefined) {
-      this.answerGiven = true; // For H5P question type contract.
-      this.callbacks.onInteracted();
+      this.handleInteracted();
 
       // Animate draggables involved for visual feedback
       this.getParagraph(draggable).animate('shake-right');
@@ -459,8 +463,7 @@ export default class SortParagraphsContent {
     // Check whether a draggable has been moved
     const newOrder = this.getDraggablesOrder();
     if (this.oldOrder.some((item, index) => item !== newOrder[index])) {
-      this.answerGiven = true; // For H5P question type contract.
-      this.callbacks.onInteracted();
+      this.handleInteracted();
     }
 
     this.resetDraggables();
@@ -540,8 +543,7 @@ export default class SortParagraphsContent {
     else {
       // Stopped grabbing.
       if (this.undoState && this.undoState.position !== this.getDraggableIndex(draggable)) {
-        this.answerGiven = true; // Moved to different position.
-        this.callbacks.onInteracted();
+        this.handleInteracted();
       }
 
       this.setAriaLabel(draggable, {action: 'dropped'});
@@ -605,8 +607,8 @@ export default class SortParagraphsContent {
     else {
       // Stopped grabbing.
       if (this.selectedDraggable !== null && this.selectedDraggable !== draggable) {
-        this.answerGiven = true; // Moved to different position.
-        this.callbacks.onInteracted();
+        this.handleInteracted();
+
         const draggableTarget = this.selectedDraggable;
 
         // Animate draggables involved for visual feedback
@@ -640,6 +642,8 @@ export default class SortParagraphsContent {
    * Handle user interacted.
    */
   handleInteracted() {
+    this.answerGiven = true; // For H5P question type contract.
+    this.ariaTemplates = this.buildAriaTemplates();
     this.callbacks.onInteracted();
   }
 
@@ -752,6 +756,11 @@ export default class SortParagraphsContent {
 
     // Set ARIA label
     paragraph.setAriaLabel(Util.stripHTML(ariaLabel));
+
+    // ARIA label changed, but that's not a state - will not re-announce
+    if (['grabbed', 'dropped'].indexOf(options.action) !== -1) {
+      this.callbacks.read(Util.stripHTML(ariaLabel));
+    }
   }
 
   /**
@@ -821,7 +830,10 @@ export default class SortParagraphsContent {
    * Reset content.
    */
   reset() {
+    this.list.setAttribute('aria-label', this.params.a11y.listDescription);
+
     this.answerGiven = false;
+    this.ariaTemplates = this.buildAriaTemplates();
 
     this.hideResults();
 

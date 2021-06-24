@@ -125,13 +125,25 @@
           "default": "Usted obtuvo @score de un total de @total puntos"
         },
         {
+          "label": "List description",
+          "default": "Sortable list of paragraphs."
+        },
+        {
+          "label": "List description (check answer)",
+          "default": "List of paragraphs with results."
+        },
+        {
+          "label": "List description (show solution)",
+          "default": "List of paragraphs with solutions."
+        },
+        {
           "label": "Párrafo",
           "default": "Párrafo"
         },
         {
-          "description": "Será seguido por el texto del párrafo actual.",
-          "label": "Texto del párrafo",
-          "default": "Texto del párrafo"
+          "description": "Will be followed by actual paragraph text.",
+          "label": "Texto",
+          "default": "Texto"
         },
         {
           "label": "Correcto",
