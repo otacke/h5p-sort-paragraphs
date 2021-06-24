@@ -95,10 +95,7 @@ export default class SortParagraphsParagraph {
     // Conatainer for paragraph text
     this.containerText = this.buildDIVContainer({
       classText: 'h5p-sort-paragraphs-paragraph-container',
-      innerHTML: this.text,
-      attributes: {
-        'aria-selected': false
-      }
+      innerHTML: this.text
     });
     paragraph.appendChild(this.containerText);
 

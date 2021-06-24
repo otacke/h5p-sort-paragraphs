@@ -754,6 +754,10 @@ export default class SortParagraphsContent {
       .replace('@result', options.result || '')
       .replace('@points.', (options.points) ? `${options.points}. ` : '');
 
+    if (ariaLabel.substr(-1) !== '.') {
+      ariaLabel = `${ariaLabel}.`;
+    }
+
     // Set ARIA label
     paragraph.setAriaLabel(Util.stripHTML(ariaLabel));
 
