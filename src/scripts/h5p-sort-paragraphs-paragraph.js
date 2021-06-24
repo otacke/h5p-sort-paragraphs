@@ -497,6 +497,11 @@ export default class SortParagraphsParagraph {
    * @param {string} ariaLabel Aria label.
    */
   setAriaLabel(ariaLabel) {
+    /*
+     * It may be better to use aria-describedby technically, but the
+     * description is read after the label, and reading a potentially long
+     * paragraph first and only then the position/description feels bad
+     */
     this.content.setAttribute('aria-label', ariaLabel);
   }
 
