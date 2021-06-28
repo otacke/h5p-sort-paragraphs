@@ -326,7 +326,10 @@ export default class SortParagraphsContent {
     const paragraph = new SortParagraphsParagraph(
       {
         text: text,
-        l10n: this.params.l10n
+        l10n: this.params.l10n,
+        options: {
+          addButtonsForMovement: this.params.addButtonsForMovement
+        }
       },
       {
         onMoveUp: (draggable => this.handleDraggableMoved(draggable, 'up')),

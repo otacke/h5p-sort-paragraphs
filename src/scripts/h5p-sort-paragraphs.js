@@ -32,7 +32,8 @@ export default class SortParagraphs extends H5P.Question {
         enableRetry: true,
         scoringMode: 'transitions',
         applyPenalties: true,
-        arrowsPositions: false
+        arrowsPositions: false,
+        addButtonsForMovement: true
       },
       l10n: {
         checkAnswer: 'Check answer',
@@ -101,6 +102,7 @@ export default class SortParagraphs extends H5P.Question {
           paragraphs: this.params.paragraphs,
           taskDescription: this.params.taskDescription,
           showArrows: showArrows,
+          addButtonsForMovement: this.params.behaviour.addButtonsForMovement,
           duplicatesInterchangeable: this.params.behaviour.duplicatesInterchangeable,
           penalties: this.params.behaviour.applyPenalties,
           scoringMode: this.params.behaviour.scoringMode,

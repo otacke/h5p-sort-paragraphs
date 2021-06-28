@@ -68,6 +68,10 @@
           "description": "Si se activa, al comprobar la respuesta, los párrafos duplicados serán tratados como idénticos si sus textos simples son iguales."
         },
         {
+          "label": "Add buttons for movement",
+          "description": "On mobile devices, buttons for moving paragraphs can offer an extra accessibility benefit. If you prefer, you can deactivate them here."
+        },
+        {
           "label": "Habilitar botón \"Reintentar\""
         },
         {

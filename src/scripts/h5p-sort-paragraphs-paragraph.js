@@ -9,6 +9,8 @@ export default class SortParagraphsParagraph {
    * @param {object} params Parameters.
    * @param {string} params.text Paragraph text.
    * @param {object} params.l10n Titles for move buttons.
+   * @param {object} params.options Options.
+   * @param {object} params.options.addButtonsForMovement If true, add buttons.
    * @param {object} callbacks Callback functions.
    * @param {function} [callbacks.onMoveUp] Callback button move up.
    * @param {function} [callbacks.onMoveDown] Callback button move down.
@@ -25,8 +27,7 @@ export default class SortParagraphsParagraph {
    * @param {function} [callbacks.onKeyboardCancel] Callback keyboard cancel.
    */
   constructor(params, callbacks) {
-    this.text = params.text;
-    this.l10n = params.l10n;
+    this.params = params;
 
     this.callbacks = Util.extend({
       onMoveUp: () => {}, // Button up
@@ -51,7 +52,7 @@ export default class SortParagraphsParagraph {
     this.buttons = [];
 
     // Build content
-    this.content = this.buildParagraph(this.text, this.l10n);
+    this.content = this.buildParagraph(this.params.text, this.params.l10n);
 
     // Listener for animation ended
     this.handleAnimationEnded = this.handleAnimationEnded.bind(this);
@@ -83,8 +84,10 @@ export default class SortParagraphsParagraph {
     });
     paragraph.appendChild(containerLeft);
 
-    this.buttons['up'] = this.buildButtonUp();
-    containerLeft.appendChild(this.buttons['up'].getDOM());
+    if (this.params?.options?.addButtonsForMovement) {
+      this.buttons['up'] = this.buildButtonUp();
+      containerLeft.appendChild(this.buttons['up'].getDOM());
+    }
 
     // Container for correct/wrong markers
     this.containerCorrections = this.buildDIVContainer({
@@ -92,10 +95,10 @@ export default class SortParagraphsParagraph {
     });
     containerLeft.appendChild(this.containerCorrections);
 
-    // Conatainer for paragraph text
+    // Container for paragraph text
     this.containerText = this.buildDIVContainer({
       classText: 'h5p-sort-paragraphs-paragraph-container',
-      innerHTML: this.text
+      innerHTML: this.params.text
     });
     paragraph.appendChild(this.containerText);
 
@@ -108,8 +111,10 @@ export default class SortParagraphsParagraph {
     });
     paragraph.appendChild(containerRight);
 
-    this.buttons['down'] = this.buildButtonDown();
-    containerRight.appendChild(this.buttons['down'].getDOM());
+    if (this.params?.options?.addButtonsForMovement) {
+      this.buttons['down'] = this.buildButtonDown();
+      containerRight.appendChild(this.buttons['down'].getDOM());
+    }
 
     // H5P Question score explanations
     this.scoreExplanations = this.buildDIVContainer({
@@ -156,8 +161,8 @@ export default class SortParagraphsParagraph {
     return new Button(
       {
         a11y: {
-          active: this.l10n.up,
-          disabled: this.l10n.disabled
+          active: this.params.l10n.up,
+          disabled: this.params.l10n.disabled
         },
         classes: ['h5p-sort-paragraphs-button', 'h5p-sort-paragraphs-paragraph-button-up']
       },
@@ -177,8 +182,8 @@ export default class SortParagraphsParagraph {
     return new Button(
       {
         a11y: {
-          active: this.l10n.down,
-          disabled: this.l10n.disabled
+          active: this.params.l10n.down,
+          disabled: this.params.l10n.disabled
         },
         classes: ['h5p-sort-paragraphs-button', 'h5p-sort-paragraphs-paragraph-button-down']
       },
@@ -531,8 +536,11 @@ export default class SortParagraphsParagraph {
     }
 
     if (
-      event.target === this.buttons['up'].getDOM() ||
-      event.target === this.buttons['down'].getDOM()
+      this.params.options.addButtonsForMovement &&
+      (
+        event.target === this.buttons['up'].getDOM() ||
+        event.target === this.buttons['down'].getDOM()
+      )
     ) {
       this.content.setAttribute('draggable', true);
     }

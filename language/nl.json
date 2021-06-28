@@ -68,6 +68,10 @@
           "description": "Indien ingesteld, worden bij het controleren van het antwoord dubbele alinea's als identiek behandeld als hun platte tekst gelijk is."
         },
         {
+          "label": "Add buttons for movement",
+          "description": "On mobile devices, buttons for moving paragraphs can offer an extra accessibility benefit. If you prefer, you can deactivate them here."
+        },
+        {
           "label": "Schakel \"Opnieuw\" knop in"
         },
         {

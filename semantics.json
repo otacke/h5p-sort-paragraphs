@@ -177,6 +177,15 @@
         "optional": true
       },
       {
+        "name": "addButtonsForMovement",
+        "label": "Add buttons for movement",
+        "description": "On mobile devices, buttons for moving paragraphs can offer an extra accessibility benefit. If you prefer, you can deactivate them here.",
+        "type": "boolean",
+        "importance": "low",
+        "default": true,
+        "optional": true
+      },
+      {
         "name": "enableRetry",
         "label": "Enable \"Retry\" button",
         "type": "boolean",

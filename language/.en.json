@@ -68,6 +68,10 @@
           "description": "If set, when checking the answer, duplicate paragraphs will be treated as identical if their plain text is equal."
         },
         {
+          "label": "Add buttons for movement",
+          "description": "On mobile devices, buttons for moving paragraphs can offer an extra accessibility benefit. If you prefer, you can deactivate them here."
+        },
+        {
           "label": "Enable \"Retry\" button"
         },
         {
