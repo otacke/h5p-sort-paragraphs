@@ -96,12 +96,6 @@ export default class SortParagraphsParagraph {
       containerLeft.appendChild(this.buttons['up'].getDOM());
     }
 
-    // Container for correct/wrong markers
-    this.containerCorrections = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-corrections'
-    });
-    containerLeft.appendChild(this.containerCorrections);
-
     // Right container for information
     const containerRight = this.buildDIVContainer({
       classText: 'h5p-sort-paragraphs-paragraph-button-container',
@@ -110,6 +104,12 @@ export default class SortParagraphsParagraph {
       }
     });
     paragraph.appendChild(containerRight);
+
+    // Container for correct/wrong markers
+    this.containerCorrections = this.buildDIVContainer({
+      classText: 'h5p-sort-paragraphs-paragraph-corrections'
+    });
+    containerRight.appendChild(this.containerCorrections);
 
     if (this.params?.options?.addButtonsForMovement) {
       this.buttons['down'] = this.buildButtonDown();
