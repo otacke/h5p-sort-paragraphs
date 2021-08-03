@@ -32,7 +32,6 @@ export default class SortParagraphs extends H5P.Question {
         enableRetry: true,
         scoringMode: 'transitions',
         applyPenalties: true,
-        arrowsPositions: false,
         addButtonsForMovement: true
       },
       l10n: {
