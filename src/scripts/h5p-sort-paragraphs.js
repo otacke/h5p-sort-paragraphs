@@ -89,19 +89,10 @@ export default class SortParagraphs extends H5P.Question {
      * Register the DOM elements with H5P.Question
      */
     this.registerDomElements = () => {
-      let showArrows;
-      if (this.params.behaviour.scoringMode === 'positions') {
-        showArrows = this.params.behaviour.arrowsPositions;
-      }
-      else if (this.params.behaviour.scoringMode === 'transitions') {
-        showArrows = true;
-      }
-
       this.content = new SortParagraphsContent(
         {
           paragraphs: this.params.paragraphs,
           taskDescription: this.params.taskDescription,
-          showArrows: showArrows,
           addButtonsForMovement: this.params.behaviour.addButtonsForMovement,
           duplicatesInterchangeable: this.params.behaviour.duplicatesInterchangeable,
           penalties: this.params.behaviour.applyPenalties,

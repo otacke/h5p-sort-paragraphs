@@ -60,10 +60,6 @@
           "description": "Decidir si quiere deducir un punto por cada párrafo que no esté correctamente posicionado."
         },
         {
-          "label": "Mostrar flechas",
-          "description": "Si se activa, los párrafos estarán separados por flechas para indicar el orden"
-        },
-        {
           "label": "Párrafos duplicados intercambiables",
           "description": "Si se activa, al comprobar la respuesta, los párrafos duplicados serán tratados como idénticos si sus textos simples son iguales."
         },

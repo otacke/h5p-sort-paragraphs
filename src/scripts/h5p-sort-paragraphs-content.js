@@ -37,7 +37,6 @@ export default class SortParagraphsContent {
     this.options = {
       scoringMode: params.scoringMode || 'transitions',
       penalties: (typeof params.penalties !== 'boolean') ? true : params.penalties,
-      showArrows: params.showArrows,
       duplicatesInterchangeable: params.duplicatesInterchangeable
     };
 
@@ -60,9 +59,7 @@ export default class SortParagraphsContent {
       if (index === params.paragraphs.length - 2) {
         return;
       }
-      this.separators.push(new SortParagraphsSeparator({
-        hidden: !this.options.showArrows
-      }));
+      this.separators.push(new SortParagraphsSeparator());
     });
 
     // Build list of paragraphs

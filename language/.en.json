@@ -60,10 +60,6 @@
           "description": "Decide whether to deduce a point for each paragraph that's not positioned correctly."
         },
         {
-          "label": "Show arrows",
-          "description": "If checked, the paragraphs will be separated by arrows to indicate the order"
-        },
-        {
           "label": "Duplicate parapraphs interchangeable",
           "description": "If set, when checking the answer, duplicate paragraphs will be treated as identical if their plain text is equal."
         },

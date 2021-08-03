@@ -60,10 +60,6 @@
           "description": "Beslis of je een punt moet aftrekken voor elke paragraaf die niet correct gepositioneerd is."
         },
         {
-          "label": "Toon pijlen",
-          "description": "Indien aangevinkt, worden de paragrafen gescheiden door pijlen om de volgorde aan te geven."
-        },
-        {
           "label": "Uitwisselbaarheid van de gedupliceerde paragrafen",
           "description": "Indien ingesteld, worden bij het controleren van het antwoord dubbele alinea's als identiek behandeld als hun platte tekst gelijk is."
         },

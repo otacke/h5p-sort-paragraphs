@@ -2,16 +2,10 @@
 export default class SortParagraphsSeparator {
   /**
    * @constructor
-   * @param {object} params Parameters.
-   * @param {boolean} [params.hidden] If true, will be hidden on construction.
    */
-  constructor(params) {
+  constructor() {
     // Build content
     this.content = this.buildSeparator();
-
-    if (params.hidden) {
-      this.hide();
-    }
   }
 
   /**
