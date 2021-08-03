@@ -75,9 +75,16 @@ export default class SortParagraphsParagraph {
     paragraph.setAttribute('role', 'listitem');
     paragraph.setAttribute('draggable', true);
 
+    // Container for paragraph text
+    this.containerText = this.buildDIVContainer({
+      classText: 'h5p-sort-paragraphs-paragraph-container',
+      innerHTML: this.params.text
+    });
+    paragraph.appendChild(this.containerText);
+
     // Left container for information
     const containerLeft = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-container-left',
+      classText: 'h5p-sort-paragraphs-paragraph-button-container',
       attributes: {
         'aria-hidden': 'true'
       }
@@ -95,16 +102,9 @@ export default class SortParagraphsParagraph {
     });
     containerLeft.appendChild(this.containerCorrections);
 
-    // Container for paragraph text
-    this.containerText = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-container',
-      innerHTML: this.params.text
-    });
-    paragraph.appendChild(this.containerText);
-
     // Right container for information
     const containerRight = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-container-right',
+      classText: 'h5p-sort-paragraphs-paragraph-button-container',
       attributes: {
         'aria-hidden': 'true'
       }
