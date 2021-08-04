@@ -434,6 +434,10 @@ export default class SortParagraphsContent {
   handleDraggableDragStart(draggable) {
     this.oldOrder = this.getDraggablesOrder();
     this.draggedElement = draggable;
+
+    this.getDraggables().forEach(draggable => {
+      this.getParagraph(draggable).hideButtons();
+    });
   }
 
   /**
@@ -465,6 +469,10 @@ export default class SortParagraphsContent {
     if (this.oldOrder.some((item, index) => item !== newOrder[index])) {
       this.handleInteracted();
     }
+
+    this.getDraggables().forEach(draggable => {
+      this.getParagraph(draggable).showButtons();
+    });
 
     this.resetDraggables();
 

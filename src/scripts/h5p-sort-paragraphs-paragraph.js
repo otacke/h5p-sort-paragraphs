@@ -610,6 +610,8 @@ export default class SortParagraphsParagraph {
       return;
     }
 
+    this.hideButtons();
+
     // Will hide draggable as well without timeout
     setTimeout(() => {
       this.showPlaceholder();
@@ -617,7 +619,6 @@ export default class SortParagraphsParagraph {
     }, 0);
 
     this.toggleEffect('over', true);
-    // this.toggleEffect('ghosted', true);
     event.dataTransfer.effectAllowed = 'move';
 
     this.callbacks.onDragStart(event.currentTarget);
@@ -658,6 +659,8 @@ export default class SortParagraphsParagraph {
   handleDragEnd(event) {
     this.hidePlaceholder();
     this.show();
+
+    this.showButtons();
 
     this.toggleEffect('over', false);
 

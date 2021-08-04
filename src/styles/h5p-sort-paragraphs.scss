@@ -24,12 +24,6 @@
       display: none;
     }
 
-    &:focus:not(.h5p-sort-paragraphs-disabled) {
-      border-color: $color-focus;
-      box-shadow: 0 0 .5em 0 $color-focus;
-      outline: none;
-    }
-
     &.h5p-sort-paragraphs-ghosted {
       opacity: 0.4;
     }
@@ -291,8 +285,16 @@
 }
 
 // Firefox would show focus on clicking a disabled paragraph
-.h5p-content:not(.using-mouse) .h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph.h5p-sort-paragraphs-disabled:focus {
-  border-color: $color-disabled-focus;
-  box-shadow: 0 0 .5em 0 $color-disabled-focus;
-  outline: none;
+.h5p-content:not(.using-mouse) .h5p-sort-paragraphs {
+  .h5p-sort-paragraphs-paragraph.h5p-sort-paragraphs-disabled:focus {
+    border-color: $color-disabled-focus;
+    box-shadow: 0 0 .5em 0 $color-disabled-focus;
+    outline: none;
+  }
+
+  .h5p-sort-paragraphs-paragraph:not(.h5p-sort-paragraphs-disabled):focus {
+    border-color: $color-focus;
+    box-shadow: 0 0 .5em 0 $color-focus;
+    outline: none;
+  }
 }
