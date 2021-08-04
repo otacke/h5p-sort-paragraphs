@@ -277,52 +277,27 @@ export default class SortParagraphsParagraph {
 
     // Drag start
     paragraph.addEventListener('dragstart', event => {
-      if (this.disabled) {
-        return;
-      }
-
-      // Will hide draggable as well without timeout
-      setTimeout(() => {
-        this.showPlaceholder();
-        this.hide();
-      }, 0);
-
-      this.toggleEffect('over', true);
-      // this.toggleEffect('ghosted', true);
-      event.dataTransfer.effectAllowed = 'move';
-
-      this.callbacks.onDragStart(event.currentTarget);
+      this.handleDragStart(event);
     });
 
     // Drag over
     paragraph.addEventListener('dragover', event => {
-      event.preventDefault();
+      this.handleDragOver(event);
     });
 
     // Drag enter
     paragraph.addEventListener('dragenter', event => {
-
-      this.callbacks.onDragEnter(event.currentTarget);
+      this.handleDragEnter(event);
     });
 
     // Drag leave
     paragraph.addEventListener('dragleave', event => {
-      if (paragraph !== event.target || paragraph.contains(event.fromElement)) {
-        return;
-      }
-
-      this.callbacks.onDragLeave(event.currentTarget);
+      this.handleDragLeave(event);
     });
 
     // Drag end
     paragraph.addEventListener('dragend', (event) => {
-      this.hidePlaceholder();
-      this.show();
-
-      this.toggleEffect('over', false);
-      // this.toggleEffect('ghosted', false);
-
-      this.callbacks.onDragEnd(event.currentTarget);
+      this.handleDragEnd(event);
     });
 
     // Prevent visual dragging mode on mobile
@@ -624,5 +599,68 @@ export default class SortParagraphsParagraph {
     this.content.removeEventListener('animationend', this.handleAnimationEnded);
     this.content.classList.remove(`h5p-sort-paragraphs-animate-${this.animationStyle}`);
     this.isAnimating = false;
+  }
+
+  /**
+   * Handle drag start.
+   * @param {Event} event Event.
+   */
+  handleDragStart(event) {
+    if (this.disabled) {
+      return;
+    }
+
+    // Will hide draggable as well without timeout
+    setTimeout(() => {
+      this.showPlaceholder();
+      this.hide();
+    }, 0);
+
+    this.toggleEffect('over', true);
+    // this.toggleEffect('ghosted', true);
+    event.dataTransfer.effectAllowed = 'move';
+
+    this.callbacks.onDragStart(event.currentTarget);
+  }
+
+  /**
+   * Handle drag over.
+   * @param {Event} event Event.
+   */
+  handleDragOver(event) {
+    event.preventDefault();
+  }
+
+  /**
+   * Handle drag enter.
+   * @param {Event} event Event.
+   */
+  handleDragEnter(event) {
+    this.callbacks.onDragEnter(event.currentTarget);
+  }
+
+  /**
+   * Handle drag leave.
+   * @param {Event} event Event.
+   */
+  handleDragLeave(event) {
+    if (this.content !== event.target || this.content.contains(event.fromElement)) {
+      return;
+    }
+
+    this.callbacks.onDragLeave(event.currentTarget);
+  }
+
+  /**
+   * Handle drag end.
+   * @param {Event} event Event.
+   */
+  handleDragEnd(event) {
+    this.hidePlaceholder();
+    this.show();
+
+    this.toggleEffect('over', false);
+
+    this.callbacks.onDragEnd(event.currentTarget);
   }
 }

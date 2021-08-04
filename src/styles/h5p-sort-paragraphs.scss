@@ -3,8 +3,10 @@
 .h5p-sort-paragraphs {
   .h5p-sort-paragraphs-paragraph {
     background-color: $color-enabled;
-    border: .25em solid transparent;
+    border-color: transparent;
     border-radius: .3em;
+    border-style: solid;
+    border-width: .25em;
     box-shadow: 0 0.1em 0 $color-box-shadow-regular;
     cursor: move;
     display: flex;
@@ -34,7 +36,7 @@
 
     &.h5p-sort-paragraphs-disabled {
       background-color: $color-disabled;
-      border: .1em solid $color-disabled;
+      border-color: $color-disabled;
       color: $color-disabled-text;
       cursor: auto;
     }
@@ -45,9 +47,9 @@
 
     &.h5p-sort-paragraphs-over, &.h5p-sort-paragraphs-selected {
       background: $color-over;
+      border-color: #0825ff;
       box-shadow: 0 0.1em 0 #b1c5e0;
       color: $color-over-text;
-      border: 0.25em solid #0825ff;
     }
 
     &.h5p-sort-paragraphs-animate-shake-left {
@@ -282,7 +284,7 @@
 
   .h5p-sort-paragraphs-paragraph-placeholder {
     background-color: #c7ceff;
-    border: 0.25em dashed #042cff;
+    border: .25em dashed #042cff;
     border-radius: .3em;
     box-sizing: border-box;
   }
