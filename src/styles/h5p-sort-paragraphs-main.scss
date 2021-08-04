@@ -2,9 +2,9 @@ $color-box-shadow-regular: rgba(0, 0, 0, 0.3);
 
 $color-active: #e6f1fa;
 $color-hover: #f2f8fd;
-$color-focus: #7fb8ff;
-$color-over: #e9edfe; // #cee0f4;
-$color-over-text: #6774ff; // #1a4473;
+$color-over: #e9edfe;
+$color-over-text: #6774ff;
+$color-focus: $color-over-text;
 $color-enabled: #eee;
 $color-disabled: #ccc;
 $color-disabled-text: #505050;
