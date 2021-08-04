@@ -48,6 +48,9 @@ export default class SortParagraphsParagraph {
     // Selected state
     this.selected = false;
 
+    // Shown state
+    this.shown = true;
+
     // Buttons
     this.buttons = [];
 
@@ -56,6 +59,10 @@ export default class SortParagraphsParagraph {
 
     // Listener for animation ended
     this.handleAnimationEnded = this.handleAnimationEnded.bind(this);
+
+    // Placeholder to show when dragging
+    this.placeholder = document.createElement('div');
+    this.placeholder.classList.add('h5p-sort-paragraphs-paragraph-placeholder');
   }
 
   /**
@@ -274,8 +281,14 @@ export default class SortParagraphsParagraph {
         return;
       }
 
+      // Will hide draggable as well without timeout
+      setTimeout(() => {
+        this.showPlaceholder();
+        this.hide();
+      }, 0);
+
       this.toggleEffect('over', true);
-      this.toggleEffect('ghosted', true);
+      // this.toggleEffect('ghosted', true);
       event.dataTransfer.effectAllowed = 'move';
 
       this.callbacks.onDragStart(event.currentTarget);
@@ -303,8 +316,11 @@ export default class SortParagraphsParagraph {
 
     // Drag end
     paragraph.addEventListener('dragend', (event) => {
+      this.hidePlaceholder();
+      this.show();
+
       this.toggleEffect('over', false);
-      this.toggleEffect('ghosted', false);
+      // this.toggleEffect('ghosted', false);
 
       this.callbacks.onDragEnd(event.currentTarget);
     });
@@ -326,6 +342,58 @@ export default class SortParagraphsParagraph {
 
       paragraph.setAttribute('draggable', true);
     });
+  }
+
+  /**
+   * Show placeholder. Draggable must be visible, or width/height = 0
+   */
+  showPlaceholder() {
+    if (!this.isShown()) {
+      return;
+    }
+
+    this.placeholder.style.width = `${this.content.offsetWidth}px`;
+    this.placeholder.style.height = `${this.content.offsetHeight}px`;
+
+    this.attachPlaceholder();
+  }
+
+  /**
+   * Attach placeholder.
+   */
+  attachPlaceholder() {
+    this.content.parentNode.insertBefore(this.placeholder, this.content.nextSibling);
+  }
+
+  /**
+   * Hide placeholder.
+   */
+  hidePlaceholder() {
+    this.placeholder.parentNode.removeChild(this.placeholder);
+  }
+
+  /**
+   * Show paragraph.
+   */
+  show() {
+    this.content.classList.remove('h5p-sort-paragraphs-no-display');
+    this.shown = true;
+  }
+
+  /**
+   * Hide paragraph.
+   */
+  hide() {
+    this.content.classList.add('h5p-sort-paragraphs-no-display');
+    this.shown = false;
+  }
+
+  /**
+   * Determine whether paragraph is shown.
+   * @return {boolean} True, if paragraph is shown.
+   */
+  isShown() {
+    return this.shown;
   }
 
   /**

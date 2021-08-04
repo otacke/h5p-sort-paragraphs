@@ -445,8 +445,8 @@ export default class SortParagraphsContent {
     // Swap dragged draggable and draggable that's dragged to if not identical
     if (this.dropzoneElement && this.draggedElement !== this.dropzoneElement) {
       Util.swapDOMElements(this.draggedElement, this.dropzoneElement);
+      this.getParagraph(this.draggedElement).attachPlaceholder();
     }
-
   }
 
   /**
@@ -587,9 +587,13 @@ export default class SortParagraphsContent {
 
   /**
    * Handle user grabbed/ungrabbed a draggable.
+   * @param {HTMLElement} draggable Draggable that was grabbed/ungrabbed.
    */
-  handleDraggableMouseDown() {
+  handleDraggableMouseDown(draggable) {
     this.isMouseDownOnDraggable = true;
+
+    const paragraph = this.getParagraph(draggable);
+    paragraph.toggleEffect('selected', true);
   }
 
   /**

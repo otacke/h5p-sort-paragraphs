@@ -3,7 +3,7 @@
 .h5p-sort-paragraphs {
   .h5p-sort-paragraphs-paragraph {
     background-color: $color-enabled;
-    border: .1em solid transparent;
+    border: .25em solid transparent;
     border-radius: .3em;
     box-shadow: 0 0.1em 0 $color-box-shadow-regular;
     cursor: move;
@@ -17,6 +17,10 @@
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     word-break: break-word;
+
+    &.h5p-sort-paragraphs-no-display {
+      display: none;
+    }
 
     &:focus:not(.h5p-sort-paragraphs-disabled) {
       border-color: $color-focus;
@@ -43,6 +47,7 @@
       background: $color-over;
       box-shadow: 0 0.1em 0 #b1c5e0;
       color: $color-over-text;
+      border: 0.25em solid #0825ff;
     }
 
     &.h5p-sort-paragraphs-animate-shake-left {
@@ -273,6 +278,13 @@
       top: -0.49em;
       left: calc(100% - 3.5em);
     }
+  }
+
+  .h5p-sort-paragraphs-paragraph-placeholder {
+    background-color: #c7ceff;
+    border: 0.25em dashed #042cff;
+    border-radius: .3em;
+    box-sizing: border-box;
   }
 }
 
