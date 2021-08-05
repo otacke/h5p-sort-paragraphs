@@ -57,8 +57,7 @@ export default class SortParagraphsParagraph {
     // Build content
     this.content = this.buildParagraph(this.params.text, this.params.l10n);
 
-    // Listener for animation ended
-    this.handleAnimationEnded = this.handleAnimationEnded.bind(this);
+    this.handleTranslationEnded = this.handleTranslationEnded.bind(this);
 
     // Placeholder to show when dragging
     this.placeholder = document.createElement('div');
@@ -431,20 +430,6 @@ export default class SortParagraphsParagraph {
   }
 
   /**
-   * Animate paragraph.
-   * @param {string} style Animation style.
-   */
-  animate(style) {
-    if (this.isAnimating) {
-      return;
-    }
-
-    this.animationStyle = style;
-    this.content.addEventListener('animationend', this.handleAnimationEnded);
-    this.content.classList.add(`h5p-sort-paragraphs-animate-${this.animationStyle}`);
-  }
-
-  /**
    * Get paragraph's HTML text.
    * @return {string} HTML text.
    */
@@ -541,6 +526,25 @@ export default class SortParagraphsParagraph {
   }
 
   /**
+   * Translate by offset with animation.
+   * @param {object} offset Offset.
+   * @param {number} [offset.x] X offset.
+   * @param {number} [offset.y] Y offset.
+   */
+  translate(offset = {}) {
+    if (typeof offset.x === 'number' || typeof offset.y === 'number') {
+      this.content.classList.add('animate-translation');
+      setTimeout(() => {
+        this.content.style.transform = `translate(${offset.x || 0}px, ${offset.y || 0}px)`;
+      }, 0);
+    }
+    else {
+      this.content.classList.remove('animate-translation');
+      this.content.style.transform = '';
+    }
+  }
+
+  /**
    * Set aria label.
    * @param {string} ariaLabel Aria label.
    */
@@ -590,15 +594,6 @@ export default class SortParagraphsParagraph {
     else {
       this.callbacks[callbackName](event.currentTarget);
     }
-  }
-
-  /**
-   * Handle animation ended.
-   */
-  handleAnimationEnded() {
-    this.content.removeEventListener('animationend', this.handleAnimationEnded);
-    this.content.classList.remove(`h5p-sort-paragraphs-animate-${this.animationStyle}`);
-    this.isAnimating = false;
   }
 
   /**

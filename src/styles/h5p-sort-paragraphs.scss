@@ -20,6 +20,11 @@
     -webkit-user-select: none;
     word-break: break-word;
 
+    &.animate-translation {
+      cursor: auto;
+      transition: transform .5s ease-in-out;
+    }
+
     &.h5p-sort-paragraphs-no-display {
       display: none;
     }
@@ -29,9 +34,6 @@
     }
 
     &.h5p-sort-paragraphs-disabled {
-      background-color: $color-disabled;
-      border-color: $color-disabled;
-      color: $color-disabled-text;
       cursor: auto;
     }
 
@@ -46,48 +48,59 @@
       color: $color-over-text;
     }
 
-    &.h5p-sort-paragraphs-animate-shake-left {
-      animation: shake-left;
-      animation-duration: 0.5s;
+    .h5p-sort-paragraphs-paragraph-corrections {
+      font-size: 1.5em;
+      padding-top: 0.5em;
     }
 
-    @keyframes shake-left {
-      from,
-      to {
-        transform: translate3d(0, 0, 0);
+    &.h5p-sort-paragraphs-correct {
+      background: $color-correct-light;
+      border-color: $color-correct-light;
+      box-shadow: 0 0.1em 0 $color-correct-box-shadow;
+      color: $color-correct-dark;
+
+      .h5p-sort-paragraphs-paragraph-corrections::before {
+        content: $icon-correct;
+        font-family: 'H5PFontAwesome4';
       }
 
-      25%,
-      75%
-      {
-        transform: translate3d(-0.5em, 0, 0);
-      }
-
-      50% {
-        transform: translate3d(0.5em, 0, 0);
+      .h5p-sort-paragraphs-paragraph-button-container {
+        justify-content: flex-end;
       }
     }
 
-    &.h5p-sort-paragraphs-animate-shake-right {
-      animation: shake-right;
-      animation-duration: 0.5s;
+    &.h5p-sort-paragraphs-wrong {
+      background: $color-wrong-light;
+      border-color: $color-wrong-light;
+      box-shadow: 0 0.1em 0 $color-wrong-box-shadow;
+      color: $color-wrong-dark;
+
+      .h5p-sort-paragraphs-paragraph-corrections::before {
+        content: $icon-wrong;
+        font-family: 'H5PFontAwesome4';
+      }
+
+      .h5p-sort-paragraphs-paragraph-button-container {
+        justify-content: flex-end;
+      }
     }
 
-    @keyframes shake-right {
-      from,
-      to {
-        transform: translate3d(0, 0, 0);
-      }
+    &.h5p-sort-paragraphs-solution .h5p-sort-paragraphs-paragraph-corrections::before {
+      color: $color-disabled-text;
+      content: '\f06e';
+      font-family: 'H5PFontAwesome4';
+    }
 
-      25%,
-      75%
-      {
-        transform: translate3d(0.5em, 0, 0);
-      }
+    &.h5p-sort-paragraphs-disabled:not(.animate-translation):not(.h5p-sort-paragraphs-wrong):not(.h5p-sort-paragraphs-correct) {
+      background-color: $color-disabled;
+      border-color: $color-disabled;
+      color: $color-disabled-text;
+    }
 
-      50% {
-        transform: translate3d(-0.5em, 0, 0);
-      }
+    &.h5p-sort-paragraphs-disabled.h5p-sort-paragraphs-solution {
+      background-color: $color-disabled;
+      border-color: $color-disabled;
+      color: $color-disabled-text;
     }
   }
 
@@ -157,51 +170,6 @@
     font-family: 'H5PFontAwesome4';
     content: $icon-button-down;
     font-size: 1.5em;
-  }
-
-  .h5p-sort-paragraphs-paragraph {
-    .h5p-sort-paragraphs-paragraph-corrections {
-      font-size: 1.5em;
-      padding-top: 0.5em;
-    }
-
-    &.h5p-sort-paragraphs-correct {
-      background: $color-correct-light;
-      border-color: $color-correct-light;
-      box-shadow: 0 0.1em 0 $color-correct-box-shadow;
-      color: $color-correct-dark;
-
-      .h5p-sort-paragraphs-paragraph-corrections::before {
-        content: $icon-correct;
-        font-family: 'H5PFontAwesome4';
-      }
-
-      .h5p-sort-paragraphs-paragraph-button-container {
-        justify-content: flex-end;
-      }
-    }
-
-    &.h5p-sort-paragraphs-wrong {
-      background: $color-wrong-light;
-      border-color: $color-wrong-light;
-      box-shadow: 0 0.1em 0 $color-wrong-box-shadow;
-      color: $color-wrong-dark;
-
-      .h5p-sort-paragraphs-paragraph-corrections::before {
-        content: $icon-wrong;
-        font-family: 'H5PFontAwesome4';
-      }
-
-      .h5p-sort-paragraphs-paragraph-button-container {
-        justify-content: flex-end;
-      }
-    }
-
-    &.h5p-sort-paragraphs-solution .h5p-sort-paragraphs-paragraph-corrections::before {
-      color: $color-disabled-text;
-      content: '\f06e';
-      font-family: 'H5PFontAwesome4';
-    }
   }
 
   .h5p-sort-paragraphs-paragraph-container {

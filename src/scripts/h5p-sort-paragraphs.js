@@ -78,9 +78,6 @@ export default class SortParagraphs extends H5P.Question {
     const defaultLanguage = (extras && extras.metadata) ? extras.metadata.defaultLanguage || 'en' : 'en';
     this.languageTag = Util.formatLanguageCode(defaultLanguage);
 
-    // Current user view
-    this.viewState = 'task';
-
     // this.previousState now holds the saved content state of the previous session
     this.previousState = (this.extras.previousState && this.extras.previousState.order) || null;
 
@@ -115,13 +112,16 @@ export default class SortParagraphs extends H5P.Question {
         }
       );
 
+      // Current user view
+      this.setViewState('task');
+
       // Register content with H5P.Question
       this.setContent(this.content.getDOM());
 
       if (this.previousState !== null && (this.previousState.view === 'results' || this.previousState.view === 'solutions')) {
         // Need to wait until DOM is ready for us
         H5P.externalDispatcher.on('initialized', () => {
-          this.viewState = 'results';
+          this.setViewState('results');
           this.checkAnswer();
         });
       }
@@ -195,7 +195,7 @@ export default class SortParagraphs extends H5P.Question {
      * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-4}
      */
     this.showSolutions = () => {
-      this.viewState = 'solutions';
+      this.setViewState('solutions');
       this.content.showSolutions();
       this.trigger('resize');
     };
@@ -207,7 +207,7 @@ export default class SortParagraphs extends H5P.Question {
     this.resetTask = () => {
       this.removeFeedback();
       this.content.reset();
-      this.viewState = 'task';
+      this.setViewState('task');
       this.trigger('resize');
     };
 
@@ -328,7 +328,7 @@ export default class SortParagraphs extends H5P.Question {
         this.trigger(this.createXAPIEvent('completed')); // Store state
       }
 
-      this.viewState = 'results';
+      this.setViewState('results');
     };
 
     /**
@@ -376,7 +376,23 @@ export default class SortParagraphs extends H5P.Question {
       this.triggerXAPI('interacted');
     };
   }
+
+  /**
+   * Set view state.
+   * @param {string} state View state.
+   */
+  setViewState(state) {
+    if (SortParagraphs.VIEW_STATES.indexOf(state) === -1) {
+      return;
+    }
+
+    this.viewState = state;
+    this.content.setViewState(state, SortParagraphs.VIEW_STATES);
+  }
 }
 
 /** @constant {string} */
 SortParagraphs.DEFAULT_DESCRIPTION = 'SortParagraphs';
+
+/** @constant {string[]} view state names*/
+SortParagraphs.VIEW_STATES = ['task', 'results', 'solutions'];
