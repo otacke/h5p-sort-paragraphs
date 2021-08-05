@@ -57,8 +57,6 @@ export default class SortParagraphsParagraph {
     // Build content
     this.content = this.buildParagraph(this.params.text, this.params.l10n);
 
-    this.handleTranslationEnded = this.handleTranslationEnded.bind(this);
-
     // Placeholder to show when dragging
     this.placeholder = document.createElement('div');
     this.placeholder.classList.add('h5p-sort-paragraphs-paragraph-placeholder');
