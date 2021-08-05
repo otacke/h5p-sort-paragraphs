@@ -154,22 +154,24 @@ export default class SortParagraphsContent {
 
     this.list.setAttribute('aria-label', this.params.a11y.listDescriptionShowSolution);
 
+    this.paragraphs.forEach((paragraph) => {
+      paragraph.toggleEffect('solution', true);
+    });
+
     // Move draggables in correct order
     this.paragraphs.forEach((paragraph, index) => {
-      paragraph.toggleEffect('solution', true);
-
       const draggables = this.getDraggables();
       const position = draggables.indexOf(paragraph.getDOM());
 
       if (position !== index) {
-        this.swapDOMElements(draggables[index], draggables[position], () => {
-          this.resetAriaLabels();
-          this.resetDraggablesTabIndex();
-          this.getDraggables().forEach(draggable => {
-            this.setAriaLabel(draggable, {action: 'solution'});
-          });
-        });
+        Util.swapDOMElements(draggables[index], draggables[position]);
       }
+    });
+
+    this.resetAriaLabels();
+    this.resetDraggablesTabIndex();
+    this.getDraggables().forEach(draggable => {
+      this.setAriaLabel(draggable, {action: 'solution'});
     });
   }
 
