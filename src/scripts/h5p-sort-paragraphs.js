@@ -80,301 +80,309 @@ export default class SortParagraphs extends H5P.Question {
 
     // this.previousState now holds the saved content state of the previous session
     this.previousState = (this.extras.previousState && this.extras.previousState.order) || null;
+  }
 
-    /**
-     * Register the DOM elements with H5P.Question
-     */
-    this.registerDomElements = () => {
-      this.content = new SortParagraphsContent(
-        {
-          paragraphs: this.params.paragraphs,
-          taskDescription: this.params.taskDescription,
-          addButtonsForMovement: this.params.behaviour.addButtonsForMovement,
-          duplicatesInterchangeable: this.params.behaviour.duplicatesInterchangeable,
-          penalties: this.params.behaviour.applyPenalties,
-          scoringMode: this.params.behaviour.scoringMode,
-          previousState: this.previousState,
-          a11y: this.params.a11y,
-          l10n: {
-            up: this.params.l10n.up,
-            down: this.params.l10n.down,
-            disabled: this.params.l10n.disabled
-          }
-        },
-        {
-          onInteracted: () => {
-            this.handleInteracted();
-          },
-          read: (text) => {
-            // Using H5P.Question to let screen reader read text
-            this.read(text);
-          }
+  /**
+   * Register the DOM elements with H5P.Question
+   */
+  registerDomElements() {
+    this.content = new SortParagraphsContent(
+      {
+        paragraphs: this.params.paragraphs,
+        taskDescription: this.params.taskDescription,
+        addButtonsForMovement: this.params.behaviour.addButtonsForMovement,
+        duplicatesInterchangeable: this.params.behaviour.duplicatesInterchangeable,
+        penalties: this.params.behaviour.applyPenalties,
+        scoringMode: this.params.behaviour.scoringMode,
+        previousState: this.previousState,
+        a11y: this.params.a11y,
+        l10n: {
+          up: this.params.l10n.up,
+          down: this.params.l10n.down,
+          disabled: this.params.l10n.disabled
         }
-      );
-
-      // Current user view
-      this.setViewState('task');
-
-      // Register content with H5P.Question
-      this.setContent(this.content.getDOM());
-
-      if (this.previousState !== null && (this.previousState.view === 'results' || this.previousState.view === 'solutions')) {
-        // Need to wait until DOM is ready for us
-        H5P.externalDispatcher.on('initialized', () => {
-          this.setViewState('results');
-          this.checkAnswer();
-        });
+      },
+      {
+        onInteracted: () => {
+          this.handleInteracted();
+        },
+        read: (text) => {
+          // Using H5P.Question to let screen reader read text
+          this.read(text);
+        }
       }
+    );
 
-      // Register Buttons
-      this.addButtons();
+    // Current user view
+    this.setViewState('task');
 
-      this.trigger('resize');
-    };
+    // Register content with H5P.Question
+    this.setContent(this.content.getDOM());
 
-    /**
-     * Add all the buttons that shall be passed to H5P.Question.
-     */
-    this.addButtons = () => {
-      // Check answer button
-      this.addButton('check-answer', this.params.l10n.checkAnswer, () => {
+    if (this.previousState !== null && (this.previousState.view === 'results' || this.previousState.view === 'solutions')) {
+      // Need to wait until DOM is ready for us
+      H5P.externalDispatcher.on('initialized', () => {
+        this.setViewState('results');
         this.checkAnswer();
-      }, true, {
-        'aria-label': this.params.a11y.check
-      }, {});
+      });
+    }
 
-      // Show solution button
-      this.addButton('show-solution', this.params.l10n.showSolution, () => {
-        this.hideButton('show-solution');
-        this.showSolutions();
-      }, false, {
-        'aria-label': this.params.a11y.showSolution
-      }, {});
+    // Register Buttons
+    this.addButtons();
 
-      // Retry button
-      this.addButton('try-again', this.params.l10n.tryAgain, () => {
-        this.showButton('check-answer');
-        this.hideButton('show-solution');
-        this.hideButton('try-again');
+    this.trigger('resize');
+  }
 
-        this.resetTask();
+  /**
+   * Add all the buttons that shall be passed to H5P.Question.
+   */
+  addButtons() {
+    // Check answer button
+    this.addButton('check-answer', this.params.l10n.checkAnswer, () => {
+      this.checkAnswer();
+    }, true, {
+      'aria-label': this.params.a11y.check
+    }, {});
 
-        this.trigger('resize');
-      }, false, {
-        'aria-label': this.params.a11y.retry
-      }, {});
-    };
+    // Show solution button
+    this.addButton('show-solution', this.params.l10n.showSolution, () => {
+      this.hideButton('show-solution');
+      this.showSolutions();
+    }, false, {
+      'aria-label': this.params.a11y.showSolution
+    }, {});
 
-    /**
-     * Check if result has been submitted or input has been given.
-     * @return {boolean} True, if answer was given.
-     * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-1}
-     */
-    this.getAnswerGiven = () => this.content.isAnswerGiven();
+    // Retry button
+    this.addButton('try-again', this.params.l10n.tryAgain, () => {
+      this.showButton('check-answer');
+      this.hideButton('show-solution');
+      this.hideButton('try-again');
 
-    /**
-     * Get latest score.
-     * @return {number} latest score.
-     * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-2}
-     */
-    this.getScore = () => (this.content.computeResults()).score;
+      this.resetTask();
 
-    /**
-     * Get maximum possible score.
-     * @return {number} Score necessary for mastering.
-     * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-3}
-     */
-    this.getMaxScore = () => {
-      const length = this.params.paragraphs.length;
-      // For transitions mode, cound number of paragraph transitions
-      return (this.params.behaviour.scoringMode === 'positions') ? length : length - 1;
-    };
-
-    /**
-     * Show solutions.
-     * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-4}
-     */
-    this.showSolutions = () => {
-      this.setViewState('solutions');
-      this.content.showSolutions();
       this.trigger('resize');
-    };
+    }, false, {
+      'aria-label': this.params.a11y.retry
+    }, {});
+  }
 
-    /**
-     * Reset task.
-     * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-5}
-     */
-    this.resetTask = () => {
-      this.removeFeedback();
-      this.content.reset();
-      this.setViewState('task');
-      this.trigger('resize');
-    };
+  /**
+   * Check if result has been submitted or input has been given.
+   * @return {boolean} True, if answer was given.
+   * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-1}
+   */
+  getAnswerGiven() {
+    return this.content.isAnswerGiven();
+  }
 
-    /**
-     * Get xAPI data.
-     * @return {object} XAPI statement.
-     * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-6}
-     */
-    this.getXAPIData = () => ({
-      statement: this.getXAPIAnswerEvent().data.statement
+  /**
+   * Get latest score.
+   * @return {number} latest score.
+   * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-2}
+   */
+  getScore() {
+    return (this.content.computeResults()).score;
+  }
+
+  /**
+   * Get maximum possible score.
+   * @return {number} Score necessary for mastering.
+   * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-3}
+   */
+  getMaxScore() {
+    const length = this.params.paragraphs.length;
+    // For transitions mode, cound number of paragraph transitions
+    return (this.params.behaviour.scoringMode === 'positions') ? length : length - 1;
+  }
+
+  /**
+   * Show solutions.
+   * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-4}
+   */
+  showSolutions() {
+    this.setViewState('solutions');
+    this.content.showSolutions();
+    this.trigger('resize');
+  }
+
+  /**
+   * Reset task.
+   * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-5}
+   */
+  resetTask() {
+    this.removeFeedback();
+    this.content.reset();
+    this.setViewState('task');
+    this.trigger('resize');
+  }
+
+  /**
+   * Get xAPI data.
+   * @return {object} XAPI statement.
+   * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-6}
+   */
+  getXAPIData() {
+    return { statement: this.getXAPIAnswerEvent().data.statement };
+  }
+
+  /**
+   * Build xAPI answer event.
+   * @return {H5P.XAPIEvent} XAPI answer event.
+   */
+  getXAPIAnswerEvent() {
+    const xAPIEvent = this.createXAPIEvent('answered');
+
+    xAPIEvent.setScoredResult(this.getScore(), this.getMaxScore(), this,
+      true, this.isPassed());
+
+    xAPIEvent.data.statement.result.response = this.content.getDraggablesOrder().join('[,]');
+
+    return xAPIEvent;
+  }
+
+  /**
+   * Create an xAPI event.
+   * @param {string} verb Short id of the verb we want to trigger.
+   * @return {H5P.XAPIEvent} Event template.
+   */
+  createXAPIEvent(verb) {
+    const xAPIEvent = this.createXAPIEventTemplate(verb);
+    Util.extend(
+      xAPIEvent.getVerifiedStatementValue(['object', 'definition']),
+      this.getxAPIDefinition());
+    return xAPIEvent;
+  }
+
+  /**
+   * Get the xAPI definition for the xAPI object.
+   * @return {object} XAPI definition.
+   */
+  getxAPIDefinition() {
+    const definition = {};
+    definition.name = {};
+    definition.name[this.languageTag] = this.getTitle();
+    // Fallback for h5p-php-reporting, expects en-US
+    definition.name['en-US'] = definition.name[this.languageTag];
+    definition.description = {};
+    definition.description[this.languageTag] = Util.stripHTML(this.getDescription());
+    // Fallback for h5p-php-reporting, expects en-US
+    definition.description['en-US'] = definition.description[this.languageTag];
+    definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
+    definition.interactionType = 'sequencing';
+    definition.correctResponsesPattern = [];
+    this.params.paragraphs.forEach((paragraph, index) => {
+      definition.correctResponsesPattern.push(index);
+    });
+    definition.correctResponsesPattern = definition.correctResponsesPattern.join('[,]');
+    definition.choices = this.params.paragraphs.map((paragraph, index) => {
+      paragraph = Util.stripHTML(paragraph);
+
+      const choicesDescription = {};
+      choicesDescription[this.languageTag] = paragraph;
+      // Fallback for h5p-php-reporting, expects en-US
+      choicesDescription['en-US'] = choicesDescription[this.languageTag];
+
+      return {
+        id: index,
+        description: choicesDescription
+      };
     });
 
-    /**
-     * Build xAPI answer event.
-     * @return {H5P.XAPIEvent} XAPI answer event.
-     */
-    this.getXAPIAnswerEvent = () => {
-      const xAPIEvent = this.createXAPIEvent('answered');
+    return definition;
+  }
 
-      xAPIEvent.setScoredResult(this.getScore(), this.getMaxScore(), this,
-        true, this.isPassed());
+  /**
+   * Check answer.
+   */
+  checkAnswer() {
+    this.content.disable();
 
-      xAPIEvent.data.statement.result.response = this.content.getDraggablesOrder().join('[,]');
+    this.hideButton('check-answer');
 
-      return xAPIEvent;
+    if (this.params.behaviour.enableSolutionsButton && this.getScore() !== this.getMaxScore()) {
+      this.showButton('show-solution');
+    }
+
+    if (this.params.behaviour.enableRetry) {
+      this.showButton('try-again');
+    }
+
+    this.content.showResults();
+
+    const score = this.getScore();
+    const maxScore = this.getMaxScore();
+
+    const textScore = H5P.Question.determineOverallFeedback(
+      this.params.overallFeedback, score / maxScore);
+
+    // Output via H5P.Question - expects :num and :total
+    const ariaMessage = this.params.a11y.yourResult
+      .replace('@score', ':num')
+      .replace('@total', ':total');
+
+    this.setFeedback(
+      textScore.trim(),
+      score,
+      maxScore,
+      ariaMessage
+    );
+
+    if (this.viewState === 'task') {
+      // checkAnswer was mot triggered to recreate previous state
+      this.trigger(this.getXAPIAnswerEvent());
+      this.trigger(this.createXAPIEvent('completed')); // Store state
+    }
+
+    this.setViewState('results');
+  }
+
+  /**
+   * Determine whether the task has been passed by the user.
+   * @return {boolean} True if user passed or task is not scored.
+   */
+  isPassed() {
+    return this.getScore() >= this.getMaxScore();
+  }
+
+  /**
+   * Get task title.
+   * @return {string} Title.
+   */
+  getTitle() {
+    let raw;
+    if (this.extras.metadata) {
+      raw = this.extras.metadata.title;
+    }
+    raw = raw || SortParagraphs.DEFAULT_DESCRIPTION;
+
+    // H5P Core function: createTitle
+    return H5P.createTitle(raw);
+  }
+
+  /**
+   * Get task description.
+   * @return {string} Description.
+   */
+  getDescription() {
+    return this.params.taskDescription || SortParagraphs.DEFAULT_DESCRIPTION;
+  }
+
+  /**
+   * Answer call to return the current state.
+   * @return {object} Current state.
+   */
+  getCurrentState() {
+    return {
+      order: this.content.getDraggablesOrder(),
+      view: this.viewState
     };
+  }
 
-    /**
-     * Create an xAPI event.
-     * @param {string} verb Short id of the verb we want to trigger.
-     * @return {H5P.XAPIEvent} Event template.
-     */
-    this.createXAPIEvent = (verb) => {
-      const xAPIEvent = this.createXAPIEventTemplate(verb);
-      Util.extend(
-        xAPIEvent.getVerifiedStatementValue(['object', 'definition']),
-        this.getxAPIDefinition());
-      return xAPIEvent;
-    };
-
-    /**
-     * Get the xAPI definition for the xAPI object.
-     * @return {object} XAPI definition.
-     */
-    this.getxAPIDefinition = () => {
-      const definition = {};
-      definition.name = {};
-      definition.name[this.languageTag] = this.getTitle();
-      // Fallback for h5p-php-reporting, expects en-US
-      definition.name['en-US'] = definition.name[this.languageTag];
-      definition.description = {};
-      definition.description[this.languageTag] = Util.stripHTML(this.getDescription());
-      // Fallback for h5p-php-reporting, expects en-US
-      definition.description['en-US'] = definition.description[this.languageTag];
-      definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
-      definition.interactionType = 'sequencing';
-      definition.correctResponsesPattern = [];
-      this.params.paragraphs.forEach((paragraph, index) => {
-        definition.correctResponsesPattern.push(index);
-      });
-      definition.correctResponsesPattern = definition.correctResponsesPattern.join('[,]');
-      definition.choices = this.params.paragraphs.map((paragraph, index) => {
-        paragraph = Util.stripHTML(paragraph);
-
-        const choicesDescription = {};
-        choicesDescription[this.languageTag] = paragraph;
-        // Fallback for h5p-php-reporting, expects en-US
-        choicesDescription['en-US'] = choicesDescription[this.languageTag];
-
-        return {
-          id: index,
-          description: choicesDescription
-        };
-      });
-
-      return definition;
-    };
-
-    /**
-     * Check answer.
-     */
-    this.checkAnswer = () => {
-      this.content.disable();
-
-      this.hideButton('check-answer');
-
-      if (this.params.behaviour.enableSolutionsButton && this.getScore() !== this.getMaxScore()) {
-        this.showButton('show-solution');
-      }
-
-      if (this.params.behaviour.enableRetry) {
-        this.showButton('try-again');
-      }
-
-      this.content.showResults();
-
-      const score = this.getScore();
-      const maxScore = this.getMaxScore();
-
-      const textScore = H5P.Question.determineOverallFeedback(
-        this.params.overallFeedback, score / maxScore);
-
-      // Output via H5P.Question - expects :num and :total
-      const ariaMessage = this.params.a11y.yourResult
-        .replace('@score', ':num')
-        .replace('@total', ':total');
-
-      this.setFeedback(
-        textScore.trim(),
-        score,
-        maxScore,
-        ariaMessage
-      );
-
-      if (this.viewState === 'task') {
-        // checkAnswer was mot triggered to recreate previous state
-        this.trigger(this.getXAPIAnswerEvent());
-        this.trigger(this.createXAPIEvent('completed')); // Store state
-      }
-
-      this.setViewState('results');
-    };
-
-    /**
-     * Determine whether the task has been passed by the user.
-     * @return {boolean} True if user passed or task is not scored.
-     */
-    this.isPassed = () => this.getScore() >= this.getMaxScore();
-
-    /**
-     * Get task title.
-     * @return {string} Title.
-     */
-    this.getTitle = () => {
-      let raw;
-      if (this.extras.metadata) {
-        raw = this.extras.metadata.title;
-      }
-      raw = raw || SortParagraphs.DEFAULT_DESCRIPTION;
-
-      // H5P Core function: createTitle
-      return H5P.createTitle(raw);
-    };
-
-    /**
-     * Get task description.
-     * @return {string} Description.
-     */
-    this.getDescription = () => this.params.taskDescription || SortParagraphs.DEFAULT_DESCRIPTION;
-
-    /**
-     * Answer call to return the current state.
-     * @return {object} Current state.
-     */
-    this.getCurrentState = () => {
-      return {
-        order: this.content.getDraggablesOrder(),
-        view: this.viewState
-      };
-    };
-
-    /**
-     * Handle user interacted.
-     */
-    this.handleInteracted = () => {
-      this.triggerXAPI('interacted');
-    };
+  /**
+   * Handle user interacted.
+   */
+  handleInteracted() {
+    this.triggerXAPI('interacted');
   }
 
   /**
