@@ -34,6 +34,7 @@ export default class SortParagraphsContent {
     this.isMouseDownOnDraggable = false;
 
     this.handleSwapTransitionEnded = this.handleSwapTransitionEnded.bind(this);
+    this.handleSwapSolutionEnded = this.handleSwapSolutionEnded.bind(this);
 
     // View/handling options
     this.options = {
@@ -158,8 +159,31 @@ export default class SortParagraphsContent {
       paragraph.toggleEffect('solution', true);
     });
 
+    this.paragraphs[this.paragraphs.length - 1].getDOM().addEventListener('transitionend', this.handleSwapSolutionEnded);
+
+    const draggables = this.getDraggables();
+
+    // Translate to correct top offsets for each paragraph
+    let startPosition = draggables.map(draggable => draggable.offsetTop).sort().shift();
+    draggables.forEach((draggable, index) => {
+      if (index > 0) {
+        startPosition += this.paragraphs[index - 1].getDOM().offsetHeight +
+          draggable.offsetTop - draggables[index - 1].offsetTop - draggables[index - 1].offsetHeight;
+      }
+
+      this.paragraphs[index].translate({ y: startPosition - this.paragraphs[index].getDOM().offsetTop});
+    });
+  }
+
+  /**
+   * Handle elements at correct position in solution view.
+   */
+  handleSwapSolutionEnded() {
+    this.paragraphs[this.paragraphs.length - 1].getDOM().removeEventListener('transitionend', this.handleSwapSolutionEnded);
+
     // Move draggables in correct order
     this.paragraphs.forEach((paragraph, index) => {
+      paragraph.translate();
       const draggables = this.getDraggables();
       const position = draggables.indexOf(paragraph.getDOM());
 
