@@ -445,6 +445,10 @@ export default class SortParagraphsContent {
    * Handle draggable entered another draggable.
    */
   handleDraggableDragEnter(draggable) {
+    if (this.dropzoneElement && this.dropzoneElement === draggable) {
+      return; // Prevent jumping when paragraph is smaller than others
+    }
+
     this.dropzoneElement = draggable;
 
     // Swap dragged draggable and draggable that's dragged to if not identical
