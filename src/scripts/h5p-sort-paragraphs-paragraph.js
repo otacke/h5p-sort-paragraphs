@@ -622,6 +622,10 @@ export default class SortParagraphsParagraph {
    * @param {Event} event Event.
    */
   handleDragOver(event) {
+    if (this.disabled) {
+      return;
+    }
+
     event.preventDefault();
   }
 
@@ -630,6 +634,10 @@ export default class SortParagraphsParagraph {
    * @param {Event} event Event.
    */
   handleDragEnter(event) {
+    if (this.disabled) {
+      return;
+    }
+
     this.callbacks.onDragEnter(event.currentTarget);
   }
 
@@ -638,6 +646,10 @@ export default class SortParagraphsParagraph {
    * @param {Event} event Event.
    */
   handleDragLeave(event) {
+    if (this.disabled) {
+      return;
+    }
+
     if (this.content !== event.target || this.content.contains(event.fromElement)) {
       return;
     }
@@ -650,6 +662,10 @@ export default class SortParagraphsParagraph {
    * @param {Event} event Event.
    */
   handleDragEnd(event) {
+    if (this.disabled) {
+      return;
+    }
+
     this.hidePlaceholder();
     this.show();
 
