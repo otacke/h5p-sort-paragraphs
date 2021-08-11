@@ -164,7 +164,7 @@ export default class SortParagraphsContent {
     const draggables = this.getDraggables();
 
     // Translate to correct top offsets for each paragraph
-    let startPosition = draggables.map(draggable => draggable.offsetTop).sort().shift();
+    let startPosition = draggables[0].offsetTop;
     draggables.forEach((draggable, index) => {
       if (index > 0) {
         startPosition += this.paragraphs[index - 1].getDOM().offsetHeight +
