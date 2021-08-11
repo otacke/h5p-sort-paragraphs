@@ -60,6 +60,14 @@ export default class SortParagraphsParagraph {
     // Placeholder to show when dragging
     this.placeholder = document.createElement('div');
     this.placeholder.classList.add('h5p-sort-paragraphs-paragraph-placeholder');
+
+    // These listeners prevent Firefox from showing draggable animation
+    this.placeholder.addEventListener('dragover', event => {
+      event.preventDefault();
+    });
+    this.placeholder.addEventListener('drop', event => {
+      event.preventDefault();
+    });
   }
 
   /**
