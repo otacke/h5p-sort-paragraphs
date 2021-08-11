@@ -481,6 +481,17 @@ export default class SortParagraphsParagraph {
   }
 
   /**
+   * Reset dragging.
+   */
+  resetDragging() {
+    clearTimeout(this.placeholderTimeout);
+    this.hidePlaceholder();
+    this.show();
+    this.showButtons();
+    this.toggleEffect('over', false);
+  }
+
+  /**
    * Show buttons container.
    */
   showButtons() {
@@ -592,11 +603,13 @@ export default class SortParagraphsParagraph {
       return;
     }
 
-    // Used in dragstart for Firefox workaround
-    this.pointerPosition = {
-      x: event.clientX,
-      y: event.clientY
-    };
+    if (callbackName === 'onMouseDown') {
+      // Used in dragstart for Firefox workaround
+      this.pointerPosition = {
+        x: event.clientX,
+        y: event.clientY
+      };
+    }
 
     if (
       this.params.options.addButtonsForMovement &&
@@ -623,12 +636,6 @@ export default class SortParagraphsParagraph {
 
     this.hideButtons();
 
-    // Will hide draggable as well without timeout
-    window.requestAnimationFrame(() => {
-      this.showPlaceholder();
-      this.hide();
-    });
-
     this.toggleEffect('over', true);
     event.dataTransfer.effectAllowed = 'move';
 
@@ -638,6 +645,13 @@ export default class SortParagraphsParagraph {
       this.pointerPosition.x - this.content.offsetLeft,
       this.pointerPosition.y - this.content.offsetTop
     );
+
+    // Will hide browser's draggable copy as well without timeout
+    clearTimeout(this.placeholderTimeout);
+    this.placeholderTimeout = setTimeout(() => {
+      this.showPlaceholder();
+      this.hide();
+    }, 0);
 
     this.callbacks.onDragStart(event.currentTarget);
   }
@@ -687,16 +701,11 @@ export default class SortParagraphsParagraph {
    * @param {Event} event Event.
    */
   handleDragEnd(event) {
+    this.resetDragging();
+
     if (this.disabled) {
       return;
     }
-
-    this.hidePlaceholder();
-    this.show();
-
-    this.showButtons();
-
-    this.toggleEffect('over', false);
 
     this.callbacks.onDragEnd(event.currentTarget);
   }
