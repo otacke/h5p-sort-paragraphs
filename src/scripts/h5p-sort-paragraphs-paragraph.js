@@ -588,6 +588,12 @@ export default class SortParagraphsParagraph {
       return;
     }
 
+    // Used in dragstart for Firefox workaround
+    this.pointerPosition = {
+      x: event.clientX,
+      y: event.clientY
+    };
+
     if (
       this.params.options.addButtonsForMovement &&
       (
@@ -621,6 +627,13 @@ export default class SortParagraphsParagraph {
 
     this.toggleEffect('over', true);
     event.dataTransfer.effectAllowed = 'move';
+
+    // Workaround for Firefox that may scale the draggable down otherwise
+    event.dataTransfer.setDragImage(
+      event.currentTarget,
+      this.pointerPosition.x - event.currentTarget.offsetLeft,
+      this.pointerPosition.y - event.currentTarget.offsetTop
+    );
 
     this.callbacks.onDragStart(event.currentTarget);
   }
