@@ -81,6 +81,13 @@ export default class SortParagraphsContent {
     this.resetAriaLabels();
     this.resetDraggablesTabIndex();
     this.resetDraggables();
+
+    // Prevent dragging anything except draggable when enabled
+    document.addEventListener('dragstart', event => {
+      if (!this.enabled || this.getDraggables().indexOf(event.target) === -1) {
+        event.preventDefault();
+      }
+    });
   }
 
   /**
