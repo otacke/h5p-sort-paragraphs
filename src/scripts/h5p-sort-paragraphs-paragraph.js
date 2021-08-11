@@ -349,6 +349,10 @@ export default class SortParagraphsParagraph {
    * Hide placeholder.
    */
   hidePlaceholder() {
+    if (!this.placeholder.parentNode) {
+      return;
+    }
+
     this.placeholder.parentNode.removeChild(this.placeholder);
   }
 
@@ -620,19 +624,19 @@ export default class SortParagraphsParagraph {
     this.hideButtons();
 
     // Will hide draggable as well without timeout
-    setTimeout(() => {
+    window.requestAnimationFrame(() => {
       this.showPlaceholder();
       this.hide();
-    }, 0);
+    });
 
     this.toggleEffect('over', true);
     event.dataTransfer.effectAllowed = 'move';
 
     // Workaround for Firefox that may scale the draggable down otherwise
     event.dataTransfer.setDragImage(
-      event.currentTarget,
-      this.pointerPosition.x - event.currentTarget.offsetLeft,
-      this.pointerPosition.y - event.currentTarget.offsetTop
+      this.content,
+      this.pointerPosition.x - this.content.offsetLeft,
+      this.pointerPosition.y - this.content.offsetTop
     );
 
     this.callbacks.onDragStart(event.currentTarget);
