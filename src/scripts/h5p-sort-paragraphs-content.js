@@ -478,7 +478,7 @@ export default class SortParagraphsContent {
     this.dropzoneElement = draggable;
 
     // Swap dragged draggable and draggable that's dragged to if not identical
-    if (this.dropzoneElement && this.draggedElement !== this.dropzoneElement) {
+    if (this.dropzoneElement && this.draggedElement && this.draggedElement !== this.dropzoneElement) {
       Util.swapDOMElements(this.draggedElement, this.dropzoneElement);
       this.getParagraph(this.draggedElement).attachPlaceholder();
     }
