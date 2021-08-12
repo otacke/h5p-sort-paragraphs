@@ -701,11 +701,11 @@ export default class SortParagraphsParagraph {
    * @param {Event} event Event.
    */
   handleDragEnd(event) {
-    this.resetDragging();
-
     if (this.disabled) {
       return;
     }
+
+    this.resetDragging();
 
     this.callbacks.onDragEnd(event.currentTarget);
   }
