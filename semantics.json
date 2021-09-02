@@ -120,7 +120,7 @@
         "description": "Decide whether to count correct transitions (regardless of the paragraphs' absolute positions) or to count correct positions.",
         "type": "select",
         "importance": "low",
-        "default": "transitions",
+        "default": "positions",
         "options": [
           {
             "value": "transitions",
