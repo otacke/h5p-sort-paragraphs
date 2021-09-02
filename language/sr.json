@@ -45,13 +45,13 @@
       "fields": [
         {
           "label": "Режим бодовања",
-          "description": "Одлучите да ли ћете рачунати исправне прелазе (без обзира на апсолутне позиције параграфа) или да броји исправне позиције.",
+          "description": "Decide whether to give points for each correctly placed paragraph or for each paragraph that is placed after the paragraph it is supposed to be placed after (\"correct sequence\")",
           "options": [
             {
-              "label": "Прелази"
+              "label": "Correct sequence"
             },
             {
-              "label": "Позиције"
+              "label": "Correctly placed paragraph"
             }
           ]
         },

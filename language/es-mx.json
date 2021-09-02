@@ -45,13 +45,13 @@
       "fields": [
         {
           "label": "Modo de puntaje",
-          "description": "Decidir si quiere contar las transiciones correctas (sin importar las posiciones absolutas del párrafo) o si prefiere contar las posiciones correctas.",
+          "description": "Decide whether to give points for each correctly placed paragraph or for each paragraph that is placed after the paragraph it is supposed to be placed after (\"correct sequence\")",
           "options": [
             {
-              "label": "Transiciones"
+              "label": "Correct sequence"
             },
             {
-              "label": "Posiciones"
+              "label": "Correctly placed paragraph"
             }
           ]
         },

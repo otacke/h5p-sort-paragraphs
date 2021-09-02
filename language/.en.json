@@ -45,13 +45,13 @@
       "fields": [
         {
           "label": "Scoring mode",
-          "description": "Decide whether to count correct transitions (regardless of the paragraphs' absolute positions) or to count correct positions.",
+          "description": "Decide whether to give points for each correctly placed paragraph or for each paragraph that is placed after the paragraph it is supposed to be placed after (\"correct sequence\")",
           "options": [
             {
-              "label": "Transitions"
+              "label": "Correct sequence"
             },
             {
-              "label": "Positions"
+              "label": "Correctly placed paragraph"
             }
           ]
         },
