@@ -27,14 +27,14 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.2.0",
     "eslint": "^7.32.0",
-    "mini-css-extract-plugin": "^2.2.0",
+    "mini-css-extract-plugin": "^2.2.2",
     "regenerator-runtime": "^0.13.9",
-    "sass": "^1.37.5",
+    "sass": "^1.39.0",
     "sass-loader": "^12.1.0",
-    "webpack": "^5.50.0",
-    "webpack-cli": "^4.7.2"
+    "webpack": "^5.51.2",
+    "webpack-cli": "^4.8.0"
   },
   "dependencies": {
-    "core-js": "^3.16.1"
+    "core-js": "^3.17.1"
   }
 }
