@@ -33,11 +33,13 @@ export default class SortParagraphsContent {
     // Register state of mouse button on draggable
     this.isMouseDownOnDraggable = false;
 
+    this.handleSwapTransitionEnded = this.handleSwapTransitionEnded.bind(this);
+    this.handleSwapSolutionEnded = this.handleSwapSolutionEnded.bind(this);
+
     // View/handling options
     this.options = {
       scoringMode: params.scoringMode || 'transitions',
       penalties: (typeof params.penalties !== 'boolean') ? true : params.penalties,
-      showArrows: params.showArrows,
       duplicatesInterchangeable: params.duplicatesInterchangeable
     };
 
@@ -60,9 +62,7 @@ export default class SortParagraphsContent {
       if (index === params.paragraphs.length - 2) {
         return;
       }
-      this.separators.push(new SortParagraphsSeparator({
-        hidden: !this.options.showArrows
-      }));
+      this.separators.push(new SortParagraphsSeparator());
     });
 
     // Build list of paragraphs
@@ -116,6 +116,7 @@ export default class SortParagraphsContent {
     // Hide buttons
     this.paragraphs.forEach(paragraph => {
       paragraph.hideButtons();
+      paragraph.disable();
     });
 
     // Add score explanation and ARIA depending on scoring mode.
@@ -154,10 +155,35 @@ export default class SortParagraphsContent {
 
     this.list.setAttribute('aria-label', this.params.a11y.listDescriptionShowSolution);
 
+    this.paragraphs.forEach((paragraph) => {
+      paragraph.toggleEffect('solution', true);
+    });
+
+    this.paragraphs[this.paragraphs.length - 1].getDOM().addEventListener('transitionend', this.handleSwapSolutionEnded);
+
+    const draggables = this.getDraggables();
+
+    // Translate to correct top offsets for each paragraph
+    let startPosition = draggables[0].offsetTop;
+    draggables.forEach((draggable, index) => {
+      if (index > 0) {
+        startPosition += this.paragraphs[index - 1].getDOM().offsetHeight +
+          draggable.offsetTop - draggables[index - 1].offsetTop - draggables[index - 1].offsetHeight;
+      }
+
+      this.paragraphs[index].translate({ y: startPosition - this.paragraphs[index].getDOM().offsetTop});
+    });
+  }
+
+  /**
+   * Handle elements at correct position in solution view.
+   */
+  handleSwapSolutionEnded() {
+    this.paragraphs[this.paragraphs.length - 1].getDOM().removeEventListener('transitionend', this.handleSwapSolutionEnded);
+
     // Move draggables in correct order
     this.paragraphs.forEach((paragraph, index) => {
-      paragraph.toggleEffect('solution', true);
-
+      paragraph.translate();
       const draggables = this.getDraggables();
       const position = draggables.indexOf(paragraph.getDOM());
 
@@ -408,13 +434,11 @@ export default class SortParagraphsContent {
       this.handleInteracted();
 
       // Animate draggables involved for visual feedback
-      this.getParagraph(draggable).animate('shake-right');
-      this.getParagraph(this.getDraggableAt(swapPosition)).animate('shake-left');
-      Util.swapDOMElements(draggable, this.getDraggableAt(swapPosition));
-
-      this.resetDraggablesTabIndex();
-      this.resetDraggables();
-      this.resetAriaLabels();
+      this.swapDOMElements(draggable, this.getDraggableAt(swapPosition), () => {
+        this.resetDraggablesTabIndex();
+        this.resetDraggables();
+        this.resetAriaLabels();
+      });
     }
   }
 
@@ -437,19 +461,27 @@ export default class SortParagraphsContent {
   handleDraggableDragStart(draggable) {
     this.oldOrder = this.getDraggablesOrder();
     this.draggedElement = draggable;
+
+    this.getDraggables().forEach(draggable => {
+      this.getParagraph(draggable).hideButtons();
+    });
   }
 
   /**
    * Handle draggable entered another draggable.
    */
   handleDraggableDragEnter(draggable) {
+    if (this.dropzoneElement && this.dropzoneElement === draggable) {
+      return; // Prevent jumping when paragraph is smaller than others
+    }
+
     this.dropzoneElement = draggable;
 
     // Swap dragged draggable and draggable that's dragged to if not identical
-    if (this.dropzoneElement && this.draggedElement !== this.dropzoneElement) {
+    if (this.dropzoneElement && this.draggedElement && this.draggedElement !== this.dropzoneElement) {
       Util.swapDOMElements(this.draggedElement, this.dropzoneElement);
+      this.getParagraph(this.draggedElement).attachPlaceholder();
     }
-
   }
 
   /**
@@ -468,6 +500,10 @@ export default class SortParagraphsContent {
     if (this.oldOrder.some((item, index) => item !== newOrder[index])) {
       this.handleInteracted();
     }
+
+    this.getDraggables().forEach(draggable => {
+      this.getParagraph(draggable).showButtons();
+    });
 
     this.resetDraggables();
 
@@ -590,9 +626,13 @@ export default class SortParagraphsContent {
 
   /**
    * Handle user grabbed/ungrabbed a draggable.
+   * @param {HTMLElement} draggable Draggable that was grabbed/ungrabbed.
    */
-  handleDraggableMouseDown() {
+  handleDraggableMouseDown(draggable) {
     this.isMouseDownOnDraggable = true;
+
+    const paragraph = this.getParagraph(draggable);
+    paragraph.toggleEffect('selected', true);
   }
 
   /**
@@ -615,19 +655,17 @@ export default class SortParagraphsContent {
         const draggableTarget = this.selectedDraggable;
 
         // Animate draggables involved for visual feedback
-        paragraph.animate('shake-right');
-        this.getParagraph(draggableTarget).animate('shake-left');
-        Util.swapDOMElements(draggable, draggableTarget);
+        this.swapDOMElements(draggable, draggableTarget, () => {
+          this.resetDraggables();
+          this.resetAriaLabels();
 
-        this.resetDraggables();
-        this.resetAriaLabels();
+          this.setAriaLabel(draggableTarget, {action: 'dropped'});
 
-        this.setAriaLabel(draggableTarget, {action: 'dropped'});
+          // Moving node triggers focusout, get focus state and moving state back
+          draggableTarget.focus();
 
-        // Moving node triggers focusout, get focus state and moving state back
-        draggableTarget.focus();
-
-        this.selectedDraggable = null;
+          this.selectedDraggable = null;
+        });
       }
       else {
         // Starting to grab.
@@ -834,6 +872,83 @@ export default class SortParagraphsContent {
   }
 
   /**
+   * Swap two DOM elements with animation.
+   * @param {HTMLElement} element1 Element 1.
+   * @param {HTMLElement} element2 Element 2.
+   * @param {function} done Callback when done.
+   */
+  swapDOMElements(element1, element2, done) {
+    if (!element1 || !element1.parentNode || !element2 || !element2.parentNode) {
+      return;
+    }
+
+    // Sort elements by position
+    if (element1.offsetTop - element2.offsetTop > 0) {
+      const tmp = element1;
+      element1 = element2;
+      element2 = tmp;
+    }
+
+    // Keep track of relevant elements
+    this.transitionElement1 = element1;
+    this.transitionElement2 = element2;
+    this.transitionElements = this.getDraggables();
+    this.transitionDone = done;
+
+    this.transitionElements.forEach(element => {
+      const paragraph = this.getParagraph(element);
+      paragraph.hideButtons();
+      paragraph.unselect();
+    });
+
+    this.transitionElement1.addEventListener('transitionend', this.handleSwapTransitionEnded);
+
+    // Translate elements to new final position
+    setTimeout(() => {
+      this.transitionElements
+        .forEach(element => {
+          const paragraph = this.getParagraph(element);
+
+          let offset;
+
+          if (element === this.transitionElement1) {
+            offset = -1 * (this.transitionElement1.offsetTop - this.transitionElement2.offsetTop - this.transitionElement2.offsetHeight + this.transitionElement1.offsetHeight);
+          }
+          else if (element === this.transitionElement2) {
+            offset = -1 * (this.transitionElement2.offsetTop - this.transitionElement1.offsetTop);
+          }
+          else {
+            offset = (element.offsetTop < element1.offsetTop || element.offsetTop > element2.offsetTop) ?
+              0 :
+              this.transitionElement2.offsetHeight - this.transitionElement1.offsetHeight;
+          }
+
+          paragraph.translate({ y: offset });
+          paragraph.disable(); // Here, because animation influences disable visuals
+        });
+    }, 0);
+  }
+
+  /**
+   * Handle swap with transition ended.
+   */
+  handleSwapTransitionEnded() {
+    Util.swapDOMElements(this.transitionElement1, this.transitionElement2);
+
+    this.getDraggables().forEach(element => {
+      element.removeEventListener('transitionend', this.handleSwapTransitionEnded);
+      this.getParagraph(element).translate(); // Reset translation
+
+      if (this.viewState === 'task') {
+        this.getParagraph(element).showButtons();
+        this.getParagraph(element).enable();
+      }
+    });
+
+    this.transitionDone();
+  }
+
+  /**
    * Reset content.
    */
   reset() {
@@ -858,5 +973,19 @@ export default class SortParagraphsContent {
     this.resetDraggablesTabIndex();
     this.resetDraggables();
     this.resetAriaLabels();
+  }
+
+  /**
+   * Set view state.
+   * @param {string} state State to set.
+   * @param {string[]} states Allowed states.
+   */
+  setViewState(state, states) {
+    states.forEach(state => {
+      this.content.classList.remove(`h5p-sort-paragraphs-view-state-${state}`);
+    });
+
+    this.viewState = state;
+    this.content.classList.add(`h5p-sort-paragraphs-view-state-${state}`);
   }
 }

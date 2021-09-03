@@ -3,13 +3,14 @@
 .h5p-sort-paragraphs {
   .h5p-sort-paragraphs-paragraph {
     background-color: $color-enabled;
-    border: .1em solid transparent;
+    border-color: transparent;
     border-radius: .3em;
+    border-style: solid;
+    border-width: .25em;
     box-shadow: 0 0.1em 0 $color-box-shadow-regular;
     cursor: move;
     display: flex;
     flex-direction: row;
-    margin-bottom: 1em;
     padding: 0.5em 0em;
     user-select: none;
     -khtml-user-select: none;
@@ -19,10 +20,13 @@
     -webkit-user-select: none;
     word-break: break-word;
 
-    &:focus:not(.h5p-sort-paragraphs-disabled) {
-      border-color: $color-focus;
-      box-shadow: 0 0 .5em 0 $color-focus;
-      outline: none;
+    &.animate-translation {
+      cursor: auto;
+      transition: transform .5s ease-in-out;
+    }
+
+    &.h5p-sort-paragraphs-no-display {
+      display: none;
     }
 
     &.h5p-sort-paragraphs-ghosted {
@@ -30,9 +34,6 @@
     }
 
     &.h5p-sort-paragraphs-disabled {
-      background-color: $color-disabled;
-      border: .1em solid $color-disabled;
-      color: $color-disabled-text;
       cursor: auto;
     }
 
@@ -42,52 +43,64 @@
 
     &.h5p-sort-paragraphs-over, &.h5p-sort-paragraphs-selected {
       background: $color-over;
+      border-color: #0825ff;
       box-shadow: 0 0.1em 0 #b1c5e0;
       color: $color-over-text;
     }
 
-    &.h5p-sort-paragraphs-animate-shake-left {
-      animation: shake-left;
-      animation-duration: 0.5s;
+    .h5p-sort-paragraphs-paragraph-corrections {
+      font-size: 1.5em;
+      padding-top: 0.5em;
     }
 
-    @keyframes shake-left {
-      from,
-      to {
-        transform: translate3d(0, 0, 0);
+    &.h5p-sort-paragraphs-correct {
+      background: $color-correct-light;
+      border-color: $color-correct-light;
+      box-shadow: 0 0.1em 0 $color-correct-box-shadow;
+      color: $color-correct-dark;
+
+      .h5p-sort-paragraphs-paragraph-corrections::before {
+        content: $icon-correct;
+        font-family: 'H5PFontAwesome4';
       }
 
-      25%,
-      75%
-      {
-        transform: translate3d(-0.5em, 0, 0);
-      }
-
-      50% {
-        transform: translate3d(0.5em, 0, 0);
+      .h5p-sort-paragraphs-paragraph-button-container {
+        justify-content: flex-end;
       }
     }
 
-    &.h5p-sort-paragraphs-animate-shake-right {
-      animation: shake-right;
-      animation-duration: 0.5s;
+    &.h5p-sort-paragraphs-wrong {
+      background: $color-wrong-light;
+      border-color: $color-wrong-light;
+      box-shadow: 0 0.1em 0 $color-wrong-box-shadow;
+      color: $color-wrong-dark;
+
+      .h5p-sort-paragraphs-paragraph-corrections::before {
+        content: $icon-wrong;
+        font-family: 'H5PFontAwesome4';
+      }
+
+      .h5p-sort-paragraphs-paragraph-button-container {
+        justify-content: flex-end;
+      }
     }
 
-    @keyframes shake-right {
-      from,
-      to {
-        transform: translate3d(0, 0, 0);
-      }
+    &.h5p-sort-paragraphs-solution .h5p-sort-paragraphs-paragraph-corrections::before {
+      color: $color-disabled-text;
+      content: '\f06e';
+      font-family: 'H5PFontAwesome4';
+    }
 
-      25%,
-      75%
-      {
-        transform: translate3d(0.5em, 0, 0);
-      }
+    &.h5p-sort-paragraphs-disabled:not(.animate-translation):not(.h5p-sort-paragraphs-wrong):not(.h5p-sort-paragraphs-correct) {
+      background-color: $color-disabled;
+      border-color: $color-disabled;
+      color: $color-disabled-text;
+    }
 
-      50% {
-        transform: translate3d(-0.5em, 0, 0);
-      }
+    &.h5p-sort-paragraphs-disabled.h5p-sort-paragraphs-solution {
+      background-color: $color-disabled;
+      border-color: $color-disabled;
+      color: $color-disabled-text;
     }
   }
 
@@ -97,7 +110,7 @@
     flex-shrink: 0;
     justify-content: center;
     padding: 0 0.25em;
-    width: 4em;
+    width: 3.25em;
   }
 
   .h5p-sort-paragraphs-button {
@@ -159,47 +172,11 @@
     font-size: 1.5em;
   }
 
-  .h5p-sort-paragraphs-paragraph {
-    .h5p-sort-paragraphs-paragraph-corrections {
-      font-size: 1.5em;
-      padding-top: 0.5em;
-    }
-
-    &.h5p-sort-paragraphs-correct {
-      background: $color-correct-light;
-      border-color: $color-correct-light;
-      box-shadow: 0 0.1em 0 $color-correct-box-shadow;
-      color: $color-correct-dark;
-
-      .h5p-sort-paragraphs-paragraph-corrections::before {
-        content: $icon-correct;
-        font-family: 'H5PFontAwesome4';
-      }
-    }
-
-    &.h5p-sort-paragraphs-wrong {
-      background: $color-wrong-light;
-      border-color: $color-wrong-light;
-      box-shadow: 0 0.1em 0 $color-wrong-box-shadow;
-      color: $color-wrong-dark;
-
-      .h5p-sort-paragraphs-paragraph-corrections::before {
-        content: $icon-wrong;
-        font-family: 'H5PFontAwesome4';
-      }
-    }
-
-    &.h5p-sort-paragraphs-solution .h5p-sort-paragraphs-paragraph-corrections::before {
-      color: $color-disabled-text;
-      content: '\f06e';
-      font-family: 'H5PFontAwesome4';
-    }
-  }
-
   .h5p-sort-paragraphs-paragraph-container {
     border: 2px solid transparent;
     display: flex;
     flex-direction: column;
+    margin-left: 1em;
     min-height: 2.75em;
 
     /* Button height to prevent jumping */
@@ -211,13 +188,13 @@
     }
   }
 
-  .h5p-sort-paragraphs-paragraph-container-right {
+  .h5p-sort-paragraphs-paragraph-button-container {
     display: flex;
     flex-direction: row;
     flex-shrink: 0;
     justify-content: center;
     padding: 0 0.25em;
-    width: 4em;
+    width: 3.25em;
   }
 
   .h5p-sort-paragraphs-paragraph-score-explanations {
@@ -234,51 +211,58 @@
   }
 
   .h5p-sort-paragraphs-separator {
-    height: 2.75em;
     border-radius: 0.3em;
-    margin-left: auto;
-    margin-bottom: 1em;
-    margin-right: auto;
-    line-height: 2.75em;
+    height: 0.4em;
+    margin: 0.4em 0;
     text-align: center;
-    width: 2.75em;
+    width: calc(100% - 0.5em);
+    margin-left: auto;
+    margin-right: auto;
 
     &.h5p-sort-paragraphs-no-display {
       display: none;
     }
 
     &.h5p-sort-paragraphs-correct {
-      background: $color-correct-light;
+      background: $color-correct-dark;
       border-color: $color-correct-light;
       box-shadow: 0 0.1em 0 $color-correct-box-shadow;
-      color: $color-correct-dark;
     }
 
     &.h5p-sort-paragraphs-wrong {
-      background: $color-wrong-light;
+      background: $color-wrong-dark;
       border-color: $color-wrong-light;
       box-shadow: 0 0.1em 0 $color-wrong-box-shadow;
-      color: $color-wrong-dark;
     }
 
-    &::before {
-      font-family: 'H5PFontAwesome4';
-      content: $icon-separator;
+    .h5p-question-plus-one,
+    .h5p-question-minus-one {
       font-size: 1.5em;
-    }
-
-    .h5p-question-plus-one, .h5p-question-minus-one {
-      font-size: 1.25em;
       position: relative;
-      top: -3em;
-      right: -1.75em;
+      top: -0.49em;
+      left: calc(100% - 3.5em);
     }
+  }
+
+  .h5p-sort-paragraphs-paragraph-placeholder {
+    background-color: #c7ceff;
+    border: .25em dashed #042cff;
+    border-radius: .3em;
+    box-sizing: border-box;
   }
 }
 
 // Firefox would show focus on clicking a disabled paragraph
-.h5p-content:not(.using-mouse) .h5p-sort-paragraphs .h5p-sort-paragraphs-paragraph.h5p-sort-paragraphs-disabled:focus {
-  border-color: $color-disabled-focus;
-  box-shadow: 0 0 .5em 0 $color-disabled-focus;
-  outline: none;
+.h5p-content:not(.using-mouse) .h5p-sort-paragraphs {
+  .h5p-sort-paragraphs-paragraph.h5p-sort-paragraphs-disabled:focus {
+    border-color: $color-disabled-focus;
+    box-shadow: 0 0 .5em 0 $color-disabled-focus;
+    outline: none;
+  }
+
+  .h5p-sort-paragraphs-paragraph:not(.h5p-sort-paragraphs-disabled):focus {
+    border-color: $color-focus;
+    box-shadow: 0 0 .5em 0 $color-focus;
+    outline: none;
+  }
 }

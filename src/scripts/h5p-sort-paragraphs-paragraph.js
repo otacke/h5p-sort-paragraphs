@@ -48,14 +48,26 @@ export default class SortParagraphsParagraph {
     // Selected state
     this.selected = false;
 
+    // Shown state
+    this.shown = true;
+
     // Buttons
     this.buttons = [];
 
     // Build content
     this.content = this.buildParagraph(this.params.text, this.params.l10n);
 
-    // Listener for animation ended
-    this.handleAnimationEnded = this.handleAnimationEnded.bind(this);
+    // Placeholder to show when dragging
+    this.placeholder = document.createElement('div');
+    this.placeholder.classList.add('h5p-sort-paragraphs-paragraph-placeholder');
+
+    // These listeners prevent Firefox from showing draggable animation
+    this.placeholder.addEventListener('dragover', event => {
+      event.preventDefault();
+    });
+    this.placeholder.addEventListener('drop', event => {
+      event.preventDefault();
+    });
   }
 
   /**
@@ -75,9 +87,16 @@ export default class SortParagraphsParagraph {
     paragraph.setAttribute('role', 'listitem');
     paragraph.setAttribute('draggable', true);
 
+    // Container for paragraph text
+    this.containerText = this.buildDIVContainer({
+      classText: 'h5p-sort-paragraphs-paragraph-container',
+      innerHTML: this.params.text
+    });
+    paragraph.appendChild(this.containerText);
+
     // Left container for information
     const containerLeft = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-container-left',
+      classText: 'h5p-sort-paragraphs-paragraph-button-container',
       attributes: {
         'aria-hidden': 'true'
       }
@@ -89,27 +108,20 @@ export default class SortParagraphsParagraph {
       containerLeft.appendChild(this.buttons['up'].getDOM());
     }
 
-    // Container for correct/wrong markers
-    this.containerCorrections = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-corrections'
-    });
-    containerLeft.appendChild(this.containerCorrections);
-
-    // Container for paragraph text
-    this.containerText = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-container',
-      innerHTML: this.params.text
-    });
-    paragraph.appendChild(this.containerText);
-
     // Right container for information
     const containerRight = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-container-right',
+      classText: 'h5p-sort-paragraphs-paragraph-button-container',
       attributes: {
         'aria-hidden': 'true'
       }
     });
     paragraph.appendChild(containerRight);
+
+    // Container for correct/wrong markers
+    this.containerCorrections = this.buildDIVContainer({
+      classText: 'h5p-sort-paragraphs-paragraph-corrections'
+    });
+    containerRight.appendChild(this.containerCorrections);
 
     if (this.params?.options?.addButtonsForMovement) {
       this.buttons['down'] = this.buildButtonDown();
@@ -270,43 +282,27 @@ export default class SortParagraphsParagraph {
 
     // Drag start
     paragraph.addEventListener('dragstart', event => {
-      if (this.disabled) {
-        return;
-      }
-
-      this.toggleEffect('over', true);
-      this.toggleEffect('ghosted', true);
-      event.dataTransfer.effectAllowed = 'move';
-
-      this.callbacks.onDragStart(event.currentTarget);
+      this.handleDragStart(event);
     });
 
     // Drag over
     paragraph.addEventListener('dragover', event => {
-      event.preventDefault();
+      this.handleDragOver(event);
     });
 
     // Drag enter
     paragraph.addEventListener('dragenter', event => {
-
-      this.callbacks.onDragEnter(event.currentTarget);
+      this.handleDragEnter(event);
     });
 
     // Drag leave
     paragraph.addEventListener('dragleave', event => {
-      if (paragraph !== event.target || paragraph.contains(event.fromElement)) {
-        return;
-      }
-
-      this.callbacks.onDragLeave(event.currentTarget);
+      this.handleDragLeave(event);
     });
 
     // Drag end
     paragraph.addEventListener('dragend', (event) => {
-      this.toggleEffect('over', false);
-      this.toggleEffect('ghosted', false);
-
-      this.callbacks.onDragEnd(event.currentTarget);
+      this.handleDragEnd(event);
     });
 
     // Prevent visual dragging mode on mobile
@@ -326,6 +322,62 @@ export default class SortParagraphsParagraph {
 
       paragraph.setAttribute('draggable', true);
     });
+  }
+
+  /**
+   * Show placeholder. Draggable must be visible, or width/height = 0
+   */
+  showPlaceholder() {
+    if (!this.isShown()) {
+      return;
+    }
+
+    this.placeholder.style.width = `${this.content.offsetWidth}px`;
+    this.placeholder.style.height = `${this.content.offsetHeight}px`;
+
+    this.attachPlaceholder();
+  }
+
+  /**
+   * Attach placeholder.
+   */
+  attachPlaceholder() {
+    this.content.parentNode.insertBefore(this.placeholder, this.content.nextSibling);
+  }
+
+  /**
+   * Hide placeholder.
+   */
+  hidePlaceholder() {
+    if (!this.placeholder.parentNode) {
+      return;
+    }
+
+    this.placeholder.parentNode.removeChild(this.placeholder);
+  }
+
+  /**
+   * Show paragraph.
+   */
+  show() {
+    this.content.classList.remove('h5p-sort-paragraphs-no-display');
+    this.shown = true;
+  }
+
+  /**
+   * Hide paragraph.
+   */
+  hide() {
+    this.content.classList.add('h5p-sort-paragraphs-no-display');
+    this.shown = false;
+  }
+
+  /**
+   * Determine whether paragraph is shown.
+   * @return {boolean} True, if paragraph is shown.
+   */
+  isShown() {
+    return this.shown;
   }
 
   /**
@@ -388,20 +440,6 @@ export default class SortParagraphsParagraph {
   }
 
   /**
-   * Animate paragraph.
-   * @param {string} style Animation style.
-   */
-  animate(style) {
-    if (this.isAnimating) {
-      return;
-    }
-
-    this.animationStyle = style;
-    this.content.addEventListener('animationend', this.handleAnimationEnded);
-    this.content.classList.add(`h5p-sort-paragraphs-animate-${this.animationStyle}`);
-  }
-
-  /**
    * Get paragraph's HTML text.
    * @return {string} HTML text.
    */
@@ -440,6 +478,17 @@ export default class SortParagraphsParagraph {
     this.content.classList.remove('disabled');
     this.content.classList.remove('solution');
     this.unselect();
+  }
+
+  /**
+   * Reset dragging.
+   */
+  resetDragging() {
+    clearTimeout(this.placeholderTimeout);
+    this.hidePlaceholder();
+    this.show();
+    this.showButtons();
+    this.toggleEffect('over', false);
   }
 
   /**
@@ -498,6 +547,25 @@ export default class SortParagraphsParagraph {
   }
 
   /**
+   * Translate by offset with animation.
+   * @param {object} offset Offset.
+   * @param {number} [offset.x] X offset.
+   * @param {number} [offset.y] Y offset.
+   */
+  translate(offset = {}) {
+    if (typeof offset.x === 'number' || typeof offset.y === 'number') {
+      this.content.classList.add('animate-translation');
+      setTimeout(() => {
+        this.content.style.transform = `translate(${offset.x || 0}px, ${offset.y || 0}px)`;
+      }, 0);
+    }
+    else {
+      this.content.classList.remove('animate-translation');
+      this.content.style.transform = '';
+    }
+  }
+
+  /**
    * Set aria label.
    * @param {string} ariaLabel Aria label.
    */
@@ -535,6 +603,14 @@ export default class SortParagraphsParagraph {
       return;
     }
 
+    if (callbackName === 'onMouseDown') {
+      // Used in dragstart for Firefox workaround
+      this.pointerPosition = {
+        x: event.clientX,
+        y: event.clientY
+      };
+    }
+
     if (
       this.params.options.addButtonsForMovement &&
       (
@@ -550,11 +626,87 @@ export default class SortParagraphsParagraph {
   }
 
   /**
-   * Handle animation ended.
+   * Handle drag start.
+   * @param {Event} event Event.
    */
-  handleAnimationEnded() {
-    this.content.removeEventListener('animationend', this.handleAnimationEnded);
-    this.content.classList.remove(`h5p-sort-paragraphs-animate-${this.animationStyle}`);
-    this.isAnimating = false;
+  handleDragStart(event) {
+    if (this.disabled) {
+      return;
+    }
+
+    this.hideButtons();
+
+    this.toggleEffect('over', true);
+    event.dataTransfer.effectAllowed = 'move';
+
+    // Workaround for Firefox that may scale the draggable down otherwise
+    event.dataTransfer.setDragImage(
+      this.content,
+      this.pointerPosition.x - this.content.offsetLeft,
+      this.pointerPosition.y - this.content.offsetTop
+    );
+
+    // Will hide browser's draggable copy as well without timeout
+    clearTimeout(this.placeholderTimeout);
+    this.placeholderTimeout = setTimeout(() => {
+      this.showPlaceholder();
+      this.hide();
+    }, 0);
+
+    this.callbacks.onDragStart(event.currentTarget);
+  }
+
+  /**
+   * Handle drag over.
+   * @param {Event} event Event.
+   */
+  handleDragOver(event) {
+    if (this.disabled) {
+      return;
+    }
+
+    event.preventDefault();
+  }
+
+  /**
+   * Handle drag enter.
+   * @param {Event} event Event.
+   */
+  handleDragEnter(event) {
+    if (this.disabled) {
+      return;
+    }
+
+    this.callbacks.onDragEnter(event.currentTarget);
+  }
+
+  /**
+   * Handle drag leave.
+   * @param {Event} event Event.
+   */
+  handleDragLeave(event) {
+    if (this.disabled) {
+      return;
+    }
+
+    if (this.content !== event.target || this.content.contains(event.fromElement)) {
+      return;
+    }
+
+    this.callbacks.onDragLeave(event.currentTarget);
+  }
+
+  /**
+   * Handle drag end.
+   * @param {Event} event Event.
+   */
+  handleDragEnd(event) {
+    if (this.disabled) {
+      return;
+    }
+
+    this.resetDragging();
+
+    this.callbacks.onDragEnd(event.currentTarget);
   }
 }

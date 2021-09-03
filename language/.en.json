@@ -45,23 +45,19 @@
       "fields": [
         {
           "label": "Scoring mode",
-          "description": "Decide whether to count correct transitions (regardless of the paragraphs' absolute positions) or to count correct positions.",
+          "description": "Decide whether to give points for each correctly placed paragraph or for each paragraph that is placed after the paragraph it is supposed to be placed after (\"correct sequence\")",
           "options": [
             {
-              "label": "Transitions"
+              "label": "Correct sequence"
             },
             {
-              "label": "Positions"
+              "label": "Correctly placed paragraph"
             }
           ]
         },
         {
           "label": "Apply penalties",
           "description": "Decide whether to deduce a point for each paragraph that's not positioned correctly."
-        },
-        {
-          "label": "Show arrows",
-          "description": "If checked, the paragraphs will be separated by arrows to indicate the order"
         },
         {
           "label": "Duplicate parapraphs interchangeable",

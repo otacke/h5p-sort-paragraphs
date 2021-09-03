@@ -45,23 +45,19 @@
       "fields": [
         {
           "label": "Scoremodus",
-          "description": "Beslis of je correcte overgangen moet tellen (ongeacht de absolute posities van de alinea's) of dat je correcte posities moet tellen.",
+          "description": "Decide whether to give points for each correctly placed paragraph or for each paragraph that is placed after the paragraph it is supposed to be placed after (\"correct sequence\")",
           "options": [
             {
-              "label": "Overgangen"
+              "label": "Correct sequence"
             },
             {
-              "label": "Posities"
+              "label": "Correctly placed paragraph"
             }
           ]
         },
         {
           "label": "Minpunten toepassen",
           "description": "Beslis of je een punt moet aftrekken voor elke paragraaf die niet correct gepositioneerd is."
-        },
-        {
-          "label": "Toon pijlen",
-          "description": "Indien aangevinkt, worden de paragrafen gescheiden door pijlen om de volgorde aan te geven."
         },
         {
           "label": "Uitwisselbaarheid van de gedupliceerde paragrafen",

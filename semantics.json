@@ -117,18 +117,18 @@
       {
         "name": "scoringMode",
         "label": "Scoring mode",
-        "description": "Decide whether to count correct transitions (regardless of the paragraphs' absolute positions) or to count correct positions.",
+        "description": "Decide whether to give points for each correctly placed paragraph or for each paragraph that is placed after the paragraph it is supposed to be placed after (\"correct sequence\")",
         "type": "select",
         "importance": "low",
-        "default": "transitions",
+        "default": "positions",
         "options": [
           {
-            "value": "transitions",
-            "label": "Transitions"
+            "value": "positions",
+            "label": "Correctly placed paragraph"
           },
           {
-            "value": "positions",
-            "label": "Positions"
+            "value": "transitions",
+            "label": "Correct sequence"
           }
         ]
       },
@@ -139,24 +139,6 @@
         "type": "boolean",
         "importance": "low",
         "default": true,
-        "widget": "showWhen",
-        "showWhen": {
-          "rules": [
-            {
-              "field": "scoringMode",
-              "equals": "positions"
-            }
-          ]
-        }
-      },
-      {
-        "name": "arrowsPositions",
-        "label": "Show arrows",
-        "description": "If checked, the paragraphs will be separated by arrows to indicate the order",
-        "type": "boolean",
-        "importance": "low",
-        "default": false,
-        "optional": true,
         "widget": "showWhen",
         "showWhen": {
           "rules": [
