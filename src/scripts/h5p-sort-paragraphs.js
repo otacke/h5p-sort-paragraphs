@@ -273,7 +273,7 @@ export default class SortParagraphs extends H5P.Question {
     this.params.paragraphs.forEach((paragraph, index) => {
       definition.correctResponsesPattern.push(index);
     });
-    definition.correctResponsesPattern = definition.correctResponsesPattern.join('[,]');
+    definition.correctResponsesPattern = [definition.correctResponsesPattern.join('[,]')];
     definition.choices = this.params.paragraphs.map((paragraph, index) => {
       paragraph = Util.stripHTML(paragraph);
 
@@ -287,6 +287,12 @@ export default class SortParagraphs extends H5P.Question {
         description: choicesDescription
       };
     });
+
+    // Set extension
+    if (this.content.options.scoringMode === 'transitions') {
+      definition.extensions = definition.extensions || {};
+      definition.extensions['https://h5p.org/x-api/sequencing-type'] = 'transitions';
+    }
 
     return definition;
   }
