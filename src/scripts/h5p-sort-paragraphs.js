@@ -289,9 +289,13 @@ export default class SortParagraphs extends H5P.Question {
     });
 
     // Set extension
+    definition.extensions = definition.extensions || {};
     if (this.content.options.scoringMode === 'transitions') {
-      definition.extensions = definition.extensions || {};
       definition.extensions['https://h5p.org/x-api/sequencing-type'] = 'transitions';
+    }
+
+    if (this.content.options.duplicatesInterchangeable) {
+      definition.extensions['https://h5p.org/x-api/duplicates-interchangeable'] = 1;
     }
 
     return definition;
