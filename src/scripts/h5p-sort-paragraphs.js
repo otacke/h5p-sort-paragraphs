@@ -184,7 +184,7 @@ export default class SortParagraphs extends H5P.Question {
    */
   getScore() {
     if (!this.content) {
-      return 0;
+      return this.previousState ? this.previousState.score || 0 : 0;
     }
 
     return (this.content.computeResults()).score;
@@ -390,7 +390,8 @@ export default class SortParagraphs extends H5P.Question {
   getCurrentState() {
     return {
       order: this.content.getDraggablesOrder(),
-      view: this.viewState
+      view: this.viewState,
+      score: this.viewState === 'task' ? 0 : this.getScore()
     };
   }
 
