@@ -79,7 +79,9 @@ export default class SortParagraphs extends H5P.Question {
     this.languageTag = Util.formatLanguageCode(defaultLanguage);
 
     // this.previousState now holds the saved content state of the previous session
-    this.previousState = (this.extras.previousState && this.extras.previousState.order) || null;
+    this.previousState = (this.extras.previousState && this.extras.previousState.order) ?
+        this.extras.previousState
+        : null;
   }
 
   /**
@@ -181,6 +183,10 @@ export default class SortParagraphs extends H5P.Question {
    * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-2}
    */
   getScore() {
+    if (!this.content) {
+      return 0;
+    }
+
     return (this.content.computeResults()).score;
   }
 
