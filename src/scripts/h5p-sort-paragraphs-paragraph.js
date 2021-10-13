@@ -642,8 +642,8 @@ export default class SortParagraphsParagraph {
     // Workaround for Firefox that may scale the draggable down otherwise
     event.dataTransfer.setDragImage(
       this.content,
-      this.pointerPosition.x - this.content.offsetLeft,
-      this.pointerPosition.y - this.content.offsetTop
+      this.pointerPosition.x - this.content.getBoundingClientRect().left,
+      this.pointerPosition.y - this.content.getBoundingClientRect().top
     );
 
     // Will hide browser's draggable copy as well without timeout
