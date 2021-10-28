@@ -1,6 +1,18 @@
 {
   "semantics": [
     {
+      "label": "Media",
+      "fields": [
+        {
+          "label": "Type",
+          "description": "Optional media to display above the question."
+        },
+        {
+          "label": "Disable image zooming"
+        }
+      ]
+    },
+    {
       "label": "Descripción del trabajo",
       "placeholder": "Describa lo que deberían hacer sus estudiantes ...",
       "description": "Lo que sus estudiantes deberían saber."

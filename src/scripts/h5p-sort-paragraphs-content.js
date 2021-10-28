@@ -46,12 +46,6 @@ export default class SortParagraphsContent {
     // ARIA label texts
     this.ariaTemplates = this.buildAriaTemplates();
 
-    // Task description
-    const taskDescription = document.createElement('div');
-    taskDescription.classList.add('h5p-sort-paragraphs-task-description');
-    taskDescription.innerHTML = params.taskDescription;
-    this.content.appendChild(taskDescription);
-
     // Build n paragraphs
     this.paragraphs = params.paragraphs
       .map(paragraph => this.buildParagraph(paragraph));

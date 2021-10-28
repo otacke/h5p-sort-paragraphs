@@ -1,6 +1,18 @@
 {
   "semantics": [
     {
+      "label": "Media",
+      "fields": [
+        {
+          "label": "Type",
+          "description": "Optional media to display above the question."
+        },
+        {
+          "label": "Disable image zooming"
+        }
+      ]
+    },
+    {
       "label": "Περιγραφή εργασίας",
       "placeholder": "Περιγράψτε τι πρέπει να κάνουν οι μαθητές σας ...",
       "description": "Τι πρέπει να γνωρίζουν οι μαθητές σας."
