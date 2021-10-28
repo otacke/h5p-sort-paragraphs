@@ -118,10 +118,17 @@ export default class SortParagraphs extends H5P.Question {
       }
     }
 
+    // Register task introduction text
+    if (this.params.taskDescription) {
+      const introduction = document.createElement('div');
+      introduction.classList.add('h5p-sort-paragraphs-task-description');
+      introduction.innerHTML = this.params.taskDescription;
+      this.setIntroduction(introduction);
+    }
+
     this.content = new SortParagraphsContent(
       {
         paragraphs: this.params.paragraphs,
-        taskDescription: this.params.taskDescription,
         addButtonsForMovement: this.params.behaviour.addButtonsForMovement,
         duplicatesInterchangeable: this.params.behaviour.duplicatesInterchangeable,
         penalties: this.params.behaviour.applyPenalties,
