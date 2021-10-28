@@ -83,6 +83,10 @@
           "default": "Провери"
         },
         {
+          "label": "Text for \"Submit\" button",
+          "default": "Submit"
+        },
+        {
           "label": "Текст за \"Покушај поново\" дугме",
           "default": "Покушај поново"
         },

@@ -36,6 +36,7 @@ export default class SortParagraphs extends H5P.Question {
       },
       l10n: {
         checkAnswer: 'Check answer',
+        submitAnswer: 'Submit',
         showSolution: 'Show solution',
         tryAgain: 'Retry',
         up: 'Up',
@@ -142,7 +143,10 @@ export default class SortParagraphs extends H5P.Question {
       this.checkAnswer();
     }, true, {
       'aria-label': this.params.a11y.check
-    }, {});
+    }, {
+      contentData: this.extras,
+      textIfSubmitting: this.params.l10n.submitAnswer,
+    });
 
     // Show solution button
     this.addButton('show-solution', this.params.l10n.showSolution, () => {
