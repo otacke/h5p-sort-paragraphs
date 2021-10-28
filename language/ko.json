@@ -1,6 +1,18 @@
 {
   "semantics": [
     {
+      "label": "Media",
+      "fields": [
+        {
+          "label": "Type",
+          "description": "Optional media to display above the question."
+        },
+        {
+          "label": "Disable image zooming"
+        }
+      ]
+    },
+    {
       "label": "과제 설명",
       "placeholder": "학습자들이 무엇을 해야 하는지 설명하세요.",
       "description": "학습자들이 알아야 할 것"

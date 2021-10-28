@@ -24,6 +24,7 @@ export default class SortParagraphs extends H5P.Question {
 
     // Make sure all variables are set
     this.params = Util.extend({
+      media: {},
       taskDescription: null,
       paragraphs: [],
       behaviour: {
@@ -88,6 +89,35 @@ export default class SortParagraphs extends H5P.Question {
    * Register the DOM elements with H5P.Question
    */
   registerDomElements() {
+    // Set optional media
+    const media = this.params.media.type;
+    if (media && media.library) {
+      const type = media.library.split(' ')[0];
+      // Image
+      if (type === 'H5P.Image') {
+        if (media.params.file) {
+          this.setImage(media.params.file.path, {
+            disableImageZooming: this.params.media.disableImageZooming,
+            alt: media.params.alt,
+            title: media.params.title
+          });
+        }
+      }
+      // Video
+      else if (type === 'H5P.Video') {
+        if (media.params.sources) {
+          this.setVideo(media);
+        }
+      }
+      // Audio
+      else if (type === 'H5P.Audio') {
+        if (media.params.files) {
+          // Register task audio
+          this.setAudio(media);
+        }
+      }
+    }
+
     this.content = new SortParagraphsContent(
       {
         paragraphs: this.params.paragraphs,
