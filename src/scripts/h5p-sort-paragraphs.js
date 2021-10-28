@@ -81,8 +81,8 @@ export default class SortParagraphs extends H5P.Question {
 
     // this.previousState now holds the saved content state of the previous session
     this.previousState = (this.extras.previousState && this.extras.previousState.order) ?
-        this.extras.previousState
-        : null;
+      this.extras.previousState :
+      null;
   }
 
   /**
