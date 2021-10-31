@@ -1,6 +1,18 @@
 {
   "semantics": [
     {
+      "label": "Media",
+      "fields": [
+        {
+          "label": "Type",
+          "description": "Optional media to display above the question."
+        },
+        {
+          "label": "Disable image zooming"
+        }
+      ]
+    },
+    {
       "label": "Lanaren deskribapena",
       "placeholder": "Deskribatu ezazu zure ikasleek egin behar dutena...",
       "description": "Zure ikasleek jakin beharko luketena."
@@ -82,6 +94,10 @@
           "label": "\"Egiaztatu\" botoiarentzako testua",
           "default": "Egiaztatu"
         },
+        {
+          "label": "Text for \"Submit\" button",
+          "default": "Submit"
+        },        
         {
           "label": "\"Berriz saiatu\" botoiarentzako testua",
           "default": "Berriz saiatu"
