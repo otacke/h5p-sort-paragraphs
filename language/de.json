@@ -1,14 +1,14 @@
 {
   "semantics": [
     {
-      "label": "Media",
+      "label": "Medium",
       "fields": [
         {
           "label": "Type",
-          "description": "Optional media to display above the question."
+          "description": "Optionales Medium, das über der Frage dargestellt wird."
         },
         {
-          "label": "Disable image zooming"
+          "label": "Bild-Zoom deaktivieren"
         }
       ]
     },
@@ -95,16 +95,16 @@
           "default": ""
         },
         {
-          "label": "Text for \"Submit\" button",
-          "default": "Submit"
+          "label": "Beschriftung des \"Absenden\"-Buttons",
+          "default": "Absenden"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Beschriftung des \"Wiederholen\"-Buttons",
+          "default": "Wiederholen"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Beschriftung des \"Lösung anzeigen\"-Buttons",
+          "default": "Lösung anzeigen"
         },
         {
           "label": "",
