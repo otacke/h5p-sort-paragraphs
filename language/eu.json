@@ -5,10 +5,10 @@
       "fields": [
         {
           "label": "Type",
-          "description": "Optional media to display above the question."
+          "description": "Galderaren gainean erakusteko aukerazko multimedia."
         },
         {
-          "label": "Disable image zooming"
+          "label": "Desgaitu irudien zooma"
         }
       ]
     },
@@ -80,7 +80,7 @@
           "description": "Gailu mugikorretan, paragrafoak mugitzeko botoiek irisgarritasun onura gehigarriak eskaini dezakete. Nahiago baduzu, hemen desgaitu ditzakezu."
         },
         {
-          "label": "Gaitu \"Berriz saiatu\" botoia"
+          "label": "Gaitu \"Saiatu berriro\" botoia"
         },
         {
           "label": "Gaitu \"Erakutsi Erantzuna\" botoia"
@@ -95,12 +95,12 @@
           "default": "Egiaztatu"
         },
         {
-          "label": "Text for \"Submit\" button",
-          "default": "Submit"
+          "label": "\"Bidali\" botoiarentzako testua",
+          "default": "Bidali"
         },
         {
-          "label": "\"Berriz saiatu\" botoiarentzako testua",
-          "default": "Berriz saiatu"
+          "label": "\"Saiatu berriro\" botoiarentzako testua",
+          "default": "Saiatu berriro"
         },
         {
           "label": "\"Erakutsi emaitza\" botoiarentzako testua",
@@ -132,7 +132,7 @@
           "default": "Erakutsi emaitza. Emaitza zuzena erakutsiko da."
         },
         {
-          "label": "\"Berriz saiatu\" botoiaren laguntza-teknologientzako deskribapena",
+          "label": "\"Saiatu berriro\" botoiaren laguntza-teknologientzako deskribapena",
           "default": "Lana berriz egiten saiatu. Elementu guztiak berrabiarazten ditu eta lana berriz hasten du."
         },
         {
