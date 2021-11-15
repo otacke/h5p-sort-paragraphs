@@ -145,12 +145,11 @@
           "default": "Sortierbare Liste von Absätzen."
         },
         {
-          "description": "",
-          "label": "Beschreibung der Liste (im Antwort prüfen-Modus)",
+          "label": "Beschreibung der Liste (im \"Antwort prüfen\"-Modus)",
           "default": "Liste der Absätze mit Ergebnissen."
         },
         {
-          "label": "Beschreibung der Liste (im \"Lösung Anzeigen\"-Modus)",
+          "label": "Beschreibung der Liste (im \"Lösung anzeigen\"-Modus)",
           "default": "Liste der Absätze mit Lösungen."
         },
         {
@@ -158,12 +157,10 @@
           "default": "Absatz"
         },
         {
-          "description": "",
           "label": "Richtig",
           "default": "richtig"
         },
         {
-          "description": "",
           "label": "Falsch",
           "default": "falsch"
         },
@@ -199,12 +196,10 @@
           "default": "Verschoben"
         },
         {
-          "description": "",
           "label": "Abgelegt",
           "default": "Abgelegt"
         },
         {
-          "description": "",
           "label": "Sortieren abgebrochen",
           "default": "Sortieren abgebrochen"
         },
