@@ -5,10 +5,10 @@
       "fields": [
         {
           "label": "Type",
-          "description": "Optional media to display above the question."
+          "description": "Optionele media om boven de vraag te tonen."
         },
         {
-          "label": "Disable image zooming"
+          "label": "Beeld zoomen uitschakelen"
         }
       ]
     },
@@ -57,13 +57,13 @@
       "fields": [
         {
           "label": "Scoremodus",
-          "description": "Decide whether to give points for each correctly placed paragraph or for each paragraph that is placed after the paragraph it is supposed to be placed after (\"correct sequence\")",
+          "description": "Beslis of je punten geeft voor elke correct geplaatste alinea of voor elke alinea die wordt geplaatst na de alinea waar deze achter hoort te staan (\"juiste volgorde\")",
           "options": [
             {
-              "label": "Correct sequence"
+              "label": "Juiste volgorde"
             },
             {
-              "label": "Correctly placed paragraph"
+              "label": "Juist geplaatste paragraaf"
             }
           ]
         },
@@ -77,7 +77,7 @@
         },
         {
           "label": "Add buttons for movement",
-          "description": "On mobile devices, buttons for moving paragraphs can offer an extra accessibility benefit. If you prefer, you can deactivate them here."
+          "description": "Op mobiele apparaten kunnen knoppen om paragrafen te verplaatsen een extra toegankelijkheidsvoordeel bieden. Als je dat liever hebt, kun je ze hier deactiveren."
         },
         {
           "label": "Schakel \"Opnieuw\" knop in"
@@ -121,7 +121,7 @@
       ]
     },
     {
-      "label": "Readspeaker",
+      "label": "Voorlezer",
       "fields": [
         {
           "label": "Beschrijving van de de ondersteunende technologie voor de \"Controleer\" knop",
@@ -141,16 +141,16 @@
           "default": "Je hebt @score van de @total punten"
         },
         {
-          "label": "List description",
-          "default": "Sortable list of paragraphs."
+          "label": "Lijst omschrijving",
+          "default": "Sorteerbare lijst van paragrafen."
         },
         {
-          "label": "List description (check answer)",
-          "default": "List of paragraphs with results."
+          "label": "Omschrijving van de lijst (antwoord aankruisen)",
+          "default": "Lijst van paragrafen met resultaten."
         },
         {
-          "label": "List description (show solution)",
-          "default": "List of paragraphs with solutions."
+          "label": "Lijst omschrijving (toon oplossing)",
+          "default": "Lijst van paragrafen met oplossingen."
         },
         {
           "label": "Paragraaf",
