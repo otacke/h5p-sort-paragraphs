@@ -91,7 +91,7 @@
       "label": "Bezeichnungen und Beschriftungen",
       "fields": [
         {
-          "label": "Beschriftung für den \"Überprüfen\"-Button",
+          "label": "Beschriftung des \"Überprüfen\"-Buttons",
           "default": "Prüfen"
         },
         {
@@ -107,11 +107,11 @@
           "default": "Lösung anzeigen"
         },
         {
-          "label": "Beschriftung für den \"Nach oben\"-Button",
+          "label": "Beschriftung des \"Nach oben\"-Buttons",
           "default": "Nach oben"
         },
         {
-          "label": "Beschriftung für den \"Nach unten\"-Button",
+          "label": "Beschriftung des \"Nach unten\"-Buttons",
           "default": "Nach unten"
         },
         {
