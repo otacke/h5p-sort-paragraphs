@@ -319,7 +319,7 @@ export default class SortParagraphsContent {
    */
   buildList(paragraphs) {
     const list = document.createElement('div');
-    list.setAttribute('role', 'list');
+    list.setAttribute('role', 'application');
     list.setAttribute('aria-label', this.params.a11y.listDescription);
     list.classList.add('h5p-sort-paragraphs-list');
 
