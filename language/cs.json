@@ -1,0 +1,224 @@
+{
+  "semantics": [
+    {
+      "label": "Média",
+      "fields": [
+        {
+          "label": "Typ",
+          "description": "Volitelná média zobrazená nad otázkou."
+        },
+        {
+          "label": "Zakázat zvětšení obrazu"
+        }
+      ]
+    },
+    {
+      "label": "Popis úlohy",
+      "placeholder": "",
+      "description": ""
+    },
+    {
+      "label": "",
+      "entity": "",
+      "field": {
+        "label": ""
+      }
+    },
+    {
+      "label": "",
+      "fields": [
+        {
+          "widgets": [
+            {
+              "label": ""
+            }
+          ],
+          "label": "",
+          "description": "",
+          "entity": "",
+          "field": {
+            "fields": [
+              {
+                "label": ""
+              },
+              {},
+              {
+                "label": "",
+                "placeholder": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "",
+      "description": "",
+      "fields": [
+        {
+          "label": "",
+          "description": "",
+          "options": [
+            {
+              "label": ""
+            },
+            {
+              "label": ""
+            }
+          ]
+        },
+        {
+          "label": "",
+          "description": ""
+        },
+        {
+          "label": "",
+          "description": ""
+        },
+        {
+          "label": "",
+          "description": ""
+        },
+        {
+          "label": ""
+        },
+        {
+          "label": ""
+        }
+      ]
+    },
+    {
+      "label": "",
+      "fields": [
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "label": "",
+      "fields": [
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "description": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "description": "",
+          "label": "",
+          "default": ""
+        },
+        {
+          "description": "",
+          "label": "",
+          "default": ""
+        },
+        {
+          "description": "",
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "label": "",
+          "default": ""
+        },
+        {
+          "description": "",
+          "label": "",
+          "default": ""
+        },
+        {
+          "description": "",
+          "label": "",
+          "default": ""
+        },
+        {
+          "description": "",
+          "label": "",
+          "default": ""
+        }
+      ]
+    }
+  ]
+}

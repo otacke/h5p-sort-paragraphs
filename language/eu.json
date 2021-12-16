@@ -83,7 +83,7 @@
           "label": "Gaitu \"Saiatu berriro\" botoia"
         },
         {
-          "label": "Gaitu \"Erakutsi Erantzuna\" botoia"
+          "label": "Gaitu \"Erakutsi emaitza\" botoia"
         }
       ]
     },
@@ -128,7 +128,7 @@
           "default": "Egiaztatu erantzunak. Erantzunak zuzen edo oker gisa markatuko dira."
         },
         {
-          "label": "\"Erakutsi Emaitza\" botoiaren laguntza-teknologientzako deskribapena",
+          "label": "\"Erakutsi emaitza\" botoiaren laguntza-teknologientzako deskribapena",
           "default": "Erakutsi emaitza. Emaitza zuzena erakutsiko da."
         },
         {
