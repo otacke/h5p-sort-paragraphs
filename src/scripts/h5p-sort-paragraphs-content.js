@@ -319,6 +319,12 @@ export default class SortParagraphsContent {
    */
   buildList(paragraphs) {
     const list = document.createElement('div');
+    /*
+     * Using 'application' instead of 'list' because commonly used NVDA
+     * screenreader overrides arrow key usage and doesn't announce changes
+     * when moving draggables with arrow keys. ChromeVox and JAWS can
+     * cope with 'application' instead of 'list', too.
+     */
     list.setAttribute('role', 'application');
     list.setAttribute('aria-label', this.params.a11y.listDescription);
     list.classList.add('h5p-sort-paragraphs-list');
