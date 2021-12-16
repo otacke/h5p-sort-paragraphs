@@ -14,37 +14,37 @@
     },
     {
       "label": "Popis úlohy",
-      "placeholder": "",
-      "description": ""
+      "placeholder": "Describe what your students should do ...",
+      "description": "What your students should know."
     },
     {
-      "label": "",
-      "entity": "",
+      "label": "Paragraphs",
+      "entity": "paragraph",
       "field": {
-        "label": ""
+        "label": "Paragraph"
       }
     },
     {
-      "label": "",
+      "label": "Overall Feedback",
       "fields": [
         {
           "widgets": [
             {
-              "label": ""
+              "label": "Default"
             }
           ],
-          "label": "",
-          "description": "",
-          "entity": "",
+          "label": "Define custom feedback for any score range",
+          "description": "Click the \"Add range\" button to add as many ranges as you need. Example: 0-20% Bad score, 21-91% Average Score, 91-100% Great Score!",
+          "entity": "range",
           "field": {
             "fields": [
               {
-                "label": ""
+                "label": "Score Range"
               },
               {},
               {
-                "label": "",
-                "placeholder": ""
+                "label": "Feedback for defined score range",
+                "placeholder": "Fill in the feedback"
               }
             ]
           }
@@ -52,171 +52,171 @@
       ]
     },
     {
-      "label": "",
-      "description": "",
+      "label": "Behavioural settings",
+      "description": "These options will let you control how the task behaves.",
       "fields": [
         {
-          "label": "",
-          "description": "",
+          "label": "Scoring mode",
+          "description": "Decide whether to give points for each correctly placed paragraph or for each paragraph that is placed after the paragraph it is supposed to be placed after (\"correct sequence\")",
           "options": [
             {
-              "label": ""
+              "label": "Correct sequence"
             },
             {
-              "label": ""
+              "label": "Correctly placed paragraph"
             }
           ]
         },
         {
-          "label": "",
-          "description": ""
+          "label": "Apply penalties",
+          "description": "Decide whether to deduce a point for each paragraph that's not positioned correctly."
         },
         {
-          "label": "",
-          "description": ""
+          "label": "Duplicate parapraphs interchangeable",
+          "description": "If set, when checking the answer, duplicate paragraphs will be treated as identical if their plain text is equal."
         },
         {
-          "label": "",
-          "description": ""
+          "label": "Add buttons for movement",
+          "description": "On mobile devices, buttons for moving paragraphs can offer an extra accessibility benefit. If you prefer, you can deactivate them here."
         },
         {
-          "label": ""
+          "label": "Enable \"Retry\" button"
         },
         {
-          "label": ""
+          "label": "Enable \"Show Solution\" button"
         }
       ]
     },
     {
-      "label": "",
+      "label": "User interface",
       "fields": [
         {
-          "label": "",
-          "default": ""
+          "label": "Text for \"Check\" button",
+          "default": "Check"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Text for \"Submit\" button",
+          "default": "Submit"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Text for \"Retry\" button",
+          "default": "Retry"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Text for \"Show solution\" button",
+          "default": "Show solution"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Title for \"Up\" button",
+          "default": "Up"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Title for \"Down\" button",
+          "default": "Down"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Title for button that is disabled",
+          "default": "Disabled"
         }
       ]
     },
     {
-      "label": "",
+      "label": "Readspeaker",
       "fields": [
         {
-          "label": "",
-          "default": ""
+          "label": "Assistive technology description for \"Check\" button",
+          "default": "Check the answers. The responses will be marked as correct or incorrect."
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Assistive technology description for \"Show Solution\" button",
+          "default": "Show the solution. The correct solution will be displayed."
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Assistive technology description for \"Retry\" button",
+          "default": "Retry the task. Reset all elements and start the task over again."
         },
         {
-          "label": "",
-          "description": "",
-          "default": ""
+          "label": "Your result",
+          "description": "@score will be replaced by the number of points. @total will be replaced by the maximum possible points.",
+          "default": "You got @score out of @total points"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "List description",
+          "default": "Sortable list of paragraphs."
         },
         {
-          "label": "",
-          "default": ""
+          "label": "List description (check answer)",
+          "default": "List of paragraphs with results."
         },
         {
-          "label": "",
-          "default": ""
+          "label": "List description (show solution)",
+          "default": "List of paragraphs with solutions."
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Paragraph",
+          "default": "Paragraph"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Correct",
+          "default": "correct"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Wrong",
+          "default": "wrong"
         },
         {
-          "description": "",
-          "label": "",
-          "default": ""
+          "description": "@score will be replaced by 1 or -1.",
+          "label": "Score explanation",
+          "default": "@score point"
         },
         {
-          "description": "",
-          "label": "",
-          "default": ""
+          "description": "@current will be replaced by the current paragraph number. @total will be replaced by the number of paragraphs.",
+          "label": "Paragraph numbering",
+          "default": "@current of @total"
         },
         {
-          "description": "",
-          "label": "",
-          "default": ""
+          "description": "Will be followed by \"Paragraph numbering\".",
+          "label": "Current position in list",
+          "default": "Current position in list"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Instruction when paragraph selected",
+          "default": "Press spacebar to reorder"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Instruction when paragraph grabbed",
+          "default": "Press up and down arrow keys to change position, spacebar to drop, escape to cancel"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Grabbed",
+          "default": "Grabbed"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Moved",
+          "default": "Moved"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Dropped",
+          "default": "Dropped"
         },
         {
-          "label": "",
-          "default": ""
+          "label": "Reorder cancelled",
+          "default": "Reorder cancelled"
         },
         {
-          "description": "",
-          "label": "",
-          "default": ""
+          "description": "Will be followed by \"Paragraph numbering\".",
+          "label": "Final position",
+          "default": "Final position"
         },
         {
-          "description": "",
-          "label": "",
-          "default": ""
+          "description": "Will be followed by \"correct\" or \"wrong\".",
+          "label": "Next paragraph",
+          "default": "Next paragraph"
         },
         {
-          "description": "",
-          "label": "",
-          "default": ""
+          "description": "Will be followed by \"Paragraph numbering\".",
+          "label": "Correct Paragraph",
+          "default": "Correct paragraph at position"
         }
       ]
     }
