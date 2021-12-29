@@ -24,6 +24,7 @@ export default class SortParagraphs extends H5P.Question {
 
     // Make sure all variables are set
     this.params = Util.extend({
+      media: {},
       taskDescription: null,
       paragraphs: [],
       behaviour: {
@@ -36,6 +37,7 @@ export default class SortParagraphs extends H5P.Question {
       },
       l10n: {
         checkAnswer: 'Check answer',
+        submitAnswer: 'Submit',
         showSolution: 'Show solution',
         tryAgain: 'Retry',
         up: 'Up',
@@ -79,17 +81,55 @@ export default class SortParagraphs extends H5P.Question {
     this.languageTag = Util.formatLanguageCode(defaultLanguage);
 
     // this.previousState now holds the saved content state of the previous session
-    this.previousState = (this.extras.previousState && this.extras.previousState.order) || null;
+    this.previousState = (this.extras.previousState && this.extras.previousState.order) ?
+      this.extras.previousState :
+      null;
   }
 
   /**
    * Register the DOM elements with H5P.Question
    */
   registerDomElements() {
+    // Set optional media
+    const media = this.params.media.type;
+    if (media && media.library) {
+      const type = media.library.split(' ')[0];
+      // Image
+      if (type === 'H5P.Image') {
+        if (media.params.file) {
+          this.setImage(media.params.file.path, {
+            disableImageZooming: this.params.media.disableImageZooming,
+            alt: media.params.alt,
+            title: media.params.title
+          });
+        }
+      }
+      // Video
+      else if (type === 'H5P.Video') {
+        if (media.params.sources) {
+          this.setVideo(media);
+        }
+      }
+      // Audio
+      else if (type === 'H5P.Audio') {
+        if (media.params.files) {
+          // Register task audio
+          this.setAudio(media);
+        }
+      }
+    }
+
+    // Register task introduction text
+    if (this.params.taskDescription) {
+      const introduction = document.createElement('div');
+      introduction.classList.add('h5p-sort-paragraphs-task-description');
+      introduction.innerHTML = this.params.taskDescription;
+      this.setIntroduction(introduction);
+    }
+
     this.content = new SortParagraphsContent(
       {
         paragraphs: this.params.paragraphs,
-        taskDescription: this.params.taskDescription,
         addButtonsForMovement: this.params.behaviour.addButtonsForMovement,
         duplicatesInterchangeable: this.params.behaviour.duplicatesInterchangeable,
         penalties: this.params.behaviour.applyPenalties,
@@ -142,7 +182,10 @@ export default class SortParagraphs extends H5P.Question {
       this.checkAnswer();
     }, true, {
       'aria-label': this.params.a11y.check
-    }, {});
+    }, {
+      contentData: this.extras,
+      textIfSubmitting: this.params.l10n.submitAnswer,
+    });
 
     // Show solution button
     this.addButton('show-solution', this.params.l10n.showSolution, () => {
@@ -181,6 +224,10 @@ export default class SortParagraphs extends H5P.Question {
    * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-2}
    */
   getScore() {
+    if (!this.content) {
+      return this.previousState ? this.previousState.score || 0 : 0;
+    }
+
     return (this.content.computeResults()).score;
   }
 
@@ -384,7 +431,8 @@ export default class SortParagraphs extends H5P.Question {
   getCurrentState() {
     return {
       order: this.content.getDraggablesOrder(),
-      view: this.viewState
+      view: this.viewState,
+      score: this.viewState === 'task' ? 0 : this.getScore()
     };
   }
 

@@ -1,6 +1,18 @@
 {
   "semantics": [
     {
+      "label": "Media",
+      "fields": [
+        {
+          "label": "Tipo",
+          "description": "Medio opcional a mostrar arriba de la pregunta."
+        },
+        {
+          "label": "Deshabilitar acercamiento de imagen"
+        }
+      ]
+    },
+    {
       "label": "Descripción del trabajo",
       "placeholder": "Describa lo que deberían hacer sus estudiantes ...",
       "description": "Lo que sus estudiantes deberían saber."
@@ -45,13 +57,13 @@
       "fields": [
         {
           "label": "Modo de puntaje",
-          "description": "Decide whether to give points for each correctly placed paragraph or for each paragraph that is placed after the paragraph it is supposed to be placed after (\"correct sequence\")",
+          "description": "Decidir si se dan puntos por cada párrafo colocado correctamente o por cada párrafo que es colocado después del párrafo que se supone que debe ser colocado después de (\"secuencia correcta\")",
           "options": [
             {
-              "label": "Correct sequence"
+              "label": "Secuencia correcta"
             },
             {
-              "label": "Correctly placed paragraph"
+              "label": "Párrafo colocado correctamente"
             }
           ]
         },
@@ -64,8 +76,8 @@
           "description": "Si se activa, al comprobar la respuesta, los párrafos duplicados serán tratados como idénticos si sus textos simples son iguales."
         },
         {
-          "label": "Add buttons for movement",
-          "description": "On mobile devices, buttons for moving paragraphs can offer an extra accessibility benefit. If you prefer, you can deactivate them here."
+          "label": "Añadir botones para movimiento",
+          "description": "En dispositivos móviles, los botones para mover párrafos pueden a menudo ofrecer un beneficio extra de accesibilidad. Si lo prefiere, usted puede desactivarlos aquí."
         },
         {
           "label": "Habilitar botón \"Reintentar\""
@@ -81,6 +93,10 @@
         {
           "label": "Texto para botón \"Comprobar\"",
           "default": "Comprobar"
+        },
+        {
+          "label": "Texto para botón \"Enviar\"",
+          "default": "Submit"
         },
         {
           "label": "Texto para botón \"Reintentar\"",
@@ -125,16 +141,16 @@
           "default": "Usted obtuvo @score de un total de @total puntos"
         },
         {
-          "label": "List description",
-          "default": "Sortable list of paragraphs."
+          "label": "Listar descripción",
+          "default": "Lista ordenable de párrafos."
         },
         {
-          "label": "List description (check answer)",
-          "default": "List of paragraphs with results."
+          "label": "Enlistar descripción (comprobar respuesta)",
+          "default": "Lista de párrafos con resultados."
         },
         {
-          "label": "List description (show solution)",
-          "default": "List of paragraphs with solutions."
+          "label": "Listar descripción (mostrar solución)",
+          "default": "Lista de párrafos con soluciones."
         },
         {
           "label": "Párrafo",

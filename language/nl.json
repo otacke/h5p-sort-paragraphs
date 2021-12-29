@@ -1,6 +1,18 @@
 {
   "semantics": [
     {
+      "label": "Media",
+      "fields": [
+        {
+          "label": "Type",
+          "description": "Optional media to display above the question."
+        },
+        {
+          "label": "Disable image zooming"
+        }
+      ]
+    },
+    {
       "label": "Taakomschrijving",
       "placeholder": "Beschrijf wat je gebruikers moeten doen...",
       "description": "Wat je gebruikers moeten weten."
@@ -81,6 +93,10 @@
         {
           "label": "Tekst voor \"Controleer\" knop",
           "default": "Controleer"
+        },
+        {
+          "label": "Text for \"Submit\" button",
+          "default": "Submit"
         },
         {
           "label": "Tekst voor \"Opnieuw\" knop",
