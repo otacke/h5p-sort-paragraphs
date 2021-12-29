@@ -1,14 +1,14 @@
 {
   "semantics": [
     {
-      "label": "Media",
+      "label": "Μέσα",
       "fields": [
         {
-          "label": "Type",
-          "description": "Optional media to display above the question."
+          "label": "Τύπος",
+          "description": "Προαιρετικά μέσα που θα εμφανίζονται πάνω από την ερώτηση."
         },
         {
-          "label": "Disable image zooming"
+          "label": "Απενεργοποίηση ζουμ εικόνας"
         }
       ]
     },
@@ -95,8 +95,8 @@
           "default": "Έλεγχος"
         },
         {
-          "label": "Text for \"Submit\" button",
-          "default": "Submit"
+          "label": "Κείμενο για το κουμπί \"Υποβολή\"",
+          "default": "Υποβολή"
         },
         {
           "label": "Κείμενο για το κουμπί \"Επανάληψη\"",
