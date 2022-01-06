@@ -4,8 +4,8 @@
       "label": "Medium",
       "fields": [
         {
-          "label": "Type",
-          "description": "Optionales Medium, das über der Frage dargestellt wird."
+          "label": "Typ",
+          "description": "Medium, das wahlweise oberhalb der Aufgabe angezeigt wird."
         },
         {
           "label": "Bild-Zoom deaktivieren"
