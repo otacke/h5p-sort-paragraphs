@@ -4,7 +4,7 @@
       "label": "Multimedia",
       "fields": [
         {
-          "label": "Type",
+          "label": "Mota",
           "description": "Galderaren gainean erakusteko aukerazko multimedia."
         },
         {
@@ -13,7 +13,7 @@
       ]
     },
     {
-      "label": "Lanaren deskribapena",
+      "label": "Atazaren deskribapena",
       "placeholder": "Deskribatu ezazu zure ikasleek egin behar dutena...",
       "description": "Zure ikasleek jakin beharko luketena."
     },
@@ -103,7 +103,7 @@
           "default": "Saiatu berriro"
         },
         {
-          "label": "\"Erakutsi emaitza\" botoiarentzako testua",
+          "label": "\"Erakutsi emaitza\" botoiaren testua",
           "default": "Erakutsi emaitza"
         },
         {
@@ -111,7 +111,7 @@
           "default": "Gora"
         },
         {
-          "label": "\"Behera\" botoiaren izenburua",
+          "label": "\"Behera\" botoiarentzako izenburua",
           "default": "Behera"
         },
         {
