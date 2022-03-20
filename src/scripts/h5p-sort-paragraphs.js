@@ -162,8 +162,16 @@ export default class SortParagraphs extends H5P.Question {
     if (this.previousState !== null && (this.previousState.view === 'results' || this.previousState.view === 'solutions')) {
       // Need to wait until DOM is ready for us
       H5P.externalDispatcher.on('initialized', () => {
-        this.setViewState('results');
-        this.checkAnswer();
+        if (this.previousState.view === 'results') {
+          this.setViewState('results');
+          this.checkAnswer();
+        }
+        else {
+          this.setViewState('solutions');
+          this.checkAnswer();
+          this.hideButton('show-solution');
+          this.showSolutions();
+        }
       });
     }
 
@@ -224,11 +232,21 @@ export default class SortParagraphs extends H5P.Question {
    * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-2}
    */
   getScore() {
+    let score = 0;
+
     if (!this.content) {
-      return this.previousState ? this.previousState.score || 0 : 0;
+      score = this.previousState?.score || 0;
+    }
+    else if (this.viewState === 'solutions') {
+      score = this.currentScore || this.previousState?.score || 0;
+    }
+    else {
+      score = (this.content.computeResults()).score;
     }
 
-    return (this.content.computeResults()).score;
+    this.currentScore = score;
+
+    return score;
   }
 
   /**
