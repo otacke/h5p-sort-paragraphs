@@ -178,6 +178,11 @@ export default class SortParagraphs extends H5P.Question {
     // Register Buttons
     this.addButtons();
 
+    // Inform content about resize
+    this.on('resize', () => {
+      this.content.resize();
+    });
+
     this.trigger('resize');
   }
 
@@ -370,45 +375,48 @@ export default class SortParagraphs extends H5P.Question {
    * Check answer.
    */
   checkAnswer() {
-    this.content.disable();
-
-    this.hideButton('check-answer');
-
-    if (this.params.behaviour.enableSolutionsButton && this.getScore() !== this.getMaxScore()) {
-      this.showButton('show-solution');
-    }
-
-    if (this.params.behaviour.enableRetry) {
-      this.showButton('try-again');
-    }
-
-    this.content.showResults();
-
-    const score = this.getScore();
-    const maxScore = this.getMaxScore();
-
-    const textScore = H5P.Question.determineOverallFeedback(
-      this.params.overallFeedback, score / maxScore);
-
-    // Output via H5P.Question - expects :num and :total
-    const ariaMessage = this.params.a11y.yourResult
-      .replace('@score', ':num')
-      .replace('@total', ':total');
-
-    this.setFeedback(
-      textScore.trim(),
-      score,
-      maxScore,
-      ariaMessage
-    );
-
-    if (this.viewState === 'task') {
-      // checkAnswer was mot triggered to recreate previous state
-      this.trigger(this.getXAPIAnswerEvent());
-      this.trigger(this.createXAPIEvent('completed')); // Store state
-    }
-
     this.setViewState('results');
+    this.trigger('resize');
+
+    setTimeout(() => {
+      this.content.disable();
+
+      this.hideButton('check-answer');
+
+      if (this.params.behaviour.enableSolutionsButton && this.getScore() !== this.getMaxScore()) {
+        this.showButton('show-solution');
+      }
+
+      if (this.params.behaviour.enableRetry) {
+        this.showButton('try-again');
+      }
+
+      this.content.showResults();
+
+      const score = this.getScore();
+      const maxScore = this.getMaxScore();
+
+      const textScore = H5P.Question.determineOverallFeedback(
+        this.params.overallFeedback, score / maxScore);
+
+      // Output via H5P.Question - expects :num and :total
+      const ariaMessage = this.params.a11y.yourResult
+        .replace('@score', ':num')
+        .replace('@total', ':total');
+
+      this.setFeedback(
+        textScore.trim(),
+        score,
+        maxScore,
+        ariaMessage
+      );
+
+      if (this.viewState === 'task') {
+        // checkAnswer was mot triggered to recreate previous state
+        this.trigger(this.getXAPIAnswerEvent());
+        this.trigger(this.createXAPIEvent('completed')); // Store state
+      }
+    }, 0); // Prevent flickering when content resizes by button alignment
   }
 
   /**
