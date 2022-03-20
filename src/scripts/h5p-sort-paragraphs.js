@@ -383,7 +383,11 @@ export default class SortParagraphs extends H5P.Question {
 
       this.hideButton('check-answer');
 
-      if (this.params.behaviour.enableSolutionsButton && this.getScore() !== this.getMaxScore()) {
+      if (
+        this.viewState !== 'solutions' &&
+        this.params.behaviour.enableSolutionsButton &&
+        this.getScore() !== this.getMaxScore()
+      ) {
         this.showButton('show-solution');
       }
 

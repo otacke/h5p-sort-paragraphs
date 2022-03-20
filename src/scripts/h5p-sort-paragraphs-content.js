@@ -114,15 +114,17 @@ export default class SortParagraphsContent {
       paragraph.disable();
     });
 
-    // Add score explanation and ARIA depending on scoring mode.
-    if (this.options.scoringMode === 'positions') {
-      this.showScoreExplanation(this.getDraggables().map(draggable => this.getParagraph(draggable)), results);
-      this.addScoreAria(this.getDraggables(), results);
-    }
-    else if (this.options.scoringMode === 'transitions') {
-      this.showScoreExplanation(this.separators, results);
-      this.addScoreAria(this.getDraggables(), results);
-      this.setAriaLabel(this.getDraggables().pop(), {action: 'neutral'});
+    if (this.viewState !== 'solutions') {
+      // Add score explanation and ARIA depending on scoring mode.
+      if (this.options.scoringMode === 'positions') {
+        this.showScoreExplanation(this.getDraggables().map(draggable => this.getParagraph(draggable)), results);
+        this.addScoreAria(this.getDraggables(), results);
+      }
+      else if (this.options.scoringMode === 'transitions') {
+        this.showScoreExplanation(this.separators, results);
+        this.addScoreAria(this.getDraggables(), results);
+        this.setAriaLabel(this.getDraggables().pop(), {action: 'neutral'});
+      }
     }
 
     this.resetDraggablesTabIndex();
