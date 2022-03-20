@@ -109,6 +109,7 @@ export default class SortParagraphsContent {
 
     // Hide buttons
     this.paragraphs.forEach(paragraph => {
+      paragraph.setButtonsVertical(false);
       paragraph.hideButtons();
       paragraph.disable();
     });
@@ -150,6 +151,7 @@ export default class SortParagraphsContent {
     this.list.setAttribute('aria-label', this.params.a11y.listDescriptionShowSolution);
 
     this.paragraphs.forEach((paragraph) => {
+      paragraph.setButtonsVertical(false);
       paragraph.toggleEffect('solution', true);
     });
 
@@ -987,5 +989,24 @@ export default class SortParagraphsContent {
 
     this.viewState = state;
     this.content.classList.add(`h5p-sort-paragraphs-view-state-${state}`);
+  }
+
+  /**
+   * Resize.
+   */
+  resize() {
+    let buttonsVertical;
+    if (this.viewState !== 'task') {
+      buttonsVertical = false;
+    }
+    else {
+      buttonsVertical = this.paragraphs.every((paragraph) => {
+        return paragraph.doButtonsFitVertically();
+      });
+    }
+
+    this.paragraphs.forEach((paragraph) => {
+      paragraph.setButtonsVertical(buttonsVertical);
+    });
   }
 }

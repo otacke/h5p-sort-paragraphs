@@ -52,7 +52,7 @@ export default class SortParagraphsParagraph {
     this.shown = true;
 
     // Buttons
-    this.buttons = [];
+    this.buttons = {};
 
     // Build content
     this.content = this.buildParagraph(this.params.text, this.params.l10n);
@@ -94,6 +94,11 @@ export default class SortParagraphsParagraph {
     });
     paragraph.appendChild(this.containerText);
 
+    // Container for buttons
+    this.buttonsContainer = document.createElement('div');
+    this.buttonsContainer.classList.add('h5p-sort-paragraphs-buttons-container');
+    paragraph.appendChild(this.buttonsContainer);
+
     // Left container for information
     const containerLeft = this.buildDIVContainer({
       classText: 'h5p-sort-paragraphs-paragraph-button-container',
@@ -101,7 +106,7 @@ export default class SortParagraphsParagraph {
         'aria-hidden': 'true'
       }
     });
-    paragraph.appendChild(containerLeft);
+    this.buttonsContainer.appendChild(containerLeft);
 
     if (this.params?.options?.addButtonsForMovement) {
       this.buttons['up'] = this.buildButtonUp();
@@ -115,7 +120,7 @@ export default class SortParagraphsParagraph {
         'aria-hidden': 'true'
       }
     });
-    paragraph.appendChild(containerRight);
+    this.buttonsContainer.appendChild(containerRight);
 
     // Container for correct/wrong markers
     this.containerCorrections = this.buildDIVContainer({
@@ -708,5 +713,32 @@ export default class SortParagraphsParagraph {
     this.resetDragging();
 
     this.callbacks.onDragEnd(event.currentTarget);
+  }
+
+  /**
+   * Check whether buttons fit in vertically.
+   * @return {boolean} True, if buttons fin in vertically, else false.
+   */
+  doButtonsFitVertically() {
+    if (this.content.clientHeight === 0 || !Object.keys(this.buttons).length) {
+      return false;
+    }
+
+    this.styleContent = this.styleContent || window.getComputedStyle(this.content);
+    const contentPadding = parseFloat(this.styleContent.getPropertyValue('padding-top')) + parseFloat(this.styleContent.getPropertyValue('padding-bottom'));
+    const contentHeight = this.content.clientHeight - contentPadding;
+
+    // Assuming all buttons have the same size
+    const buttonHeight = Object.values(this.buttons)[0].getDOM().offsetHeight;
+
+    return contentHeight >= 2 * buttonHeight;
+  }
+
+  /**
+   * Set buttons vertical.
+   * @param {boolean} vertical If true, set vertical, else horizontal.
+   */
+  setButtonsVertical(vertical) {
+    this.buttonsContainer.classList.toggle('vertical', vertical);
   }
 }
