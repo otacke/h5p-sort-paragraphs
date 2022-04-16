@@ -53,7 +53,7 @@
     },
     {
       "label": "Verhaltenseinstellungen",
-      "description": "Diese Optionen legen fest, wie die Aufgabe im Detail funktioniert.",
+      "description": "Diese Optionen kontrollieren, wie sich die Aufgabe verhält.",
       "fields": [
         {
           "label": "Bewertungsmodus",
@@ -88,7 +88,7 @@
       ]
     },
     {
-      "label": "Bezeichnungen und Beschriftungen",
+      "label": "Bedienoberfläche",
       "fields": [
         {
           "label": "Beschriftung des \"Überprüfen\"-Buttons",
