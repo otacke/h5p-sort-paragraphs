@@ -53,7 +53,7 @@
     },
     {
       "label": "Configurações comportamentais",
-      "description": "Essas opções permitem controlar como a tarefa se comporta.",
+      "description": "Estas opções lhe permitirão controlar como a tarefa se comporta.",
       "fields": [
         {
           "label": "Modo pontuação",
@@ -121,7 +121,7 @@
       ]
     },
     {
-      "label": "Leitor de tela",
+      "label": "Leitor de Tela",
       "fields": [
         {
           "label": "Descrição da tecnologia de assistência para o botão \"Verificar\"",
