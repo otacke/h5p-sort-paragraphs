@@ -5,10 +5,10 @@
       "fields": [
         {
           "label": "Tipo",
-          "description": "Medios opcionais amosados enriba das preguntas."
+          "description": "Medios opcionais amosados enriba da pregunta."
         },
         {
-          "label": "Desactivar zoom de imaxe"
+          "label": "Desactivar zoom de imaxes"
         }
       ]
     },
@@ -25,7 +25,7 @@
       }
     },
     {
-      "label": "Comentarios xerais",
+      "label": "Retroalimentación Xeral",
       "fields": [
         {
           "widgets": [
@@ -33,8 +33,8 @@
               "label": "Por defecto"
             }
           ],
-          "label": "Definir comentarios personalizados para calquera rango de puntuación",
-          "description": "Preme o botón \"Engadir rango\" para engadir tantos rangos como precises. Exemplo: 0-20% Mala puntuación, 21-91% Puntuación Media, 91-100% Puntuación estupenda!",
+          "label": "Definir retroalimentación personalizada para calquera rango de puntuación",
+          "description": "Preme o botón \"Engadir rango\" para engadir tantos rangos como precises. Exemplo: 0-20% Mala Puntuación, 21-91% Puntuación Media, 91-100% Puntuación Xenial!",
           "entity": "rango",
           "field": {
             "fields": [
@@ -43,8 +43,8 @@
               },
               {},
               {
-                "label": "Comentarios para o rango de puntuacion definido",
-                "placeholder": "Escribe o comentario"
+                "label": "Retroalimentación para o rango de puntuación definido",
+                "placeholder": "Escribe a túa retroalimentación"
               }
             ]
           }
