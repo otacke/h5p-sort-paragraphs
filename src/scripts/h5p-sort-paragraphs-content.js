@@ -27,6 +27,8 @@ export default class SortParagraphsContent {
     this.enabled = true; // Enabled state of content
     this.oldOrder = null; // Old order when dragging
 
+    this.viewStates = this.params.viewStates;
+
     // Original position of selected draggable
     this.selectedDraggable = null;
 
@@ -102,8 +104,11 @@ export default class SortParagraphsContent {
 
   /**
    * Show results.
+   *
+   * @param {object} [params={}] Parameters.
+   * @param {boolean} [params.skipExplanation] If true, skip score explanation.
    */
-  showResults() {
+  showResults(params = {}) {
     const results = this.computeResults();
     this.list.setAttribute('aria-label', this.params.a11y.listDescriptionCheckAnswer);
 
@@ -114,7 +119,7 @@ export default class SortParagraphsContent {
       paragraph.disable();
     });
 
-    if (this.viewState !== 'solutions') {
+    if (!params.skipExplanation) {
       // Add score explanation and ARIA depending on scoring mode.
       if (this.options.scoringMode === 'positions') {
         this.showScoreExplanation(this.getDraggables().map(draggable => this.getParagraph(draggable)), results);
@@ -981,16 +986,17 @@ export default class SortParagraphsContent {
 
   /**
    * Set view state.
-   * @param {string} state State to set.
-   * @param {string[]} states Allowed states.
+   * @param {string} newState State to set.
    */
-  setViewState(state, states) {
-    states.forEach(state => {
-      this.content.classList.remove(`h5p-sort-paragraphs-view-state-${state}`);
+  setViewState(newState) {
+    this.viewStates.keys().forEach(state => {
+      this.content.classList.toggle(
+        `h5p-sort-paragraphs-view-state-${state}`,
+        state !== newState
+      );
     });
 
-    this.viewState = state;
-    this.content.classList.add(`h5p-sort-paragraphs-view-state-${state}`);
+    this.viewState = newState;
   }
 
   /**

@@ -140,7 +140,8 @@ export default class SortParagraphs extends H5P.Question {
           up: this.params.l10n.up,
           down: this.params.l10n.down,
           disabled: this.params.l10n.disabled
-        }
+        },
+        viewStates: SortParagraphs.VIEW_STATES
       },
       {
         onInteracted: () => {
@@ -159,10 +160,16 @@ export default class SortParagraphs extends H5P.Question {
     // Register content with H5P.Question
     this.setContent(this.content.getDOM());
 
-    if (this.previousState !== null && (this.previousState.view === 'results' || this.previousState.view === 'solutions')) {
+    if (
+      this.previousState !== null &&
+      (
+        this.previousState.viewState === SortParagraphs.VIEW_STATES['results'] ||
+        this.previousState.viewState === SortParagraphs.VIEW_STATES['solutions']
+      )
+    ) {
       // Need to wait until DOM is ready for us
       H5P.externalDispatcher.on('initialized', () => {
-        if (this.previousState.view === 'results') {
+        if (this.previousState.viewState === SortParagraphs.VIEW_STATES['results']) {
           this.setViewState('results');
           this.checkAnswer();
         }
@@ -242,7 +249,7 @@ export default class SortParagraphs extends H5P.Question {
     if (!this.content) {
       score = this.previousState?.score || 0;
     }
-    else if (this.viewState === 'solutions') {
+    else if (this.viewState === SortParagraphs.VIEW_STATES['solutions']) {
       score = this.currentScore || this.previousState?.score || 0;
     }
     else {
@@ -384,7 +391,7 @@ export default class SortParagraphs extends H5P.Question {
       this.hideButton('check-answer');
 
       if (
-        this.viewState !== 'solutions' &&
+        this.viewState !== SortParagraphs.VIEW_STATES['solutions'] &&
         this.params.behaviour.enableSolutionsButton &&
         this.getScore() !== this.getMaxScore()
       ) {
@@ -395,7 +402,9 @@ export default class SortParagraphs extends H5P.Question {
         this.showButton('try-again');
       }
 
-      this.content.showResults();
+      this.content.showResults({
+        skipExplanation: this.viewState === SortParagraphs.VIEW_STATES['solutions']
+      });
 
       const score = this.getScore();
       const maxScore = this.getMaxScore();
@@ -415,7 +424,7 @@ export default class SortParagraphs extends H5P.Question {
         ariaMessage
       );
 
-      if (this.viewState === 'task') {
+      if (this.viewState === SortParagraphs.VIEW_STATES['task']) {
         // checkAnswer was mot triggered to recreate previous state
         this.trigger(this.getXAPIAnswerEvent());
         this.trigger(this.createXAPIEvent('completed')); // Store state
@@ -461,8 +470,10 @@ export default class SortParagraphs extends H5P.Question {
   getCurrentState() {
     return {
       order: this.content.getDraggablesOrder(),
-      view: this.viewState,
-      score: this.viewState === 'task' ? 0 : this.getScore()
+      viewState: this.viewState,
+      score: this.viewState === SortParagraphs.VIEW_STATES['task'] ?
+        0 :
+        this.getScore()
     };
   }
 
@@ -475,20 +486,30 @@ export default class SortParagraphs extends H5P.Question {
 
   /**
    * Set view state.
-   * @param {string} state View state.
+   * @param {string|number} state State to be set.
    */
   setViewState(state) {
-    if (SortParagraphs.VIEW_STATES.indexOf(state) === -1) {
-      return;
+    if (
+      typeof state === 'string' &&
+      SortParagraphs.VIEW_STATES[state] !== undefined
+    ) {
+      this.viewState = SortParagraphs.VIEW_STATES[state];
     }
+    else if (
+      typeof state === 'number' &&
+      Object.values(SortParagraphs.VIEW_STATES).includes(state)
+    ) {
+      this.viewState = state;
 
-    this.viewState = state;
-    this.content.setViewState(state, SortParagraphs.VIEW_STATES);
+      this.content.setViewState(
+        SortParagraphs.VIEW_STATES.find(value => value === state).keys[0]
+      );
+    }
   }
 }
 
 /** @constant {string} */
 SortParagraphs.DEFAULT_DESCRIPTION = 'SortParagraphs';
 
-/** @constant {string[]} view state names*/
-SortParagraphs.VIEW_STATES = ['task', 'results', 'solutions'];
+/** @constant {object} view states */
+SortParagraphs.VIEW_STATES = { task: 0, results: 1, solutions: 2 };
