@@ -384,6 +384,12 @@ export default class SortParagraphs extends H5P.Question {
    * Check answer.
    */
   checkAnswer() {
+    if (this.viewState === SortParagraphs.VIEW_STATES['task']) {
+      // checkAnswer was not triggered to recreate previous state
+      this.trigger(this.getXAPIAnswerEvent());
+      this.trigger(this.createXAPIEvent('completed')); // Store state
+    }
+
     this.setViewState('results');
     this.trigger('resize');
 
@@ -428,12 +434,6 @@ export default class SortParagraphs extends H5P.Question {
         maxScore,
         ariaMessage
       );
-
-      if (this.viewState === SortParagraphs.VIEW_STATES['task']) {
-        // checkAnswer was mot triggered to recreate previous state
-        this.trigger(this.getXAPIAnswerEvent());
-        this.trigger(this.createXAPIEvent('completed')); // Store state
-      }
     }, 0); // Prevent flickering when content resizes by button alignment
   }
 
