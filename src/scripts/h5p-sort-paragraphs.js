@@ -473,6 +473,10 @@ export default class SortParagraphs extends H5P.Question {
    * @return {object} Current state.
    */
   getCurrentState() {
+    if (!this.content) {
+      return;
+    }
+
     return {
       order: this.content.getDraggablesOrder(),
       viewState: this.viewState,
