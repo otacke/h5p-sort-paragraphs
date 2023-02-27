@@ -169,6 +169,7 @@ export default class SortParagraphs extends H5P.Question {
     ) {
       // Need to wait until DOM is ready for us
       H5P.externalDispatcher.on('initialized', () => {
+        this.isExternalCall = true; // Prevent focussing
         if (this.previousState.viewState === SortParagraphs.VIEW_STATES['results']) {
           this.setViewState('results');
           this.checkAnswer();
@@ -179,6 +180,7 @@ export default class SortParagraphs extends H5P.Question {
           this.hideButton('show-solution');
           this.showSolutions();
         }
+        this.isExternalCall = false;
       });
     }
 
@@ -278,7 +280,7 @@ export default class SortParagraphs extends H5P.Question {
    */
   showSolutions() {
     this.setViewState('solutions');
-    this.content.showSolutions();
+    this.content.showSolutions({ skipFocus: this.isExternalCall });
     this.trigger('resize');
   }
 
@@ -385,6 +387,8 @@ export default class SortParagraphs extends H5P.Question {
     this.setViewState('results');
     this.trigger('resize');
 
+    const isExternalCall = this.isExternalCall;
+
     setTimeout(() => {
       this.content.disable();
 
@@ -403,7 +407,8 @@ export default class SortParagraphs extends H5P.Question {
       }
 
       this.content.showResults({
-        skipExplanation: this.viewState === SortParagraphs.VIEW_STATES['solutions']
+        skipExplanation: this.viewState === SortParagraphs.VIEW_STATES['solutions'],
+        skipFocus: isExternalCall
       });
 
       const score = this.getScore();

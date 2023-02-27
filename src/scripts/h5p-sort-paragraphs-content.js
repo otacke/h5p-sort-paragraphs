@@ -103,10 +103,23 @@ export default class SortParagraphsContent {
   }
 
   /**
+   * Focus first draggable.
+   *
+   * @param {number} [delay=0] Delay for focussing.
+   */
+  focusFirstDraggable(delay = 0) {
+    window.clearTimeout(this.focusTimeout);
+    this.focusTimeout = window.setTimeout(() => {
+      this.list.childNodes[0].focus();
+    }, delay); // Give results time to be read
+  }
+
+  /**
    * Show results.
    *
    * @param {object} [params={}] Parameters.
    * @param {boolean} [params.skipExplanation] If true, skip score explanation.
+   * @param {boolean} [params.skipFocus] If true, skip focus.
    */
   showResults(params = {}) {
     const results = this.computeResults();
@@ -133,6 +146,10 @@ export default class SortParagraphsContent {
     }
 
     this.resetDraggablesTabIndex();
+
+    if (!params.skipFocus) {
+      this.focusFirstDraggable(100);
+    }
   }
 
   /**
@@ -151,8 +168,11 @@ export default class SortParagraphsContent {
 
   /**
    * Show solutions.
+   *
+   * @param {object} [params={}] Parameters.
+   * @param {boolean} [params.skipFocus] If true, skip focussing.
    */
-  showSolutions() {
+  showSolutions(params = {}) {
     this.hideResults();
 
     this.list.setAttribute('aria-label', this.params.a11y.listDescriptionShowSolution);
@@ -176,6 +196,11 @@ export default class SortParagraphsContent {
 
       this.paragraphs[index].translate({ y: startPosition - this.paragraphs[index].getDOM().offsetTop});
     });
+
+    if (!params.skipFocus) {
+      // Focus when draggables are re-ordered
+      this.focusFirstDraggable(550);
+    }
   }
 
   /**
@@ -982,6 +1007,8 @@ export default class SortParagraphsContent {
     this.resetDraggablesTabIndex();
     this.resetDraggables();
     this.resetAriaLabels();
+
+    this.focusFirstDraggable(100);
   }
 
   /**
