@@ -5,7 +5,7 @@ import Util from './h5p-sort-paragraphs-util';
 /** Class representing the content */
 export default class SortParagraphsParagraph {
   /**
-   * @constructor
+   * @class
    * @param {object} params Parameters.
    * @param {string} params.text Paragraph text.
    * @param {object} params.l10n Titles for move buttons.
@@ -62,17 +62,17 @@ export default class SortParagraphsParagraph {
     this.placeholder.classList.add('h5p-sort-paragraphs-paragraph-placeholder');
 
     // These listeners prevent Firefox from showing draggable animation
-    this.placeholder.addEventListener('dragover', event => {
+    this.placeholder.addEventListener('dragover', (event) => {
       event.preventDefault();
     });
-    this.placeholder.addEventListener('drop', event => {
+    this.placeholder.addEventListener('drop', (event) => {
       event.preventDefault();
     });
   }
 
   /**
    * Return the DOM for this class.
-   * @return {HTMLElement} DOM for this class.
+   * @returns {HTMLElement} DOM for this class.
    */
   getDOM() {
     return this.content;
@@ -80,6 +80,7 @@ export default class SortParagraphsParagraph {
 
   /**
    * Build Paragraph.
+   * @returns {HTMLElement} Paragraph.
    */
   buildParagraph() {
     const paragraph = document.createElement('div');
@@ -148,10 +149,10 @@ export default class SortParagraphsParagraph {
 
   /**
    * Build general container for elements.
-   * @param {object} [params={}] Parameters.
+   * @param {object} [params] Parameters.
    * @param {string} [params.classText] Classes for classList.
    * @param {string} [params.innerHTML] Inner HTML.
-   * @return {HTMLElement} Container.
+   * @returns {HTMLElement} Container.
    */
   buildDIVContainer(params = {}) {
     const container = document.createElement('div');
@@ -172,7 +173,7 @@ export default class SortParagraphsParagraph {
 
   /**
    * Build button for moving up.
-   * @return {Button} Button for moving up.
+   * @returns {Button} Button for moving up.
    */
   buildButtonUp() {
     return new Button(
@@ -193,7 +194,7 @@ export default class SortParagraphsParagraph {
 
   /**
    * Build button for moving down.
-   * @return {Button} Button for moving down.
+   * @returns {Button} Button for moving down.
    */
   buildButtonDown() {
     return new Button(
@@ -217,7 +218,7 @@ export default class SortParagraphsParagraph {
    * @param {HTMLElement} paragraph Paragraph.
    */
   addKeyboardHandlers(paragraph) {
-    paragraph.addEventListener('keydown', event => {
+    paragraph.addEventListener('keydown', (event) => {
       switch (event.code) {
         case 'ArrowUp': // Up
           event.preventDefault(); // No scrolling
@@ -269,39 +270,39 @@ export default class SortParagraphsParagraph {
    */
   addDragHandlers(paragraph) {
     // Mouse down. Prevent dragging when using buttons.
-    paragraph.addEventListener('mousedown', event => {
+    paragraph.addEventListener('mousedown', (event) => {
       this.handleMouseUpDown(event, 'onMouseDown');
     });
 
     // Mouse up. Allow dragging after using buttons.
-    paragraph.addEventListener('mouseup', event => {
+    paragraph.addEventListener('mouseup', (event) => {
       this.handleMouseUpDown(event, 'onMouseUp');
     });
 
     // Focus out
-    paragraph.addEventListener('focusout', event => {
+    paragraph.addEventListener('focusout', (event) => {
       this.toggleEffect('selected', false);
 
       this.callbacks.onFocusOut(event.currentTarget);
     });
 
     // Drag start
-    paragraph.addEventListener('dragstart', event => {
+    paragraph.addEventListener('dragstart', (event) => {
       this.handleDragStart(event);
     });
 
     // Drag over
-    paragraph.addEventListener('dragover', event => {
+    paragraph.addEventListener('dragover', (event) => {
       this.handleDragOver(event);
     });
 
     // Drag enter
-    paragraph.addEventListener('dragenter', event => {
+    paragraph.addEventListener('dragenter', (event) => {
       this.handleDragEnter(event);
     });
 
     // Drag leave
-    paragraph.addEventListener('dragleave', event => {
+    paragraph.addEventListener('dragleave', (event) => {
       this.handleDragLeave(event);
     });
 
@@ -379,7 +380,7 @@ export default class SortParagraphsParagraph {
 
   /**
    * Determine whether paragraph is shown.
-   * @return {boolean} True, if paragraph is shown.
+   * @returns {boolean} True, if paragraph is shown.
    */
   isShown() {
     return this.shown;
@@ -387,7 +388,7 @@ export default class SortParagraphsParagraph {
 
   /**
    * Determine whether paragraph is selected.
-   * @return {boolean} True, if paragraph is selected.
+   * @returns {boolean} True, if paragraph is selected.
    */
   isSelected() {
     return this.selected;
@@ -446,7 +447,7 @@ export default class SortParagraphsParagraph {
 
   /**
    * Get paragraph's HTML text.
-   * @return {string} HTML text.
+   * @returns {string} HTML text.
    */
   getText() {
     return this.containerText.innerHTML;
@@ -717,7 +718,7 @@ export default class SortParagraphsParagraph {
 
   /**
    * Check whether buttons fit in vertically.
-   * @return {boolean} True, if buttons fin in vertically, else false.
+   * @returns {boolean} True, if buttons fin in vertically, else false.
    */
   doButtonsFitVertically() {
     if (this.content.clientHeight === 0 || !Object.keys(this.buttons).length) {

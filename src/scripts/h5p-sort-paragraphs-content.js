@@ -6,9 +6,9 @@ import SortParagraphsSeparator from './h5p-sort-paragraphs-separator';
 /** Class representing the content */
 export default class SortParagraphsContent {
   /**
-   * @constructor
+   * @class
    * @param {object} params Parameters.
-   * @param {object} [callbacks = {}] Callbacks.
+   * @param {object} [callbacks] Callbacks.
    */
   constructor(params = {}, callbacks = {}) {
     this.params = params;
@@ -49,7 +49,7 @@ export default class SortParagraphsContent {
 
     // Build n paragraphs
     this.paragraphs = params.paragraphs
-      .map(paragraph => this.buildParagraph(paragraph));
+      .map((paragraph) => this.buildParagraph(paragraph));
 
     // Build n-1 separators for transitions
     this.separators = [];
@@ -69,7 +69,7 @@ export default class SortParagraphsContent {
       this.reorderDraggables(params.previousState.order);
     }
     else {
-      Util.shuffleDOMElements(this.paragraphs.map(paragraph => paragraph.getDOM()));
+      Util.shuffleDOMElements(this.paragraphs.map((paragraph) => paragraph.getDOM()));
     }
 
     // Reset paragraphs
@@ -95,7 +95,7 @@ export default class SortParagraphsContent {
 
   /**
    * Return the DOM for this class.
-   * @return {HTMLElement} DOM for this class.
+   * @returns {HTMLElement} DOM for this class.
    */
   getDOM() {
     return this.content;
@@ -103,8 +103,7 @@ export default class SortParagraphsContent {
 
   /**
    * Focus first draggable.
-   *
-   * @param {number} [delay=0] Delay for focussing.
+   * @param {number} [delay] Delay for focussing.
    */
   focusFirstDraggable(delay = 0) {
     window.clearTimeout(this.focusTimeout);
@@ -115,8 +114,7 @@ export default class SortParagraphsContent {
 
   /**
    * Show results.
-   *
-   * @param {object} [params={}] Parameters.
+   * @param {object} [params] Parameters.
    * @param {boolean} [params.skipExplanation] If true, skip score explanation.
    * @param {boolean} [params.skipFocus] If true, skip focus.
    */
@@ -125,7 +123,7 @@ export default class SortParagraphsContent {
     this.list.setAttribute('aria-label', this.params.a11y.listDescriptionCheckAnswer);
 
     // Hide buttons
-    this.paragraphs.forEach(paragraph => {
+    this.paragraphs.forEach((paragraph) => {
       paragraph.setButtonsVertical(false);
       paragraph.hideButtons();
       paragraph.disable();
@@ -134,13 +132,13 @@ export default class SortParagraphsContent {
     if (!params.skipExplanation) {
       // Add score explanation and ARIA depending on scoring mode.
       if (this.options.scoringMode === 'positions') {
-        this.showScoreExplanation(this.getDraggables().map(draggable => this.getParagraph(draggable)), results);
+        this.showScoreExplanation(this.getDraggables().map((draggable) => this.getParagraph(draggable)), results);
         this.addScoreAria(this.getDraggables(), results);
       }
       else if (this.options.scoringMode === 'transitions') {
         this.showScoreExplanation(this.separators, results);
         this.addScoreAria(this.getDraggables(), results);
-        this.setAriaLabel(this.getDraggables().pop(), {action: 'neutral'});
+        this.setAriaLabel(this.getDraggables().pop(), { action: 'neutral' });
       }
     }
 
@@ -157,7 +155,7 @@ export default class SortParagraphsContent {
   hideResults() {
     const elements = this.paragraphs.concat(this.separators);
 
-    elements.forEach(element => {
+    elements.forEach((element) => {
       element.toggleEffect('correct', false);
       element.toggleEffect('wrong', false);
       element.setAriaLabel('');
@@ -167,8 +165,7 @@ export default class SortParagraphsContent {
 
   /**
    * Show solutions.
-   *
-   * @param {object} [params={}] Parameters.
+   * @param {object} [params] Parameters.
    * @param {boolean} [params.skipFocus] If true, skip focussing.
    */
   showSolutions(params = {}) {
@@ -193,7 +190,7 @@ export default class SortParagraphsContent {
           draggable.offsetTop - draggables[index - 1].offsetTop - draggables[index - 1].offsetHeight;
       }
 
-      this.paragraphs[index].translate({ y: startPosition - this.paragraphs[index].getDOM().offsetTop});
+      this.paragraphs[index].translate({ y: startPosition - this.paragraphs[index].getDOM().offsetTop });
     });
 
     if (!params.skipFocus) {
@@ -221,8 +218,8 @@ export default class SortParagraphsContent {
 
     this.resetAriaLabels();
     this.resetDraggablesTabIndex();
-    this.getDraggables().forEach(draggable => {
-      this.setAriaLabel(draggable, {action: 'solution'});
+    this.getDraggables().forEach((draggable) => {
+      this.setAriaLabel(draggable, { action: 'solution' });
     });
   }
 
@@ -278,7 +275,7 @@ export default class SortParagraphsContent {
 
   /**
    * Compute results.
-   * @return {object} Results.
+   * @returns {object} Results.
    */
   computeResults() {
     let score = 0;
@@ -286,8 +283,8 @@ export default class SortParagraphsContent {
 
     // Determine paragraph id at each position.
     const draggables = this.getDraggables();
-    const paragraphs = this.paragraphs.map(paragraph => paragraph.getDOM());
-    const ids = draggables.map(draggable => paragraphs.indexOf(draggable));
+    const paragraphs = this.paragraphs.map((paragraph) => paragraph.getDOM());
+    const ids = draggables.map((draggable) => paragraphs.indexOf(draggable));
 
     if (this.options.scoringMode === 'positions') {
       correctAnswers = Util.createArray(this.paragraphs.length);
@@ -308,8 +305,8 @@ export default class SortParagraphsContent {
     else if (this.options.scoringMode === 'transitions') {
       correctAnswers = Util.createArray(this.paragraphs.length - 1);
 
-      const draggablesPlain = draggables.map(draggable => draggable.innerText);
-      const paragraphsPlain = paragraphs.map(paragraph => paragraph.innerText);
+      const draggablesPlain = draggables.map((draggable) => draggable.innerText);
+      const paragraphsPlain = paragraphs.map((paragraph) => paragraph.innerText);
 
       // +1 for every correct sequence regardless of position
       for (let index = 0; index < ids.length - 1; index++) {
@@ -348,7 +345,7 @@ export default class SortParagraphsContent {
   /**
    * Build list of paragraphs.
    * @param {SortParagraphsParagraph[]} paragraphs Paragraphs.
-   * @return {HTMLElement} List of paragpraphs.
+   * @returns {HTMLElement} List of paragpraphs.
    */
   buildList(paragraphs) {
     const list = document.createElement('div');
@@ -379,7 +376,7 @@ export default class SortParagraphsContent {
   /**
    * Build paragraph.
    * @param {string} text Paragraph text.
-   * @return {SortParagraphsParagraph} Paragraph.
+   * @returns {SortParagraphsParagraph} Paragraph.
    */
   buildParagraph(text) {
     const paragraph = new SortParagraphsParagraph(
@@ -391,19 +388,19 @@ export default class SortParagraphsContent {
         }
       },
       {
-        onMoveUp: (draggable => this.handleDraggableMoved(draggable, 'up')),
-        onMoveDown: (draggable => this.handleDraggableMoved(draggable, 'down')),
-        onFocusOut: (draggable => this.handleDraggableFocusOut(draggable)),
-        onDragStart: (draggable => this.handleDraggableDragStart(draggable)),
-        onDragEnter: (draggable => this.handleDraggableDragEnter(draggable)),
-        onDragLeave: (draggable => this.handleDraggableDragLeave(draggable)),
-        onDragEnd: (draggable => this.handleDraggableDragEnd(draggable)),
-        onKeyboardUp: (draggable => this.handleDraggableKeyboardMoved(draggable, 'up')),
-        onKeyboardDown: (draggable => this.handleDraggableKeyboardMoved(draggable, 'down')),
-        onKeyboardSelect: (draggable => this.handleDraggableKeyboardSelect(draggable)),
-        onKeyboardCancel: (draggable => this.handleDraggableKeyboardCancel(draggable)),
-        onMouseDown: (draggable => this.handleDraggableMouseDown(draggable)),
-        onMouseUp: (draggable => this.handleDraggableMouseUp(draggable))
+        onMoveUp: ((draggable) => this.handleDraggableMoved(draggable, 'up')),
+        onMoveDown: ((draggable) => this.handleDraggableMoved(draggable, 'down')),
+        onFocusOut: ((draggable) => this.handleDraggableFocusOut(draggable)),
+        onDragStart: ((draggable) => this.handleDraggableDragStart(draggable)),
+        onDragEnter: ((draggable) => this.handleDraggableDragEnter(draggable)),
+        onDragLeave: ((draggable) => this.handleDraggableDragLeave(draggable)),
+        onDragEnd: ((draggable) => this.handleDraggableDragEnd(draggable)),
+        onKeyboardUp: ((draggable) => this.handleDraggableKeyboardMoved(draggable, 'up')),
+        onKeyboardDown: ((draggable) => this.handleDraggableKeyboardMoved(draggable, 'down')),
+        onKeyboardSelect: ((draggable) => this.handleDraggableKeyboardSelect(draggable)),
+        onKeyboardCancel: ((draggable) => this.handleDraggableKeyboardCancel(draggable)),
+        onMouseDown: ((draggable) => this.handleDraggableMouseDown(draggable)),
+        onMouseUp: ((draggable) => this.handleDraggableMouseUp(draggable))
       }
     );
     return paragraph;
@@ -413,8 +410,7 @@ export default class SortParagraphsContent {
    * Build ARIA templates for specific purposes.
    *
    * Tries to compose the messages in a way that a screen reader would read.
-   *
-   * @return {string[]} ARIA templates.
+   * @returns {string[]} ARIA templates.
    */
   buildAriaTemplates() {
     return {
@@ -477,6 +473,7 @@ export default class SortParagraphsContent {
 
   /**
    * Handle draggable lost focus. Could be by mouse, could be by keyboard
+   * @param {HTMLElement} draggable Draggable element.
    */
   handleDraggableFocusOut(draggable) {
     this.getParagraph(draggable).unselect();
@@ -490,18 +487,20 @@ export default class SortParagraphsContent {
 
   /**
    * Handle dragging started.
+   * @param {HTMLElement} draggable Draggable element.
    */
   handleDraggableDragStart(draggable) {
     this.oldOrder = this.getDraggablesOrder();
     this.draggedElement = draggable;
 
-    this.getDraggables().forEach(draggable => {
+    this.getDraggables().forEach((draggable) => {
       this.getParagraph(draggable).hideButtons();
     });
   }
 
   /**
    * Handle draggable entered another draggable.
+   * @param {HTMLElement} draggable Draggable element.
    */
   handleDraggableDragEnter(draggable) {
     if (this.dropzoneElement && this.dropzoneElement === draggable) {
@@ -534,7 +533,7 @@ export default class SortParagraphsContent {
       this.handleInteracted();
     }
 
-    this.getDraggables().forEach(draggable => {
+    this.getDraggables().forEach((draggable) => {
       this.getParagraph(draggable).showButtons();
     });
 
@@ -577,7 +576,7 @@ export default class SortParagraphsContent {
 
       this.resetDraggables();
       this.resetAriaLabels();
-      this.setAriaLabel(draggable, {action: 'moved'});
+      this.setAriaLabel(draggable, { action: 'moved' });
 
       // Moving node triggers focusout, get focus state and moving state back
       draggable.focus();
@@ -601,7 +600,7 @@ export default class SortParagraphsContent {
 
     if (!paragraph.isSelected()) {
       // Starting to grab.
-      this.setAriaLabel(draggable, {action: 'grabbed'});
+      this.setAriaLabel(draggable, { action: 'grabbed' });
       paragraph.select();
 
       this.selectedDraggable = draggable;
@@ -618,7 +617,7 @@ export default class SortParagraphsContent {
         this.handleInteracted();
       }
 
-      this.setAriaLabel(draggable, {action: 'dropped'});
+      this.setAriaLabel(draggable, { action: 'dropped' });
       paragraph.unselect();
 
       this.selectedDraggable = null;
@@ -651,7 +650,7 @@ export default class SortParagraphsContent {
       // Keep this afer focus() or focusout handler will reset aria
       this.resetDraggables();
       this.resetAriaLabels();
-      this.setAriaLabel(oldFocusDraggable, {action: 'cancelled'});
+      this.setAriaLabel(oldFocusDraggable, { action: 'cancelled' });
 
       this.undoState = null;
     }
@@ -677,7 +676,7 @@ export default class SortParagraphsContent {
 
     if (paragraph.isSelected()) {
       this.selectedDraggable = null;
-      this.setAriaLabel(draggable, {action: 'dropped'});
+      this.setAriaLabel(draggable, { action: 'dropped' });
       paragraph.unselect();
     }
     else {
@@ -692,7 +691,7 @@ export default class SortParagraphsContent {
           this.resetDraggables();
           this.resetAriaLabels();
 
-          this.setAriaLabel(draggableTarget, {action: 'dropped'});
+          this.setAriaLabel(draggableTarget, { action: 'dropped' });
 
           // Moving node triggers focusout, get focus state and moving state back
           draggableTarget.focus();
@@ -702,7 +701,7 @@ export default class SortParagraphsContent {
       }
       else {
         // Starting to grab.
-        this.setAriaLabel(draggable, {action: 'grabbed'});
+        this.setAriaLabel(draggable, { action: 'grabbed' });
         paragraph.select();
 
         this.selectedDraggable = draggable;
@@ -725,7 +724,7 @@ export default class SortParagraphsContent {
    * Enable content.
    */
   enable() {
-    this.paragraphs.forEach(paragraph => {
+    this.paragraphs.forEach((paragraph) => {
       paragraph.enable();
     });
 
@@ -738,14 +737,14 @@ export default class SortParagraphsContent {
   disable() {
     this.enabled = false;
 
-    this.paragraphs.forEach(paragraph => {
+    this.paragraphs.forEach((paragraph) => {
       paragraph.disable();
     });
   }
 
   /**
    * Determine whether an answer was given (H5P question type contract).
-   * @return {boolean} True, if answer as given.
+   * @returns {boolean} True, if answer as given.
    */
   isAnswerGiven() {
     return this.answerGiven;
@@ -753,8 +752,8 @@ export default class SortParagraphsContent {
 
   /**
    * Get draggable at particular position.
-   * @param {number} Position.
-   * @return {HTMLElement|null} Draggable at position.
+   * @param {number} position Position.
+   * @returns {HTMLElement|null} Draggable at position.
    */
   getDraggableAt(position) {
     if (typeof position !== 'number' || position < 0 || position > this.paragraphs.length - 1) {
@@ -766,17 +765,17 @@ export default class SortParagraphsContent {
 
   /**
    * Get the draggables' current order.
-   * @return {number[]} Sequence of positions of draggables in contrast to solution.
+   * @returns {number[]} Sequence of positions of draggables in contrast to solution.
    */
   getDraggablesOrder() {
     return this.getDraggables()
-      .map(draggable => this.paragraphs.indexOf(this.getParagraph(draggable)));
+      .map((draggable) => this.paragraphs.indexOf(this.getParagraph(draggable)));
   }
 
   /**
    * Get current Position of Draggable.
-   * @param {HTMLElement} Draggable.
-   * @return {number} Current position of draggable.
+   * @param {HTMLElement} draggable Draggable element.
+   * @returns {number} Current position of draggable.
    */
   getDraggableIndex(draggable) {
     return this.getDraggables().indexOf(draggable);
@@ -784,7 +783,7 @@ export default class SortParagraphsContent {
 
   /**
    * Get current draggables(' positions) from DOM.
-   * @return {HTMLElement[]} Draggables.
+   * @returns {HTMLElement[]} Draggables.
    */
   getDraggables() {
     return Array.from(this.list.querySelectorAll('.h5p-sort-paragraphs-paragraph'));
@@ -793,7 +792,7 @@ export default class SortParagraphsContent {
   /**
    * Get paragraph for a draggable. Draggables are the DOM, paragraphs the objects.
    * @param {HTMLElement} draggable Draggable.
-   * @return {SortParagraphsParagraph} Paragraph.
+   * @returns {SortParagraphsParagraph} Paragraph.
    */
   getParagraph(draggable) {
     return this.paragraphs.reduce((result, paragraph) => {
@@ -855,14 +854,14 @@ export default class SortParagraphsContent {
       this.ariaTemplates = this.buildAriaTemplates();
     }
 
-    this.getDraggables().forEach(draggable => {
-      this.setAriaLabel(draggable, {action: 'selected'});
+    this.getDraggables().forEach((draggable) => {
+      this.setAriaLabel(draggable, { action: 'selected' });
     });
   }
 
   /**
    * Reset paragraphs' tabIndex to make first paragraph next tab stop.
-   * @param {number} [value=null] Tabindex to set.
+   * @param {number} [value] Tabindex to set.
    */
   resetDraggablesTabIndex(value = null) {
     const draggables = this.getDraggables();
@@ -928,7 +927,7 @@ export default class SortParagraphsContent {
     this.transitionElements = this.getDraggables();
     this.transitionDone = done;
 
-    this.transitionElements.forEach(element => {
+    this.transitionElements.forEach((element) => {
       const paragraph = this.getParagraph(element);
       paragraph.hideButtons();
       paragraph.unselect();
@@ -939,7 +938,7 @@ export default class SortParagraphsContent {
     // Translate elements to new final position
     setTimeout(() => {
       this.transitionElements
-        .forEach(element => {
+        .forEach((element) => {
           const paragraph = this.getParagraph(element);
 
           let offset;
@@ -968,7 +967,7 @@ export default class SortParagraphsContent {
   handleSwapTransitionEnded() {
     Util.swapDOMElements(this.transitionElement1, this.transitionElement2);
 
-    this.getDraggables().forEach(element => {
+    this.getDraggables().forEach((element) => {
       element.removeEventListener('transitionend', this.handleSwapTransitionEnded);
       this.getParagraph(element).translate(); // Reset translation
 
@@ -992,14 +991,14 @@ export default class SortParagraphsContent {
 
     this.hideResults();
 
-    this.paragraphs.forEach(paragraph => {
+    this.paragraphs.forEach((paragraph) => {
       paragraph.toggleEffect('correct', false);
       paragraph.toggleEffect('wrong', false);
       paragraph.toggleEffect('solution', false);
       paragraph.showButtons();
     });
 
-    Util.shuffleDOMElements(this.paragraphs.map(paragraph => paragraph.getDOM()));
+    Util.shuffleDOMElements(this.paragraphs.map((paragraph) => paragraph.getDOM()));
 
     this.enable();
 
@@ -1015,7 +1014,7 @@ export default class SortParagraphsContent {
    * @param {string} newState State to set.
    */
   setViewState(newState) {
-    this.viewStates.keys().forEach(state => {
+    this.viewStates.keys().forEach((state) => {
       this.content.classList.toggle(
         `h5p-sort-paragraphs-view-state-${state}`,
         state !== newState

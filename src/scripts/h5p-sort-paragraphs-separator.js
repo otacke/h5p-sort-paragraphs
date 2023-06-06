@@ -1,7 +1,7 @@
 /** Class representing the content */
 export default class SortParagraphsSeparator {
   /**
-   * @constructor
+   * @class
    */
   constructor() {
     // Build content
@@ -10,7 +10,7 @@ export default class SortParagraphsSeparator {
 
   /**
    * Return the DOM for this class.
-   * @return {HTMLElement} DOM for this class.
+   * @returns {HTMLElement} DOM for this class.
    */
   getDOM() {
     return this.content;
@@ -18,7 +18,7 @@ export default class SortParagraphsSeparator {
 
   /**
    * Build separator.
-   * @return {HTMLElement} Separator.
+   * @returns {HTMLElement} Separator.
    */
   buildSeparator() {
     const separator = document.createElement('div');
