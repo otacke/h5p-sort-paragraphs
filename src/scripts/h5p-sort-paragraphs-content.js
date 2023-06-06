@@ -1,5 +1,4 @@
 // Import required classes
-import "core-js/es/array/from";
 import Util from './h5p-sort-paragraphs-util';
 import SortParagraphsParagraph from './h5p-sort-paragraphs-paragraph';
 import SortParagraphsSeparator from './h5p-sort-paragraphs-separator';
