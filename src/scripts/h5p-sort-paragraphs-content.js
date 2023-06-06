@@ -361,7 +361,10 @@ export default class SortParagraphsContent {
      * cope with 'application' instead of 'list', too.
      */
     list.setAttribute('role', 'application');
-    list.setAttribute('aria-label', this.params.a11y.listDescription);
+    list.setAttribute(
+      'aria-label',
+      `${this.params.taskDescription} ${this.params.a11y.listDescription}`
+    );
     list.classList.add('h5p-sort-paragraphs-list');
 
     paragraphs.forEach((paragraph, index) => {
@@ -989,7 +992,10 @@ export default class SortParagraphsContent {
    * Reset content.
    */
   reset() {
-    this.list.setAttribute('aria-label', this.params.a11y.listDescription);
+    this.list.setAttribute(
+      'aria-label',
+      `${this.params.taskDescription} ${this.params.a11y.listDescription}`
+    );
 
     this.answerGiven = false;
     this.ariaTemplates = this.buildAriaTemplates();

@@ -134,6 +134,10 @@ export default class SortParagraphs extends H5P.Question {
         duplicatesInterchangeable: this.params.behaviour.duplicatesInterchangeable,
         penalties: this.params.behaviour.applyPenalties,
         scoringMode: this.params.behaviour.scoringMode,
+        taskDescription: Util.stripHTML(this.params.taskDescription)
+          .replace(/(\r\n|\n|\r)/gm, ' ')
+          .replace(/\s{2}/g, ' ')
+          .trim(),
         previousState: this.previousState,
         a11y: this.params.a11y,
         l10n: {
