@@ -318,7 +318,7 @@ export default class SortParagraphsParagraph {
       }
 
       paragraph.setAttribute('draggable', false);
-    });
+    }, { passive: true });
 
     // Allow dragging again, device might allow mouse and touch
     paragraph.addEventListener('touchend', () => {

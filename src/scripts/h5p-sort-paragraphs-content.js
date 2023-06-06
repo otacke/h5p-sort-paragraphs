@@ -11,7 +11,11 @@ export default class SortParagraphsContent {
    * @param {object} [callbacks] Callbacks.
    */
   constructor(params = {}, callbacks = {}) {
-    this.params = params;
+    this.params = Util.extend({
+      previousState: {
+        viewState: 0
+      }
+    }, params);
 
     this.callbacks = Util.extend({
       onInteracted: () => {},
@@ -27,6 +31,7 @@ export default class SortParagraphsContent {
     this.oldOrder = null; // Old order when dragging
 
     this.viewStates = this.params.viewStates;
+    this.setViewState(params.previousState.viewState);
 
     // Original position of selected draggable
     this.selectedDraggable = null;
@@ -1011,10 +1016,24 @@ export default class SortParagraphsContent {
 
   /**
    * Set view state.
-   * @param {string} newState State to set.
+   * @param {string|number} newState State to set.
    */
   setViewState(newState) {
-    this.viewStates.keys().forEach((state) => {
+    if (typeof newState === 'number') {
+      newState = Object.entries(this.viewStates).find((entry) => {
+        return entry[1] === newState;
+      })?.[0];
+
+      if (!newState) {
+        return;
+      }
+    }
+
+    if (!Object.keys(this.viewStates).includes(newState)) {
+      return;
+    }
+
+    Object.keys(this.viewStates).forEach((state) => {
       this.content.classList.toggle(
         `h5p-sort-paragraphs-view-state-${state}`,
         state !== newState

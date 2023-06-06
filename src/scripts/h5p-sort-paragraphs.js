@@ -160,8 +160,8 @@ export default class SortParagraphs extends H5P.Question {
     // Register content with H5P.Question
     this.setContent(this.content.getDOM());
 
+    this.previousState = this.previousState ?? {};
     if (
-      this.previousState !== null &&
       (
         this.previousState.viewState === SortParagraphs.VIEW_STATES['results'] ||
         this.previousState.viewState === SortParagraphs.VIEW_STATES['solutions']
@@ -182,6 +182,9 @@ export default class SortParagraphs extends H5P.Question {
         }
         this.isExternalCall = false;
       });
+    }
+    else {
+      this.previousState.viewState = SortParagraphs.VIEW_STATES['task'];
     }
 
     // Register Buttons
