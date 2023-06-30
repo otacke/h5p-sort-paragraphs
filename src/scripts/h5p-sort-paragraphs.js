@@ -396,7 +396,7 @@ export default class SortParagraphs extends H5P.Question {
     if (this.viewState === SortParagraphs.VIEW_STATES['task']) {
       // checkAnswer was not triggered to recreate previous state
       this.trigger(this.getXAPIAnswerEvent());
-      this.trigger(this.createXAPIEvent('completed')); // Store state
+      this.trigger(this.createXAPIEvent('progressed')); // Store state
     }
 
     this.setViewState('results');
