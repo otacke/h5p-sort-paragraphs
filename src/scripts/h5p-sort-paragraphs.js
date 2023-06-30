@@ -72,6 +72,13 @@ export default class SortParagraphs extends H5P.Question {
     this.contentId = contentId;
     this.extras = extras;
 
+    /*
+     * Yes, I know, H5PIntegration should not be queried directly, but
+     * H5P core doesn't provide this information to libraries.
+     */
+    this.canStoreState = !Number.isNaN(parseInt(H5PIntegration?.saveFreq));
+    this.stateProvider = this.retrieveStateProvider();
+
     // Sanitize for use as text
     for (let word in this.params.l10n) {
       this.params.l10n[word] = Util.stripHTML(Util.htmlDecode(this.params.l10n[word]));
@@ -396,7 +403,8 @@ export default class SortParagraphs extends H5P.Question {
     if (this.viewState === SortParagraphs.VIEW_STATES['task']) {
       // checkAnswer was not triggered to recreate previous state
       this.trigger(this.getXAPIAnswerEvent());
-      this.trigger(this.createXAPIEvent('progressed')); // Store state
+
+      this.storeH5PState();
     }
 
     this.setViewState('results');
@@ -523,6 +531,51 @@ export default class SortParagraphs extends H5P.Question {
         SortParagraphs.VIEW_STATES.find((value) => value === state).keys[0]
       );
     }
+  }
+
+  /**
+   * Retrieve state provider to get current state from.
+   * @returns {H5P.ContentType|null} Instance to get current state from.
+   */
+  retrieveStateProvider() {
+    let stateProvider = this.isRoot() ? this : null;
+    if (stateProvider) {
+      return stateProvider;
+    }
+    // Find root instance for our subcontent instance
+    const rootInstance = H5P.instances
+      .find((instance) => instance.contentId === this.contentId);
+
+    // Check root instance for having support for resume
+    if (typeof rootInstance?.getCurrentState === 'function') {
+      stateProvider = rootInstance;
+    }
+
+    return stateProvider;
+  }
+
+  /**
+   * Store current state.
+   *
+   * Could be amended if required, of course, e.g. add an options
+   * argument to control the 'deleteOnChange' value, add a callback
+   * function to be passed to H5P.setUserData, etc.
+   */
+  storeH5PState() {
+    if (!this.canStoreState) {
+      return; // Server does not store state.
+    }
+
+    if (!this.stateProvider) {
+      return; // No state provider available.
+    }
+
+    H5P.setUserData(
+      this.contentId, // Set automatically by H5P core
+      'state',
+      this.stateProvider.getCurrentState(),
+      { deleteOnChange: true } // Use default behavior of H5P core
+    );
   }
 }
 
