@@ -31,7 +31,7 @@ export default class SortParagraphsContent {
     this.oldOrder = null; // Old order when dragging
 
     this.viewStates = this.params.viewStates;
-    this.setViewState(params.previousState.viewState);
+    this.setViewState(params.previousState?.viewState);
 
     // Original position of selected draggable
     this.selectedDraggable = null;
