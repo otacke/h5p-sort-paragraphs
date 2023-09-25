@@ -1025,6 +1025,11 @@ export default class SortParagraphsContent {
    * @param {string|number} newState State to set.
    */
   setViewState(newState) {
+    // Fallback to 'task'
+    if (newState === undefined) {
+      newState = 0;
+    }
+
     if (typeof newState === 'number') {
       newState = Object.entries(this.viewStates).find((entry) => {
         return entry[1] === newState;
