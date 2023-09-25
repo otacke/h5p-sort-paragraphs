@@ -305,9 +305,9 @@ export default class SortParagraphs extends H5P.Question {
    * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-5}
    */
   resetTask() {
-    this.previousState = {};
     this.removeFeedback();
     this.content.reset();
+    this.previousState = {};
     this.setViewState('task');
     this.trigger('resize');
   }
