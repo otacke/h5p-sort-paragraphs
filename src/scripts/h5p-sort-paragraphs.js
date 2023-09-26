@@ -502,7 +502,7 @@ export default class SortParagraphs extends H5P.Question {
      * to show up that restart button without the need to.
      */
     if (!this.getAnswerGiven() && !this.previousState.order) {
-      return;
+      return {};
     }
 
     return {
