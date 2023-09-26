@@ -307,6 +307,7 @@ export default class SortParagraphs extends H5P.Question {
   resetTask() {
     this.removeFeedback();
     this.content.reset();
+    this.previousState = {};
     this.setViewState('task');
     this.trigger('resize');
   }
