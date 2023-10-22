@@ -34,8 +34,8 @@
             }
           ],
           "label": "Nustatykite tinkintus atsiliepimus bet kokiam balų diapazonui",
-          "description": "Click the \"Add range\" button to add as many ranges as you need. Example: 0-20% Bad score, 21-91% Average Score, 91-100% Great Score!",
-          "entity": "intervalas",
+          "description": "Spustelėkite mygtuką „Pridėti diapazoną“, kad pridėtumėte tiek diapazonų, kiek jums reikia. Pavyzdys: 0–20 % blogas balas, 21–91 % vidutinis balas, 91–100 % puikus rezultatas!",
+          "entity": "diapazonas",
           "field": {
             "fields": [
               {
@@ -43,8 +43,8 @@
               },
               {},
               {
-                "label": "Feedback for defined score range",
-                "placeholder": "Fill in the feedback"
+                "label": "Atsiliepimas apibrėžtam balų diapazonui",
+                "placeholder": "Užpildykite atsiliepimą"
               }
             ]
           }
@@ -78,33 +78,33 @@
           "description": "On mobile devices, buttons for moving paragraphs can offer an extra accessibility benefit. If you prefer, you can deactivate them here."
         },
         {
-          "label": "Enable \"Retry\" button"
+          "label": "Įjungti mygtuką „Bandyti dar kartą“"
         },
         {
-          "label": "Enable \"Show Solution\" button"
+          "label": "Įjungti mygtuką „Rodyti sprendimą“"
         }
       ],
-      "label": "Behavioural settings",
-      "description": "These options will let you control how the task behaves."
+      "label": "Veikimo nustatymai",
+      "description": "Šios parinktys leis jums valdyti, kaip veikia užduotis."
     },
     {
-      "label": "User interface",
+      "label": "Naudotojo sąsaja",
       "fields": [
         {
-          "label": "Text for \"Check\" button",
-          "default": "Check"
+          "label": "Tekstas mygtukui „Tikrinti“",
+          "default": "Tikrinti"
         },
         {
-          "label": "Text for \"Submit\" button",
-          "default": "Submit"
+          "label": "Tekstas mygtukui „Pateikti“",
+          "default": "Pateikti"
         },
         {
           "label": "Text for \"Retry\" button",
-          "default": "Retry"
+          "default": "Bandyti dar kartą"
         },
         {
-          "label": "Text for \"Show solution\" button",
-          "default": "Show solution"
+          "label": "Mygtuko „Rodyti sprendimą“ tekstas",
+          "default": "Rodyti sprendimą"
         },
         {
           "label": "Title for \"Up\" button",
@@ -121,14 +121,14 @@
       ]
     },
     {
-      "label": "Readspeaker",
+      "label": "Skaitymo garsiakalbis",
       "fields": [
         {
-          "label": "Assistive technology description for \"Check\" button",
+          "label": "Mygtuko „Tikrinti“ pagalbinės technologijos aprašymas",
           "default": "Check the answers. The responses will be marked as correct or incorrect."
         },
         {
-          "label": "Assistive technology description for \"Show Solution\" button",
+          "label": "Mygtuko „Rodyti sprendimą“ pagalbinės technologijos aprašymas",
           "default": "Show the solution. The correct solution will be displayed."
         },
         {

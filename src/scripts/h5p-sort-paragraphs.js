@@ -491,6 +491,15 @@ export default class SortParagraphs extends H5P.Question {
    * @returns {object|undefined} Current state.
    */
   getCurrentState() {
+    /*
+     * H5P integrations may (for instance) show a restart button if there is
+     * a previous state set, so here preventing to store the state if no
+     * answer has been given by the user and there's no order stored previously
+     */
+    if (!this.getAnswerGiven() && !this.previousState.order) {
+      return;
+    }
+
     if (!this.content) {
       return;
     }
