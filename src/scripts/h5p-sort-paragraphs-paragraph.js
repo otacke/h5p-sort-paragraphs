@@ -566,6 +566,7 @@ export default class SortParagraphsParagraph {
       }, 0);
     }
     else {
+      this.enable();
       this.content.classList.remove('animate-translation');
       this.content.style.transform = '';
     }
