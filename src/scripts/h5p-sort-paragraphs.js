@@ -236,8 +236,6 @@ export default class SortParagraphs extends H5P.Question {
     // Retry button
     this.addButton('try-again', this.params.l10n.tryAgain, () => {
       this.resetTask();
-
-      this.trigger('resize');
     }, false, {
       'aria-label': this.params.a11y.retry
     }, {});
