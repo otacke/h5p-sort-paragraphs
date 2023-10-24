@@ -733,6 +733,10 @@ export default class SortParagraphsParagraph {
     // Assuming all buttons have the same size
     const buttonHeight = Object.values(this.buttons)[0].getDOM().offsetHeight;
 
+    if (buttonHeight === 0) {
+      return false; // Buttons may not be visible at all
+    }
+
     return contentHeight >= 2 * buttonHeight;
   }
 
