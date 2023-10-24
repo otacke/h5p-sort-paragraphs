@@ -1016,6 +1016,7 @@ export default class SortParagraphsContent {
     this.resetDraggablesTabIndex();
     this.resetDraggables();
     this.resetAriaLabels();
+    this.setViewState('task');
 
     this.focusFirstDraggable(100);
   }

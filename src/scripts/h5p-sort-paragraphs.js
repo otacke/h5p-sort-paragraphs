@@ -235,13 +235,7 @@ export default class SortParagraphs extends H5P.Question {
 
     // Retry button
     this.addButton('try-again', this.params.l10n.tryAgain, () => {
-      this.showButton('check-answer');
-      this.hideButton('show-solution');
-      this.hideButton('try-again');
-
       this.resetTask();
-
-      this.trigger('resize');
     }, false, {
       'aria-label': this.params.a11y.retry
     }, {});
@@ -305,6 +299,9 @@ export default class SortParagraphs extends H5P.Question {
    * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-5}
    */
   resetTask() {
+    this.showButton('check-answer');
+    this.hideButton('show-solution');
+    this.hideButton('try-again');
     this.removeFeedback();
     this.content.reset();
     this.previousState = {};
