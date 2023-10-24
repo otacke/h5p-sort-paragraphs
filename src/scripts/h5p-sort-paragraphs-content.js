@@ -19,7 +19,8 @@ export default class SortParagraphsContent {
 
     this.callbacks = Util.extend({
       onInteracted: () => {},
-      read: () => {}
+      read: () => {},
+      onViewStateChange: () => {}
     }, callbacks);
 
     this.content = document.createElement('div');
@@ -1048,6 +1049,7 @@ export default class SortParagraphsContent {
     });
 
     this.viewState = newState;
+    this.callbacks.onViewStateChange();
   }
 
   /**

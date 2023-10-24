@@ -163,7 +163,12 @@ export default class SortParagraphs extends H5P.Question {
         read: (text) => {
           // Using H5P.Question to let screen reader read text
           this.read(text);
-        }
+        },
+        onViewStateChange: () => {
+          this.showButton('check-answer');
+          this.hideButton('show-solution');
+          this.hideButton('try-again');
+        },
       }
     );
 
