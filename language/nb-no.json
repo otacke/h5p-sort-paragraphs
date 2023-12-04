@@ -1,6 +1,7 @@
 {
   "semantics": [
     {
+      "label": "Medieelement",
       "fields": [
         {
           "label": "Type",
@@ -9,8 +10,7 @@
         {
           "label": "Deaktiver zoomingfunksjon."
         }
-      ],
-      "label": "Medieelement"
+      ]
     },
     {
       "placeholder": "Skriv en kort instruksjon.",
@@ -25,6 +25,7 @@
       }
     },
     {
+      "label": "Tilbakemelding på hele oppgava",
       "fields": [
         {
           "label": "Opprett poengområder og legg inn tilbakemeldinger.",
@@ -48,8 +49,7 @@
             ]
           }
         }
-      ],
-      "label": "Tilbakemelding på hele oppgava"
+      ]
     },
     {
       "fields": [

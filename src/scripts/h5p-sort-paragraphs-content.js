@@ -31,7 +31,7 @@ export default class SortParagraphsContent {
     this.oldOrder = null; // Old order when dragging
 
     this.viewStates = this.params.viewStates;
-    this.setViewState(params.previousState?.viewState);
+    this.setViewState(this.params.previousState?.viewState);
 
     // Original position of selected draggable
     this.selectedDraggable = null;
@@ -1016,15 +1016,16 @@ export default class SortParagraphsContent {
     this.resetDraggablesTabIndex();
     this.resetDraggables();
     this.resetAriaLabels();
+    this.setViewState('task');
 
     this.focusFirstDraggable(100);
   }
 
   /**
    * Set view state.
-   * @param {string|number} newState State to set.
+   * @param {string|number} [newState] State to set, defaulting to 'task'.
    */
-  setViewState(newState) {
+  setViewState(newState = 0) {
     if (typeof newState === 'number') {
       newState = Object.entries(this.viewStates).find((entry) => {
         return entry[1] === newState;

@@ -235,13 +235,7 @@ export default class SortParagraphs extends H5P.Question {
 
     // Retry button
     this.addButton('try-again', this.params.l10n.tryAgain, () => {
-      this.showButton('check-answer');
-      this.hideButton('show-solution');
-      this.hideButton('try-again');
-
       this.resetTask();
-
-      this.trigger('resize');
     }, false, {
       'aria-label': this.params.a11y.retry
     }, {});
@@ -305,8 +299,12 @@ export default class SortParagraphs extends H5P.Question {
    * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-5}
    */
   resetTask() {
+    this.showButton('check-answer');
+    this.hideButton('show-solution');
+    this.hideButton('try-again');
     this.removeFeedback();
     this.content.reset();
+    this.previousState = {};
     this.setViewState('task');
     this.trigger('resize');
   }
@@ -490,8 +488,27 @@ export default class SortParagraphs extends H5P.Question {
    * @returns {object|undefined} Current state.
    */
   getCurrentState() {
+    /*
+     * H5P integrations may (for instance) show a restart button if there is
+     * a previous state set, so here preventing to store the state if no
+     * answer has been given by the user and there's no order stored previously
+     */
+    if (!this.getAnswerGiven() && !this.previousState.order) {
+      return;
+    }
+
     if (!this.content) {
       return;
+    }
+
+    /*
+     * H5P integrations may (for instance) show a restart button if there is
+     * a previous state set, so here not storing the state if no answer has been
+     * given by the user and there's no order stored previously - preventing
+     * to show up that restart button without the need to.
+     */
+    if (!this.getAnswerGiven() && !this.previousState.order) {
+      return {};
     }
 
     return {
