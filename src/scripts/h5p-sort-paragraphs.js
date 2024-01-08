@@ -247,7 +247,7 @@ export default class SortParagraphs extends H5P.Question {
    * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-1}
    */
   getAnswerGiven() {
-    return this.content.isAnswerGiven();
+    return this.content?.isAnswerGiven() || false;
   }
 
   /**
@@ -493,7 +493,7 @@ export default class SortParagraphs extends H5P.Question {
      * a previous state set, so here preventing to store the state if no
      * answer has been given by the user and there's no order stored previously
      */
-    if (!this.getAnswerGiven() && !this.previousState.order) {
+    if (!this.getAnswerGiven() && !this.previousState?.order) {
       return;
     }
 
