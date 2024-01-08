@@ -91,6 +91,37 @@ export default class SortParagraphs extends H5P.Question {
     this.previousState = (this.extras.previousState && this.extras.previousState.order) ?
       this.extras.previousState :
       null;
+
+    this.content = new SortParagraphsContent(
+      {
+        paragraphs: this.params.paragraphs,
+        addButtonsForMovement: this.params.behaviour.addButtonsForMovement,
+        duplicatesInterchangeable: this.params.behaviour.duplicatesInterchangeable,
+        penalties: this.params.behaviour.applyPenalties,
+        scoringMode: this.params.behaviour.scoringMode,
+        taskDescription: Util.stripHTML(this.params.taskDescription)
+          .replace(/(\r\n|\n|\r)/gm, ' ')
+          .replace(/\s{2}/g, ' ')
+          .trim(),
+        previousState: this.previousState,
+        a11y: this.params.a11y,
+        l10n: {
+          up: this.params.l10n.up,
+          down: this.params.l10n.down,
+          disabled: this.params.l10n.disabled
+        },
+        viewStates: SortParagraphs.VIEW_STATES
+      },
+      {
+        onInteracted: () => {
+          this.handleInteracted();
+        },
+        read: (text) => {
+          // Using H5P.Question to let screen reader read text
+          this.read(text);
+        }
+      }
+    );
   }
 
   /**
@@ -135,37 +166,6 @@ export default class SortParagraphs extends H5P.Question {
       introduction.innerHTML = this.params.taskDescription;
       this.setIntroduction(introduction);
     }
-
-    this.content = new SortParagraphsContent(
-      {
-        paragraphs: this.params.paragraphs,
-        addButtonsForMovement: this.params.behaviour.addButtonsForMovement,
-        duplicatesInterchangeable: this.params.behaviour.duplicatesInterchangeable,
-        penalties: this.params.behaviour.applyPenalties,
-        scoringMode: this.params.behaviour.scoringMode,
-        taskDescription: Util.stripHTML(this.params.taskDescription)
-          .replace(/(\r\n|\n|\r)/gm, ' ')
-          .replace(/\s{2}/g, ' ')
-          .trim(),
-        previousState: this.previousState,
-        a11y: this.params.a11y,
-        l10n: {
-          up: this.params.l10n.up,
-          down: this.params.l10n.down,
-          disabled: this.params.l10n.disabled
-        },
-        viewStates: SortParagraphs.VIEW_STATES
-      },
-      {
-        onInteracted: () => {
-          this.handleInteracted();
-        },
-        read: (text) => {
-          // Using H5P.Question to let screen reader read text
-          this.read(text);
-        }
-      }
-    );
 
     // Current user view
     this.setViewState('task');
@@ -488,19 +488,6 @@ export default class SortParagraphs extends H5P.Question {
    * @returns {object|undefined} Current state.
    */
   getCurrentState() {
-    /*
-     * H5P integrations may (for instance) show a restart button if there is
-     * a previous state set, so here preventing to store the state if no
-     * answer has been given by the user and there's no order stored previously
-     */
-    if (!this.getAnswerGiven() && !this.previousState?.order) {
-      return;
-    }
-
-    if (!this.content) {
-      return;
-    }
-
     /*
      * H5P integrations may (for instance) show a restart button if there is
      * a previous state set, so here not storing the state if no answer has been
