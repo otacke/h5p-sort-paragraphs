@@ -60,10 +60,10 @@
           "description": "Beslis of je punten geeft voor elke correct geplaatste alinea of voor elke alinea die wordt geplaatst na de alinea waar deze achter hoort te staan (\"juiste volgorde\")",
           "options": [
             {
-              "label": "Juist geplaatste paragraaf"
+              "label": "De juiste volgorde"
             },
             {
-              "label": "Juiste volgorde"
+              "label": "De juist geplaatste paragraaf"
             }
           ]
         },
