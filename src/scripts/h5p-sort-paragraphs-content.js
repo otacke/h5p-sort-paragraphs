@@ -1,7 +1,7 @@
 // Import required classes
-import Util from './h5p-sort-paragraphs-util';
-import SortParagraphsParagraph from './h5p-sort-paragraphs-paragraph';
-import SortParagraphsSeparator from './h5p-sort-paragraphs-separator';
+import Util from './h5p-sort-paragraphs-util.js';
+import SortParagraphsParagraph from './h5p-sort-paragraphs-paragraph.js';
+import SortParagraphsSeparator from './h5p-sort-paragraphs-separator.js';
 
 /** Class representing the content */
 export default class SortParagraphsContent {

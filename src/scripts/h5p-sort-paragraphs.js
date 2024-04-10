@@ -1,6 +1,6 @@
 // Import required classes
-import SortParagraphsContent from './h5p-sort-paragraphs-content';
-import Util from './h5p-sort-paragraphs-util';
+import SortParagraphsContent from './h5p-sort-paragraphs-content.js';
+import Util from './h5p-sort-paragraphs-util.js';
 
 /**
  * Main class.

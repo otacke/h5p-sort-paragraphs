@@ -1,5 +1,5 @@
 // Import required classes
-import Util from './h5p-sort-paragraphs-util';
+import Util from './h5p-sort-paragraphs-util.js';
 
 /** Class representing the content */
 export default class Button {
