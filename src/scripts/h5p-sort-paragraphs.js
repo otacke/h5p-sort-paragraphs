@@ -494,7 +494,7 @@ export default class SortParagraphs extends H5P.Question {
      * given by the user and there's no order stored previously - preventing
      * to show up that restart button without the need to.
      */
-    if (!this.getAnswerGiven() && !this.previousState.order) {
+    if (!this.getAnswerGiven() && !this.previousState?.order) {
       return {};
     }
 
