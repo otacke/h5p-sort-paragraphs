@@ -60,10 +60,10 @@
           "description": "Rozhodněte se, zda udělit body za každý správně umístěný odstavec nebo za každý odstavec, který je umístěn za odstavcem, za kterým má být umístěn („správné pořadí“)",
           "options": [
             {
-              "label": "Správná sekvence"
+              "label": "Správně umístěný odstavec"
             },
             {
-              "label": "Správně umístěný odstavec"
+              "label": "Správná sekvence"
             }
           ]
         },

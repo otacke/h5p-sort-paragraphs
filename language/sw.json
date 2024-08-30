@@ -60,10 +60,10 @@
           "description": "Amua ikiwa utatoa alama kwa kila aya iliyowekwa kwa usahihi au kwa kila aya ambayo imewekwa baada ya aya iliyofaaa kuwekwa baada yake (“mfuatano sahihi”)",
           "options": [
             {
-              "label": "Mlolongo sahihi"
+              "label": "Aya zilizowekwa kwa usahihi"
             },
             {
-              "label": "Aya zilizowekwa kwa usahihi"
+              "label": "Mlolongo sahihi"
             }
           ]
         },

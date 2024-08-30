@@ -60,10 +60,10 @@
           "description": "Wähle, ob Punkte für jeden an der exakt richtigen Stelle platzierten Absatz vergeben werden oder für jeden Absatz, der nach dem Absatz platziert wird, nach dem er platziert werden soll (\"korrekte Reihenfolge\")",
           "options": [
             {
-              "label": "Richtige Reihenfolge"
+              "label": "Korrekt platzierter Absatz"
             },
             {
-              "label": "Korrekt platzierter Absatz"
+              "label": "Richtige Reihenfolge"
             }
           ]
         },

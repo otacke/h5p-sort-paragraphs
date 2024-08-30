@@ -60,10 +60,10 @@
           "description": "Vel om du vil gi poeng for kvart avsnitt som er plassert på rett stad i strukturen, eller om du vil gi poeng for korrekt rekkefølge, det vil seie for kvart avsnitt som er plassert etter det avsnittet det er meint å stå etter.",
           "options": [
             {
-              "label": "Rett rekkefølge"
+              "label": "Korrekt plassert avsnitt"
             },
             {
-              "label": "Korrekt plassert avsnitt"
+              "label": "Rett rekkefølge"
             }
           ]
         },

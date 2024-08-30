@@ -60,10 +60,10 @@
           "description": "Erabaki ondo kokatutako paragrafo bakoitzari puntuak ematea edo dagokion paragrafoaren ondoren ondo kokatutako paragrafo bakoitzari puntuak ematea (\"sekuentzia zuzena\")",
           "options": [
             {
-              "label": "Sekuentzia zuzena"
+              "label": "Ondo kokatutako paragrafoa"
             },
             {
-              "label": "Ondo kokatutako paragrafoa"
+              "label": "Sekuentzia zuzena"
             }
           ]
         },

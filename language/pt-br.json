@@ -60,10 +60,10 @@
           "description": "Decidir se devem ser dados pontos para cada parágrafo colocado corretamente ou para cada parágrafo que é colocado após o parágrafo que deveria ser colocado depois (\"sequência correta\")",
           "options": [
             {
-              "label": "Sequência correta"
+              "label": "Parágrafo colocado corretamente"
             },
             {
-              "label": "Parágrafo colocado corretamente"
+              "label": "Sequência correta"
             }
           ]
         },

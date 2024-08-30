@@ -60,10 +60,10 @@
           "description": "Decidir si se dan puntos por cada párrafo colocado correctamente o por cada párrafo que es colocado después del párrafo que se supone que debe ser colocado después de (\"secuencia correcta\")",
           "options": [
             {
-              "label": "Secuencia correcta"
+              "label": "Párrafo colocado correctamente"
             },
             {
-              "label": "Párrafo colocado correctamente"
+              "label": "Secuencia correcta"
             }
           ]
         },

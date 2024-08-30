@@ -60,10 +60,10 @@
           "description": "Točkuje se lahko postavitev odstavka na \"Pravilno mesto\", ali pravilna postavitev glede na drug odstavek, ki bi naj predhodnemu sledil (\"Pravilno zaporedje\").",
           "options": [
             {
-              "label": "Pravilno zaporedje"
+              "label": "Pravilno mesto odstavka"
             },
             {
-              "label": "Pravilno mesto odstavka"
+              "label": "Pravilno zaporedje"
             }
           ]
         },

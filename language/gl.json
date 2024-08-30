@@ -60,10 +60,10 @@
           "description": "Decide se queres dar puntos por cada parágrafo colocado correctamente ou por cada parágrafo colocado despois do parágrafo que ten que ir despois da (\"secuencia correcta\")",
           "options": [
             {
-              "label": "Secuencia correcta"
+              "label": "Parágrafo colocado correctamente"
             },
             {
-              "label": "Parágrafo colocado correctamente"
+              "label": "Secuencia correcta"
             }
           ]
         },

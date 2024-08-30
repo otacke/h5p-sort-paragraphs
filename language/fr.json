@@ -60,10 +60,10 @@
           "description": "Décider si vous attribuez des points pour chaque paragraphe correctement placé ou pour chaque paragraphe qui est placé après le paragraphe qu'il est censé suivre (« séquence correcte »)",
           "options": [
             {
-              "label": "Séquence correcte"
+              "label": "Paragraphe correctement placé"
             },
             {
-              "label": "Paragraphe correctement placé"
+              "label": "Séquence correcte"
             }
           ]
         },

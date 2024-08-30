@@ -58,10 +58,10 @@
           "label": "Vurderingsmåte",
           "options": [
             {
-              "label": "Rett rekkefølge"
+              "label": "Korrekt plassert avsnitt"
             },
             {
-              "label": "Korrekt plassert avsnitt"
+              "label": "Rett rekkefølge"
             }
           ]
         },

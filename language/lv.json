@@ -60,10 +60,10 @@
           "description": "Izlemiet, vai piešķirt punktus par katru pareizi ievietoto rindkopu vai par katru rindkopu, kas ir ievietota aiz rindkopas, pēc kuras tā ir jānovieto (\"pareizā secība\")",
           "options": [
             {
-              "label": "Pareiza secība"
+              "label": "Pareizi ievietota rindkopa"
             },
             {
-              "label": "Pareizi ievietota rindkopa"
+              "label": "Pareiza secība"
             }
           ]
         },

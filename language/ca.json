@@ -60,10 +60,10 @@
           "description": "Decideix si es donen punts per cada paràgraf col·locat correctament o per cada paràgraf col·locat després del paràgraf que toca (\"seqüència correcta\")",
           "options": [
             {
-              "label": "Seqüència correcta"
+              "label": "Paràgraf ben col·locat"
             },
             {
-              "label": "Paràgraf ben col·locat"
+              "label": "Seqüència correcta"
             }
           ]
         },
