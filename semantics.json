@@ -155,7 +155,7 @@
       {
         "name": "scoringMode",
         "label": "Scoring mode",
-        "description": "Decide whether to give points for each correctly placed paragraph or for each paragraph that is placed after the paragraph it is supposed to be placed after (\"correct sequence\")",
+        "description": "Decide whether to give points for each correctly placed paragraph or for each paragraph that is placed immediately after the paragraph it is supposed to be placed after (\"correct sequence\")",
         "type": "select",
         "importance": "low",
         "default": "positions",
