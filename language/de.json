@@ -57,7 +57,7 @@
       "fields": [
         {
           "label": "Bewertungsmodus",
-          "description": "Wähle, ob Punkte für jeden an der exakt richtigen Stelle platzierten Absatz vergeben werden oder für jeden Absatz, der nach dem Absatz platziert wird, nach dem er platziert werden soll (\"korrekte Reihenfolge\")",
+          "description": "Wähle, ob Punkte für jeden an der exakt richtigen Stelle platzierten Absatz vergeben werden oder für jeden Absatz, der direkt nach dem Absatz platziert wird, nach dem er platziert werden soll (\"korrekte Reihenfolge\")",
           "options": [
             {
               "label": "Korrekt platzierter Absatz"
