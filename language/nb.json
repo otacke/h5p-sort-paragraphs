@@ -54,7 +54,7 @@
     {
       "fields": [
         {
-          "description": "Velg om du vil gi poeng for hvert avsnitt som er plassert på rett sted i strukturen, eller om du vil gi poeng for korrekt rekkefølge, det vil si for hvert avsnitt som er plassert etter det avsnittet det er ment å stå etter.",
+          "description": "Velg om du vil gi poeng for hvert avsnitt som er plassert på rett sted i strukturen, eller om du vil gi poeng for korrekt rekkefølge, det vil si for hvert avsnitt som er plassert rett etter det avsnittet det er ment å stå etter.",
           "label": "Vurderingsmåte",
           "options": [
             {
