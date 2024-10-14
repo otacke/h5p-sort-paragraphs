@@ -1,4 +1,4 @@
-@import './h5p-sort-paragraphs-main';
+@use "@styles/main";
 
 .h5p-sort-paragraphs {
   .h5p-sort-paragraphs-paragraph-button-container {
@@ -10,12 +10,12 @@
   }
 
   .h5p-sort-paragraphs-paragraph {
-    background-color: $color-enabled;
+    background-color: main.$color-enabled;
     border-color: transparent;
     border-radius: .3em;
     border-style: solid;
     border-width: .25em;
-    box-shadow: 0 0.1em 0 $color-box-shadow-regular;
+    box-shadow: 0 0.1em 0 main.$color-box-shadow-regular;
     cursor: move;
     display: flex;
     flex-direction: row;
@@ -50,10 +50,10 @@
     }
 
     &.h5p-sort-paragraphs-over, &.h5p-sort-paragraphs-selected {
-      background: $color-over;
+      background: main.$color-over;
       border-color: #0825ff;
       box-shadow: 0 0.1em 0 #b1c5e0;
-      color: $color-over-text;
+      color: main.$color-over-text;
     }
 
     .h5p-sort-paragraphs-paragraph-corrections {
@@ -62,13 +62,13 @@
     }
 
     &.h5p-sort-paragraphs-correct {
-      background: $color-correct-light;
-      border-color: $color-correct-light;
-      box-shadow: 0 0.1em 0 $color-correct-box-shadow;
-      color: $color-correct-dark;
+      background: main.$color-correct-light;
+      border-color: main.$color-correct-light;
+      box-shadow: 0 0.1em 0 main.$color-correct-box-shadow;
+      color: main.$color-correct-dark;
 
       .h5p-sort-paragraphs-paragraph-corrections::before {
-        content: $icon-correct;
+        content: main.$icon-correct;
         font-family: 'H5PFontAwesome4', sans-serif;
       }
 
@@ -78,13 +78,13 @@
     }
 
     &.h5p-sort-paragraphs-wrong {
-      background: $color-wrong-light;
-      border-color: $color-wrong-light;
-      box-shadow: 0 0.1em 0 $color-wrong-box-shadow;
-      color: $color-wrong-dark;
+      background: main.$color-wrong-light;
+      border-color: main.$color-wrong-light;
+      box-shadow: 0 0.1em 0 main.$color-wrong-box-shadow;
+      color: main.$color-wrong-dark;
 
       .h5p-sort-paragraphs-paragraph-corrections::before {
-        content: $icon-wrong;
+        content: main.$icon-wrong;
         font-family: 'H5PFontAwesome4', sans-serif;
       }
 
@@ -94,21 +94,21 @@
     }
 
     &.h5p-sort-paragraphs-solution .h5p-sort-paragraphs-paragraph-corrections::before {
-      color: $color-disabled-text;
+      color: main.$color-disabled-text;
       content: '\f06e';
       font-family: 'H5PFontAwesome4', sans-serif;
     }
 
     &.h5p-sort-paragraphs-disabled:not(.animate-translation):not(.h5p-sort-paragraphs-wrong):not(.h5p-sort-paragraphs-correct) {
-      background-color: $color-disabled;
-      border-color: $color-disabled;
-      color: $color-disabled-text;
+      background-color: main.$color-disabled;
+      border-color: main.$color-disabled;
+      color: main.$color-disabled-text;
     }
 
     &.h5p-sort-paragraphs-disabled.h5p-sort-paragraphs-solution {
-      background-color: $color-disabled;
-      border-color: $color-disabled;
-      color: $color-disabled-text;
+      background-color: main.$color-disabled;
+      border-color: main.$color-disabled;
+      color: main.$color-disabled-text;
     }
 
     .h5p-sort-paragraphs-buttons-container {
@@ -144,14 +144,14 @@
 
   .h5p-sort-paragraphs-button {
     align-items: center;
-    background-color: $color-button;
+    background-color: main.$color-button;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 1.15em 1.15em;
     border: 2px solid transparent;
     border-radius: 0.3em;
-    box-shadow: 0 0.1em 0 $color-box-shadow-regular;
-    color: $color-button-text;
+    box-shadow: 0 0.1em 0 main.$color-box-shadow-regular;
+    color: main.$color-button-text;
     cursor: pointer;
     display: flex;
     flex-shrink: 0;
@@ -167,33 +167,33 @@
     }
 
     &.h5p-sort-paragraphs-disabled {
-      background-color: $color-button-disabled;
+      background-color: main.$color-button-disabled;
 
       /* Originally #eeeeee as in many H5P contents */
-      color: $color-button-disabled-text;
+      color: main.$color-button-disabled-text;
       cursor: auto;
     }
 
     &:not(.h5p-sort-paragraphs-disabled) {
       &:hover {
-        background-color: $color-hover;
+        background-color: main.$color-hover;
       }
 
       &:active {
-        background-color: $color-active;
+        background-color: main.$color-active;
       }
     }
   }
 
   .h5p-sort-paragraphs-paragraph-button-up::before {
     font-family: 'H5PFontAwesome4', sans-serif;
-    content: $icon-button-up;
+    content: main.$icon-button-up;
     font-size: 1.5em;
   }
 
   .h5p-sort-paragraphs-paragraph-button-down::before {
     font-family: 'H5PFontAwesome4', sans-serif;
-    content: $icon-button-down;
+    content: main.$icon-button-down;
     font-size: 1.5em;
   }
 
@@ -240,15 +240,15 @@
     }
 
     &.h5p-sort-paragraphs-correct {
-      background: $color-correct-dark;
-      border-color: $color-correct-light;
-      box-shadow: 0 0.1em 0 $color-correct-box-shadow;
+      background: main.$color-correct-dark;
+      border-color: main.$color-correct-light;
+      box-shadow: 0 0.1em 0 main.$color-correct-box-shadow;
     }
 
     &.h5p-sort-paragraphs-wrong {
-      background: $color-wrong-dark;
-      border-color: $color-wrong-light;
-      box-shadow: 0 0.1em 0 $color-wrong-box-shadow;
+      background: main.$color-wrong-dark;
+      border-color: main.$color-wrong-light;
+      box-shadow: 0 0.1em 0 main.$color-wrong-box-shadow;
     }
 
     .h5p-question-plus-one,
@@ -271,14 +271,14 @@
 // Firefox would show focus on clicking a disabled paragraph
 .h5p-content:not(.using-mouse) .h5p-sort-paragraphs {
   .h5p-sort-paragraphs-paragraph.h5p-sort-paragraphs-disabled:focus {
-    border-color: $color-disabled-focus;
-    box-shadow: 0 0 .5em 0 $color-disabled-focus;
+    border-color: main.$color-disabled-focus;
+    box-shadow: 0 0 .5em 0 main.$color-disabled-focus;
     outline: none;
   }
 
   .h5p-sort-paragraphs-paragraph:not(.h5p-sort-paragraphs-disabled):focus {
-    border-color: $color-focus;
-    box-shadow: 0 0 .5em 0 $color-focus;
+    border-color: main.$color-focus;
+    box-shadow: 0 0 .5em 0 main.$color-focus;
     outline: none;
   }
 }
