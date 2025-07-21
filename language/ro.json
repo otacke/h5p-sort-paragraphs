@@ -1,0 +1,224 @@
+{
+  "semantics": [
+    {
+      "label": "Media",
+      "fields": [
+        {
+          "label": "Tip",
+          "description": "Media opțională de afișat deasupra întrebării."
+        },
+        {
+          "label": "Dezactivează mărirea imaginii"
+        }
+      ]
+    },
+    {
+      "label": "Descrierea sarcinii",
+      "placeholder": "Descrieți ce ar trebui să facă studenții dumneavoastră...",
+      "description": "Ce ar trebui să știe studenții dumneavoastră."
+    },
+    {
+      "label": "Paragrafe",
+      "entity": "paragraf",
+      "field": {
+        "label": "Paragraf"
+      }
+    },
+    {
+      "label": "Feedback general",
+      "fields": [
+        {
+          "widgets": [
+            {
+              "label": "Implicit"
+            }
+          ],
+          "label": "Definiți feedback personalizat pentru orice interval de scor",
+          "description": "Apăsați butonul „Adaugă interval” pentru a adăuga oricâte intervale aveți nevoie. Exemplu: 0-20% Scor slab, 21-91% Scor mediu, 91-100% Scor excelent!",
+          "entity": "interval",
+          "field": {
+            "fields": [
+              {
+                "label": "Interval de scor"
+              },
+              {},
+              {
+                "label": "Feedback pentru intervalul de scor definit",
+                "placeholder": "Completați feedback-ul"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "Setări de comportament",
+      "description": "Aceste opțiuni vă vor permite să controlați cum se comportă sarcina.",
+      "fields": [
+        {
+          "label": "Mod de punctare",
+          "description": "Decideți dacă acordați puncte pentru fiecare paragraf plasat corect sau pentru fiecare paragraf care este plasat imediat după paragraful după care ar trebui să fie plasat („secvență corectă”)",
+          "options": [
+            {
+              "label": "Paragraf plasat corect"
+            },
+            {
+              "label": "Secvență corectă"
+            }
+          ]
+        },
+        {
+          "label": "Aplică penalizări",
+          "description": "Decideți dacă se scade un punct pentru fiecare paragraf care nu este poziționat corect."
+        },
+        {
+          "label": "Paragrafe duplicate interschimbabile",
+          "description": "Dacă este setat, la verificarea răspunsului, paragrafele duplicate vor fi tratate ca identice dacă textul lor simplu este egal."
+        },
+        {
+          "label": "Adaugă butoane pentru mișcare",
+          "description": "Pe dispozitivele mobile, butoanele pentru mutarea paragrafelor pot oferi un beneficiu suplimentar de accesibilitate. Dacă preferați, le puteți dezactiva de aici."
+        },
+        {
+          "label": "Activează butonul „Reîncearcă”"
+        },
+        {
+          "label": "Activează butonul „Arată soluția”"
+        }
+      ]
+    },
+    {
+      "label": "Interfață utilizator",
+      "fields": [
+        {
+          "label": "Text pentru butonul „Verifică”",
+          "default": "Verifică"
+        },
+        {
+          "label": "Text pentru butonul „Trimite”",
+          "default": "Trimite"
+        },
+        {
+          "label": "Text pentru butonul „Reîncearcă”",
+          "default": "Reîncearcă"
+        },
+        {
+          "label": "Text pentru butonul „Arată soluția”",
+          "default": "Arată soluția"
+        },
+        {
+          "label": "Titlu pentru butonul „Sus”",
+          "default": "Sus"
+        },
+        {
+          "label": "Titlu pentru butonul „Jos”",
+          "default": "Jos"
+        },
+        {
+          "label": "Titlu pentru butonul dezactivat",
+          "default": "Dezactivat"
+        }
+      ]
+    },
+    {
+      "label": "Cititor de ecran",
+      "fields": [
+        {
+          "label": "Descriere pentru tehnologia asistivă pentru butonul „Verifică”",
+          "default": "Verifică răspunsurile. Răspunsurile vor fi marcate ca fiind corecte sau incorecte."
+        },
+        {
+          "label": "Descriere pentru tehnologia asistivă pentru butonul „Arată soluția”",
+          "default": "Arată soluția. Soluția corectă va fi afișată."
+        },
+        {
+          "label": "Descriere pentru tehnologia asistivă pentru butonul „Reîncearcă”",
+          "default": "Reîncearcă sarcina. Resetează toate elementele și începe sarcina de la capăt."
+        },
+        {
+          "label": "Rezultatul tău",
+          "description": "@score va fi înlocuit cu numărul de puncte. @total va fi înlocuit cu numărul maxim posibil de puncte.",
+          "default": "Ai obținut @score din @total puncte"
+        },
+        {
+          "label": "Descrierea listei",
+          "default": "Listă sortabilă de paragrafe."
+        },
+        {
+          "label": "Descrierea listei (verificare răspuns)",
+          "default": "Listă de paragrafe cu rezultate."
+        },
+        {
+          "label": "Descrierea listei (afișare soluție)",
+          "default": "Listă de paragrafe cu soluții."
+        },
+        {
+          "label": "Paragraf",
+          "default": "Paragraf"
+        },
+        {
+          "label": "Corect",
+          "default": "corect"
+        },
+        {
+          "label": "Greșit",
+          "default": "greșit"
+        },
+        {
+          "description": "@score va fi înlocuit cu 1 sau -1.",
+          "label": "Explicație scor",
+          "default": "@score punct"
+        },
+        {
+          "description": "@current va fi înlocuit cu numărul paragrafului curent. @total va fi înlocuit cu numărul total de paragrafe.",
+          "label": "Numerotarea paragrafelor",
+          "default": "@current din @total"
+        },
+        {
+          "description": "Va fi urmat de „Numerotarea paragrafelor”.",
+          "label": "Poziția curentă în listă",
+          "default": "Poziția curentă în listă"
+        },
+        {
+          "label": "Instrucțiune când paragraful este selectat",
+          "default": "Apăsați bara de spațiu pentru a reordona"
+        },
+        {
+          "label": "Instrucțiune când paragraful este apucat",
+          "default": "Apăsați tastele săgeată sus și jos pentru a schimba poziția, bara de spațiu pentru a lăsa, tasta escape pentru a anula"
+        },
+        {
+          "label": "Apucat",
+          "default": "Apucat"
+        },
+        {
+          "label": "Mutat",
+          "default": "Mutat"
+        },
+        {
+          "label": "Lăsat",
+          "default": "Lăsat"
+        },
+        {
+          "label": "Reordonare anulată",
+          "default": "Reordonare anulată"
+        },
+        {
+          "description": "Va fi urmat de „Numerotarea paragrafelor”.",
+          "label": "Poziție finală",
+          "default": "Poziție finală"
+        },
+        {
+          "description": "Va fi urmat de „corect” sau „greșit”.",
+          "label": "Paragraful următor",
+          "default": "Paragraful următor"
+        },
+        {
+          "description": "Va fi urmat de „Numerotarea paragrafelor”.",
+          "label": "Paragraf corect",
+          "default": "Paragraf corect la poziția"
+        }
+      ]
+    }
+  ]
+}
