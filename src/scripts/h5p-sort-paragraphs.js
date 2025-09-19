@@ -33,7 +33,7 @@ export default class SortParagraphs extends H5P.Question {
         enableRetry: true,
         scoringMode: 'transitions',
         applyPenalties: true,
-        addButtonsForMovement: true
+        addButtonsForMovement: true,
       },
       l10n: {
         checkAnswer: 'Check answer',
@@ -42,7 +42,7 @@ export default class SortParagraphs extends H5P.Question {
         tryAgain: 'Retry',
         up: 'Up',
         down: 'Down',
-        disabled: 'Disabled'
+        disabled: 'Disabled',
       },
       a11y: {
         check: 'Check the answers. The responses will be marked as correct or incorrect.',
@@ -65,8 +65,8 @@ export default class SortParagraphs extends H5P.Question {
         wrong: 'wrong',
         point: '@score point',
         nextParagraph: 'Next paragraph',
-        correctParagraph: 'Correct paragraph at position'
-      }
+        correctParagraph: 'Correct paragraph at position',
+      },
     }, params);
 
     this.contentId = contentId;
@@ -108,9 +108,9 @@ export default class SortParagraphs extends H5P.Question {
         l10n: {
           up: this.params.l10n.up,
           down: this.params.l10n.down,
-          disabled: this.params.l10n.disabled
+          disabled: this.params.l10n.disabled,
         },
-        viewStates: SortParagraphs.VIEW_STATES
+        viewStates: SortParagraphs.VIEW_STATES,
       },
       {
         onInteracted: () => {
@@ -119,8 +119,8 @@ export default class SortParagraphs extends H5P.Question {
         read: (text) => {
           // Using H5P.Question to let screen reader read text
           this.read(text);
-        }
-      }
+        },
+      },
     );
   }
 
@@ -140,7 +140,7 @@ export default class SortParagraphs extends H5P.Question {
             alt: media.params.alt,
             title: media.params.title,
             expandImage: media.params.expandImage,
-            minimizeImage: media.params.minimizeImage
+            minimizeImage: media.params.minimizeImage,
           });
         }
       }
@@ -176,14 +176,14 @@ export default class SortParagraphs extends H5P.Question {
     this.previousState = this.previousState ?? {};
     if (
       (
-        this.previousState.viewState === SortParagraphs.VIEW_STATES['results'] ||
-        this.previousState.viewState === SortParagraphs.VIEW_STATES['solutions']
+        this.previousState.viewState === SortParagraphs.VIEW_STATES.results ||
+        this.previousState.viewState === SortParagraphs.VIEW_STATES.solutions
       )
     ) {
       // Need to wait until DOM is ready for us
       H5P.externalDispatcher.on('initialized', () => {
         this.isExternalCall = true; // Prevent focussing
-        if (this.previousState.viewState === SortParagraphs.VIEW_STATES['results']) {
+        if (this.previousState.viewState === SortParagraphs.VIEW_STATES.results) {
           this.setViewState('results');
           this.checkAnswer();
         }
@@ -197,7 +197,7 @@ export default class SortParagraphs extends H5P.Question {
       });
     }
     else {
-      this.previousState.viewState = SortParagraphs.VIEW_STATES['task'];
+      this.previousState.viewState = SortParagraphs.VIEW_STATES.task;
     }
 
     // Register Buttons
@@ -219,7 +219,7 @@ export default class SortParagraphs extends H5P.Question {
     this.addButton('check-answer', this.params.l10n.checkAnswer, () => {
       this.checkAnswer();
     }, true, {
-      'aria-label': this.params.a11y.check
+      'aria-label': this.params.a11y.check,
     }, {
       contentData: this.extras,
       textIfSubmitting: this.params.l10n.submitAnswer,
@@ -230,14 +230,14 @@ export default class SortParagraphs extends H5P.Question {
       this.hideButton('show-solution');
       this.showSolutions();
     }, false, {
-      'aria-label': this.params.a11y.showSolution
+      'aria-label': this.params.a11y.showSolution,
     }, {});
 
     // Retry button
     this.addButton('try-again', this.params.l10n.tryAgain, () => {
       this.resetTask();
     }, false, {
-      'aria-label': this.params.a11y.retry
+      'aria-label': this.params.a11y.retry,
     }, {});
   }
 
@@ -261,7 +261,7 @@ export default class SortParagraphs extends H5P.Question {
     if (!this.content) {
       score = this.previousState?.score || 0;
     }
-    else if (this.viewState === SortParagraphs.VIEW_STATES['solutions']) {
+    else if (this.viewState === SortParagraphs.VIEW_STATES.solutions) {
       score = this.currentScore || this.previousState?.score || 0;
     }
     else {
@@ -377,7 +377,7 @@ export default class SortParagraphs extends H5P.Question {
 
       return {
         id: index,
-        description: choicesDescription
+        description: choicesDescription,
       };
     });
 
@@ -398,7 +398,7 @@ export default class SortParagraphs extends H5P.Question {
    * Check answer.
    */
   checkAnswer() {
-    if (this.viewState === SortParagraphs.VIEW_STATES['task']) {
+    if (this.viewState === SortParagraphs.VIEW_STATES.task) {
       // checkAnswer was not triggered to recreate previous state
       this.trigger(this.getXAPIAnswerEvent());
 
@@ -416,7 +416,7 @@ export default class SortParagraphs extends H5P.Question {
       this.hideButton('check-answer');
 
       if (
-        this.viewState !== SortParagraphs.VIEW_STATES['solutions'] &&
+        this.viewState !== SortParagraphs.VIEW_STATES.solutions &&
         this.params.behaviour.enableSolutionsButton &&
         this.getScore() !== this.getMaxScore()
       ) {
@@ -428,8 +428,8 @@ export default class SortParagraphs extends H5P.Question {
       }
 
       this.content.showResults({
-        skipExplanation: this.viewState === SortParagraphs.VIEW_STATES['solutions'],
-        skipFocus: isExternalCall
+        skipExplanation: this.viewState === SortParagraphs.VIEW_STATES.solutions,
+        skipFocus: isExternalCall,
       });
 
       const score = this.getScore();
@@ -447,7 +447,7 @@ export default class SortParagraphs extends H5P.Question {
         textScore.trim(),
         score,
         maxScore,
-        ariaMessage
+        ariaMessage,
       );
     }, 0); // Prevent flickering when content resizes by button alignment
   }
@@ -501,9 +501,9 @@ export default class SortParagraphs extends H5P.Question {
     return {
       order: this.content.getDraggablesOrder(),
       viewState: this.viewState,
-      score: this.viewState === SortParagraphs.VIEW_STATES['task'] ?
+      score: this.viewState === SortParagraphs.VIEW_STATES.task ?
         0 :
-        this.getScore()
+        this.getScore(),
     };
   }
 
@@ -532,7 +532,7 @@ export default class SortParagraphs extends H5P.Question {
       this.viewState = state;
 
       this.content.setViewState(
-        SortParagraphs.VIEW_STATES.find((value) => value === state).keys[0]
+        SortParagraphs.VIEW_STATES.find((value) => value === state).keys[0],
       );
     }
   }
@@ -578,7 +578,7 @@ export default class SortParagraphs extends H5P.Question {
       this.contentId, // Set automatically by H5P core
       'state',
       this.stateProvider.getCurrentState(),
-      { deleteOnChange: true } // Use default behavior of H5P core
+      { deleteOnChange: true }, // Use default behavior of H5P core
     );
   }
 }

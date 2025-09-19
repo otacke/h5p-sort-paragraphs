@@ -42,7 +42,7 @@ export default class SortParagraphsParagraph {
       onKeyboardUp: () => {}, // Keyboard up
       onKeyboardDown: () => {}, // Keyboard down
       onKeyboardSelect: () => {}, // Select with keyboard
-      onKeyboardCancel: () => {} // Cancel with keyboard
+      onKeyboardCancel: () => {}, // Cancel with keyboard
     }, callbacks);
 
     // Selected state
@@ -91,7 +91,7 @@ export default class SortParagraphsParagraph {
     // Container for paragraph text
     this.containerText = this.buildDIVContainer({
       classText: 'h5p-sort-paragraphs-paragraph-container',
-      innerHTML: this.params.text
+      innerHTML: this.params.text,
     });
     paragraph.appendChild(this.containerText);
 
@@ -104,39 +104,39 @@ export default class SortParagraphsParagraph {
     const containerLeft = this.buildDIVContainer({
       classText: 'h5p-sort-paragraphs-paragraph-button-container',
       attributes: {
-        'aria-hidden': 'true'
-      }
+        'aria-hidden': 'true',
+      },
     });
     this.buttonsContainer.appendChild(containerLeft);
 
     if (this.params?.options?.addButtonsForMovement) {
-      this.buttons['up'] = this.buildButtonUp();
-      containerLeft.appendChild(this.buttons['up'].getDOM());
+      this.buttons.up = this.buildButtonUp();
+      containerLeft.appendChild(this.buttons.up.getDOM());
     }
 
     // Right container for information
     const containerRight = this.buildDIVContainer({
       classText: 'h5p-sort-paragraphs-paragraph-button-container',
       attributes: {
-        'aria-hidden': 'true'
-      }
+        'aria-hidden': 'true',
+      },
     });
     this.buttonsContainer.appendChild(containerRight);
 
     // Container for correct/wrong markers
     this.containerCorrections = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-corrections'
+      classText: 'h5p-sort-paragraphs-paragraph-corrections',
     });
     containerRight.appendChild(this.containerCorrections);
 
     if (this.params?.options?.addButtonsForMovement) {
-      this.buttons['down'] = this.buildButtonDown();
-      containerRight.appendChild(this.buttons['down'].getDOM());
+      this.buttons.down = this.buildButtonDown();
+      containerRight.appendChild(this.buttons.down.getDOM());
     }
 
     // H5P Question score explanations
     this.scoreExplanations = this.buildDIVContainer({
-      classText: 'h5p-sort-paragraphs-paragraph-score-explanations'
+      classText: 'h5p-sort-paragraphs-paragraph-score-explanations',
     });
     containerRight.appendChild(this.scoreExplanations);
 
@@ -180,15 +180,15 @@ export default class SortParagraphsParagraph {
       {
         a11y: {
           active: this.params.l10n.up,
-          disabled: this.params.l10n.disabled
+          disabled: this.params.l10n.disabled,
         },
-        classes: ['h5p-sort-paragraphs-button', 'h5p-sort-paragraphs-paragraph-button-up']
+        classes: ['h5p-sort-paragraphs-button', 'h5p-sort-paragraphs-paragraph-button-up'],
       },
       {
         onClick: (() => {
           this.callbacks.onMoveUp(this.content);
-        })
-      }
+        }),
+      },
     );
   }
 
@@ -201,15 +201,15 @@ export default class SortParagraphsParagraph {
       {
         a11y: {
           active: this.params.l10n.down,
-          disabled: this.params.l10n.disabled
+          disabled: this.params.l10n.disabled,
         },
-        classes: ['h5p-sort-paragraphs-button', 'h5p-sort-paragraphs-paragraph-button-down']
+        classes: ['h5p-sort-paragraphs-button', 'h5p-sort-paragraphs-paragraph-button-down'],
       },
       {
         onClick: (() => {
           this.callbacks.onMoveDown(this.content);
-        })
-      }
+        }),
+      },
     );
   }
 
@@ -613,15 +613,15 @@ export default class SortParagraphsParagraph {
       // Used in dragstart for Firefox workaround
       this.pointerPosition = {
         x: event.clientX,
-        y: event.clientY
+        y: event.clientY,
       };
     }
 
     if (
       this.params.options.addButtonsForMovement &&
       (
-        event.target === this.buttons['up'].getDOM() ||
-        event.target === this.buttons['down'].getDOM()
+        event.target === this.buttons.up.getDOM() ||
+        event.target === this.buttons.down.getDOM()
       )
     ) {
       this.content.setAttribute('draggable', true);
@@ -649,7 +649,7 @@ export default class SortParagraphsParagraph {
     event.dataTransfer.setDragImage(
       this.content,
       this.pointerPosition.x - this.content.getBoundingClientRect().left,
-      this.pointerPosition.y - this.content.getBoundingClientRect().top
+      this.pointerPosition.y - this.content.getBoundingClientRect().top,
     );
 
     // Will hide browser's draggable copy as well without timeout
@@ -726,7 +726,9 @@ export default class SortParagraphsParagraph {
     }
 
     this.styleContent = this.styleContent || window.getComputedStyle(this.content);
-    const contentPadding = parseFloat(this.styleContent.getPropertyValue('padding-top')) + parseFloat(this.styleContent.getPropertyValue('padding-bottom'));
+    const contentPadding = parseFloat(this.styleContent.getPropertyValue('padding-top')) +
+      parseFloat(this.styleContent.getPropertyValue('padding-bottom'));
+
     const contentHeight = this.content.clientHeight - contentPadding;
 
     // Assuming all buttons have the same size
@@ -736,6 +738,7 @@ export default class SortParagraphsParagraph {
       return false; // Buttons may not be visible at all
     }
 
+    // eslint-disable-next-line no-magic-numbers
     return contentHeight >= 2 * buttonHeight;
   }
 

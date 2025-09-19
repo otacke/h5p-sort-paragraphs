@@ -3,6 +3,15 @@ import Util from './h5p-sort-paragraphs-util.js';
 import SortParagraphsParagraph from './h5p-sort-paragraphs-paragraph.js';
 import SortParagraphsSeparator from './h5p-sort-paragraphs-separator.js';
 
+/** @constant {number} SECOND_LAST_INDEX_OFFSET Offset for second last item. */
+const SECOND_LAST_INDEX_OFFSET = 2;
+
+/** @constant {number} FOCUS_DELAY_SMALL Delay for small focus changes. */
+const FOCUS_DELAY_SMALL = 100;
+
+/** @constant {number} FOCUS_DELAY_LARGE Delay for large focus changes. */
+const FOCUS_DELAY_LARGE = 550;
+
 /** Class representing the content */
 export default class SortParagraphsContent {
   /**
@@ -13,13 +22,13 @@ export default class SortParagraphsContent {
   constructor(params = {}, callbacks = {}) {
     this.params = Util.extend({
       previousState: {
-        viewState: 0
-      }
+        viewState: 0,
+      },
     }, params);
 
     this.callbacks = Util.extend({
       onInteracted: () => {},
-      read: () => {}
+      read: () => {},
     }, callbacks);
 
     this.content = document.createElement('div');
@@ -46,7 +55,7 @@ export default class SortParagraphsContent {
     this.options = {
       scoringMode: params.scoringMode || 'transitions',
       penalties: (typeof params.penalties !== 'boolean') ? true : params.penalties,
-      duplicatesInterchangeable: params.duplicatesInterchangeable
+      duplicatesInterchangeable: params.duplicatesInterchangeable,
     };
 
     // ARIA label texts
@@ -59,7 +68,7 @@ export default class SortParagraphsContent {
     // Build n-1 separators for transitions
     this.separators = [];
     params.paragraphs.forEach((paragraph, index) => {
-      if (index === params.paragraphs.length - 2) {
+      if (index === params.paragraphs.length - SECOND_LAST_INDEX_OFFSET) {
         return;
       }
       this.separators.push(new SortParagraphsSeparator());
@@ -183,7 +192,8 @@ export default class SortParagraphsContent {
       paragraph.toggleEffect('solution', true);
     });
 
-    this.paragraphs[this.paragraphs.length - 1].getDOM().addEventListener('transitionend', this.handleSwapSolutionEnded);
+    this.paragraphs[this.paragraphs.length - 1].getDOM()
+      .addEventListener('transitionend', this.handleSwapSolutionEnded);
 
     const draggables = this.getDraggables();
 
@@ -200,7 +210,7 @@ export default class SortParagraphsContent {
 
     if (!params.skipFocus) {
       // Focus when draggables are re-ordered
-      this.focusFirstDraggable(550);
+      this.focusFirstDraggable(FOCUS_DELAY_LARGE);
     }
   }
 
@@ -208,7 +218,8 @@ export default class SortParagraphsContent {
    * Handle elements at correct position in solution view.
    */
   handleSwapSolutionEnded() {
-    this.paragraphs[this.paragraphs.length - 1].getDOM().removeEventListener('transitionend', this.handleSwapSolutionEnded);
+    this.paragraphs[this.paragraphs.length - 1].getDOM()
+      .removeEventListener('transitionend', this.handleSwapSolutionEnded);
 
     // Move draggables in correct order
     this.paragraphs.forEach((paragraph, index) => {
@@ -242,13 +253,29 @@ export default class SortParagraphsContent {
       const ariaOptions = {
         action: (this.options.scoringMode === 'positions') ? 'resultPositions' : 'resultTransitions',
         result: (answer === true) ? this.params.a11y.correct : this.params.a11y.wrong,
-        points: (answer === true) ?
-          this.params.a11y.point.replace('@score', 1) :
-          (showMinus) ? this.params.a11y.point.replace('@score', -1) : undefined
+        points: this.calculatePointsText(answer, showMinus),
       };
 
       this.setAriaLabel(element, ariaOptions);
     });
+  }
+
+  /**
+   * Calculate points text for ARIA options
+   * @param {boolean} answer Whether the answer is correct
+   * @param {boolean} showMinus Whether to show minus points
+   * @returns {string|undefined} Points text or undefined
+   */
+  calculatePointsText(answer, showMinus) {
+    if (answer === true) {
+      return this.params.a11y.point.replace('@score', 1);
+    }
+
+    if (showMinus) {
+      return this.params.a11y.point.replace('@score', -1);
+    }
+
+    return undefined;
   }
 
   /**
@@ -343,7 +370,7 @@ export default class SortParagraphsContent {
 
     return {
       correctAnswers: correctAnswers,
-      score: Math.max(0, score)
+      score: Math.max(0, score),
     };
   }
 
@@ -363,7 +390,7 @@ export default class SortParagraphsContent {
     list.setAttribute('role', 'application');
     list.setAttribute(
       'aria-label',
-      `${this.params.taskDescription} ${this.params.a11y.listDescription}`
+      `${this.params.taskDescription} ${this.params.a11y.listDescription}`,
     );
     list.classList.add('h5p-sort-paragraphs-list');
 
@@ -392,8 +419,8 @@ export default class SortParagraphsContent {
         text: text,
         l10n: this.params.l10n,
         options: {
-          addButtonsForMovement: this.params.addButtonsForMovement
-        }
+          addButtonsForMovement: this.params.addButtonsForMovement,
+        },
       },
       {
         onMoveUp: ((draggable) => this.handleDraggableMoved(draggable, 'up')),
@@ -408,8 +435,8 @@ export default class SortParagraphsContent {
         onKeyboardSelect: ((draggable) => this.handleDraggableKeyboardSelect(draggable)),
         onKeyboardCancel: ((draggable) => this.handleDraggableKeyboardCancel(draggable)),
         onMouseDown: ((draggable) => this.handleDraggableMouseDown(draggable)),
-        onMouseUp: ((draggable) => this.handleDraggableMouseUp(draggable))
-      }
+        onMouseUp: ((draggable) => this.handleDraggableMouseUp(draggable)),
+      },
     );
     return paragraph;
   }
@@ -423,31 +450,37 @@ export default class SortParagraphsContent {
   buildAriaTemplates() {
     return {
       // draggable was selected by giving focus
-      selected: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}@text`,
+      // eslint-disable-next-line @stylistic/js/max-len
+      selected: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : `${this.params.a11y.instructionsSelected  }. `}@text`,
 
       // draggable was grabbed
-      grabbed: `${this.params.a11y.paragraph} ${this.params.a11y.grabbed}. ${this.params.a11y.currentPosition}: ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsGrabbed + '.'}`,
+      // eslint-disable-next-line @stylistic/js/max-len
+      grabbed: `${this.params.a11y.paragraph} ${this.params.a11y.grabbed}. ${this.params.a11y.currentPosition}: ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : `${this.params.a11y.instructionsGrabbed  }.`}`,
 
       // draggable was moved
+      // eslint-disable-next-line @stylistic/js/max-len
       moved: `${this.params.a11y.paragraph} ${this.params.a11y.moved}. ${this.params.a11y.currentPosition}: ${this.params.a11y.sevenOfNine}.`,
 
       // draggable was dropped
+      // eslint-disable-next-line @stylistic/js/max-len
       dropped: `${this.params.a11y.paragraph} ${this.params.a11y.dropped}. ${this.params.a11y.finalPosition}: ${this.params.a11y.sevenOfNine}.`,
 
       // draggable reordering was cancelled
-      cancelled: `${this.params.a11y.reorderCancelled}. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : this.params.a11y.instructionsSelected + '. '}@text`,
+      // eslint-disable-next-line @stylistic/js/max-len
+      cancelled: `${this.params.a11y.reorderCancelled}. ${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.isAnswerGiven() ? '' : `${this.params.a11y.instructionsSelected  }. `}@text`,
 
       // Anncouncing results for scoring mode 'positions'
       resultPositions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. @result. @points. @text`,
 
       // Anncouncing results for scoring mode 'transitions'
+      // eslint-disable-next-line @stylistic/js/max-len
       resultTransitions: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. ${this.params.a11y.nextParagraph} @result. @points. @text`,
 
       // Neutral announcement for last draggable for scoring mode 'transitions'
       neutral: `${this.params.a11y.paragraph} ${this.params.a11y.sevenOfNine}. @text`,
 
       // Anncouncing solution
-      solution: `${this.params.a11y.correctParagraph} ${this.params.a11y.sevenOfNine}. @text`
+      solution: `${this.params.a11y.correctParagraph} ${this.params.a11y.sevenOfNine}. @text`,
     };
   }
 
@@ -616,7 +649,7 @@ export default class SortParagraphsContent {
       // Store state in case user cancels
       this.undoState = {
         position: this.getDraggableIndex(draggable),
-        order: this.getDraggablesOrder()
+        order: this.getDraggablesOrder(),
       };
     }
     else {
@@ -952,7 +985,12 @@ export default class SortParagraphsContent {
           let offset;
 
           if (element === this.transitionElement1) {
-            offset = -1 * (this.transitionElement1.offsetTop - this.transitionElement2.offsetTop - this.transitionElement2.offsetHeight + this.transitionElement1.offsetHeight);
+            offset = -1 * (
+              this.transitionElement1.offsetTop -
+              this.transitionElement2.offsetTop -
+              this.transitionElement2.offsetHeight +
+              this.transitionElement1.offsetHeight
+            );
           }
           else if (element === this.transitionElement2) {
             offset = -1 * (this.transitionElement2.offsetTop - this.transitionElement1.offsetTop);
@@ -994,7 +1032,7 @@ export default class SortParagraphsContent {
   reset() {
     this.list.setAttribute(
       'aria-label',
-      `${this.params.taskDescription} ${this.params.a11y.listDescription}`
+      `${this.params.taskDescription} ${this.params.a11y.listDescription}`,
     );
 
     this.answerGiven = false;
@@ -1018,7 +1056,7 @@ export default class SortParagraphsContent {
     this.resetAriaLabels();
     this.setViewState('task');
 
-    this.focusFirstDraggable(100);
+    this.focusFirstDraggable(FOCUS_DELAY_SMALL);
   }
 
   /**
@@ -1043,7 +1081,7 @@ export default class SortParagraphsContent {
     Object.keys(this.viewStates).forEach((state) => {
       this.content.classList.toggle(
         `h5p-sort-paragraphs-view-state-${state}`,
-        state !== newState
+        state !== newState,
       );
     });
 
