@@ -256,6 +256,10 @@ export default class SortParagraphs extends H5P.Question {
    * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-2}
    */
   getScore() {
+    if (!this.getAnswerGiven()) {
+      return 0;
+    }
+
     let score = 0;
 
     if (!this.content) {

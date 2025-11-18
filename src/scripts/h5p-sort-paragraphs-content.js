@@ -35,7 +35,7 @@ export default class SortParagraphsContent {
     this.content.classList.add('h5p-sort-paragraphs-content');
 
     this.draggedElement = null; // Currently dragged element
-    this.answerGiven = false; // Answer given for H5P question type contract
+    this.answerGiven = Array.isArray(this.params.previousState?.order);
     this.enabled = true; // Enabled state of content
     this.oldOrder = null; // Old order when dragging
 
