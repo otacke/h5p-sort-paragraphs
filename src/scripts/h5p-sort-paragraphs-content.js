@@ -874,11 +874,6 @@ export default class SortParagraphsContent {
 
     // Set ARIA label
     paragraph.setAriaLabel(Util.stripHTML(ariaLabel));
-
-    // ARIA label changed, but that's not a state - will not re-announce
-    if (['grabbed', 'dropped'].indexOf(options.action) !== -1) {
-      this.callbacks.read(Util.stripHTML(ariaLabel));
-    }
   }
 
   /**
