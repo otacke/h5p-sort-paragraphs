@@ -125,6 +125,14 @@ export default class SortParagraphs extends H5P.Question {
   }
 
   /**
+   * Workaround for H5P core mutating prototype to inject its isRoot, but ES6 inheritance here.
+   * @returns {boolean} True, if content type is root. Else false.
+   */
+  isRoot() {
+    return !!this.extras.standalone;
+  }
+
+  /**
    * Register the DOM elements with H5P.Question
    */
   registerDomElements() {
