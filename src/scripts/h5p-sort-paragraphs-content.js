@@ -34,7 +34,7 @@ export default class SortParagraphsContent {
     this.content.classList.add('h5p-sort-paragraphs-content');
 
     this.draggedElement = null; // Currently dragged element
-    this.answerGiven = Array.isArray(this.params.previousState?.order);
+    this.setAnswerGiven(Array.isArray(this.params.previousState?.order));
     this.enabled = true; // Enabled state of content
     this.oldOrder = null; // Old order when dragging
 
@@ -769,7 +769,7 @@ export default class SortParagraphsContent {
    * Handle user interacted.
    */
   handleInteracted() {
-    this.answerGiven = true; // For H5P question type contract.
+    this.setAnswerGiven(true);
     this.ariaTemplates = this.buildAriaTemplates();
     this.callbacks.onInteracted();
   }
@@ -958,6 +958,18 @@ export default class SortParagraphsContent {
   }
 
   /**
+   * Set answer given state.
+   * @param {boolean} state State to set.
+   */
+  setAnswerGiven(state) {
+    if (typeof state !== 'boolean') {
+      return;
+    }
+
+    this.answerGiven = state;
+  }
+
+  /**
    * Swap two DOM elements with animation.
    * @param {HTMLElement} element1 Element 1.
    * @param {HTMLElement} element2 Element 2.
@@ -1048,7 +1060,7 @@ export default class SortParagraphsContent {
       `${this.params.taskDescription} ${this.params.a11y.listDescription}`,
     );
 
-    this.answerGiven = false;
+    this.setAnswerGiven(false);
     this.ariaTemplates = this.buildAriaTemplates();
 
     this.hideResults();

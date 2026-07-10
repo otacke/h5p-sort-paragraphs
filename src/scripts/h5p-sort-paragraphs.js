@@ -447,6 +447,7 @@ export default class SortParagraphs extends H5P.Question {
 
     setTimeout(() => {
       this.content.disable();
+      this.content.setAnswerGiven(true);
 
       this.hideButton('check-answer');
 
