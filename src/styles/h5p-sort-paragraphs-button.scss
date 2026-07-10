@@ -1,0 +1,50 @@
+.h5p-sort-paragraphs-button {
+  aspect-ratio: 1;
+  background-color: var(--h5p-theme-ui-base);
+  border: 2px solid var(--h5p-theme-contrast-cta-white);
+  border-radius: var(--h5p-theme-border-radius-medium);
+  color: var(--h5p-theme-contrast-cta-white);
+  cursor: pointer;
+  height: calc(2.75 * var(--h5p-theme-spacing-s));
+  padding: 0;
+  position: relative;
+
+  &.h5p-sort-paragraphs-no-display {
+    display: none;
+  }
+
+  &.h5p-sort-paragraphs-disabled {
+    cursor: auto;
+    filter: grayscale(100%);
+    opacity: 0.5;
+  }
+
+  &:not(.h5p-sort-paragraphs-disabled) {
+    &:hover {
+      background-color: var(--h5p-theme-contrast-cta-white);
+      color: var(--h5p-theme-secondary-contrast-cta-hover);
+    }
+
+    &:active {
+      background-color: var(--h5p-theme-main-cta-dark);
+      border-color: var(--h5p-theme-main-cta-dark);
+    }
+  }
+
+  &::before {
+    font-family: "H5PFontAwesome4", sans-serif;
+    font-size: var(--h5p-theme-font-size-xxl);
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &.h5p-sort-paragraphs-paragraph-button-up::before {
+    content: var(--icon-fontawesome-angle-up);
+  }
+
+  &.h5p-sort-paragraphs-paragraph-button-down::before {
+    content: var(--icon-fontawesome-angle-down);
+  }
+}

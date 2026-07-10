@@ -1,4 +1,5 @@
-/** Class representing the content */
+import '@styles/h5p-sort-paragraphs-separator.scss';
+
 export default class SortParagraphsSeparator {
   /**
    * @class
@@ -51,12 +52,7 @@ export default class SortParagraphsSeparator {
       return;
     }
 
-    if (enabled) {
-      this.content.classList.add(`h5p-sort-paragraphs-${effectName}`);
-    }
-    else {
-      this.content.classList.remove(`h5p-sort-paragraphs-${effectName}`);
-    }
+    this.content.classList.toggle(`h5p-sort-paragraphs-${effectName}`, enabled);
   }
 
   /**
@@ -86,7 +82,9 @@ export default class SortParagraphsSeparator {
    * Remove H5P Question score explanation.
    */
   hideScoreExplanation() {
-    const scoreExplanation = this.content.querySelector('.h5p-question-plus-one, .h5p-question-minus.one');
+    const scoreExplanation =
+      this.content.querySelector('.h5p-question-plus-one-container, .h5p-question-minus-one-container');
+
     if (scoreExplanation) {
       this.content.removeChild(scoreExplanation);
     }

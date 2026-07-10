@@ -1,5 +1,6 @@
-// Import required classes
 import Util from './h5p-sort-paragraphs-util.js';
+
+import '@styles/h5p-sort-paragraphs-button.scss';
 
 /** Class representing the content */
 export default class Button {

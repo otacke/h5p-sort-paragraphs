@@ -1,4 +1,3 @@
-/** Class for utility functions */
 class Util {
   /**
    * Extend an array just like JQuery's extend.

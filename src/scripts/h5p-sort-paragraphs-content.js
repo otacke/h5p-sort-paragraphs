@@ -1,4 +1,3 @@
-// Import required classes
 import Util from './h5p-sort-paragraphs-util.js';
 import SortParagraphsParagraph from './h5p-sort-paragraphs-paragraph.js';
 import SortParagraphsSeparator from './h5p-sort-paragraphs-separator.js';
@@ -71,7 +70,9 @@ export default class SortParagraphsContent {
       if (index === params.paragraphs.length - SECOND_LAST_INDEX_OFFSET) {
         return;
       }
-      this.separators.push(new SortParagraphsSeparator());
+      const separator = new SortParagraphsSeparator();
+      separator.hide();
+      this.separators.push(separator);
     });
 
     // Build list of paragraphs
@@ -143,6 +144,12 @@ export default class SortParagraphsContent {
       paragraph.disable();
     });
 
+    if (this.options.scoringMode === 'transitions') {
+      this.separators.forEach((separator) => {
+        separator.show();
+      });
+    }
+
     if (!params.skipExplanation) {
       // Add score explanation and ARIA depending on scoring mode.
       if (this.options.scoringMode === 'positions') {
@@ -175,6 +182,12 @@ export default class SortParagraphsContent {
       element.setAriaLabel('');
       element.hideScoreExplanation();
     });
+
+    if (this.options.scoringMode === 'transitions') {
+      this.separators.forEach((separator) => {
+        separator.hide();
+      });
+    }
   }
 
   /**

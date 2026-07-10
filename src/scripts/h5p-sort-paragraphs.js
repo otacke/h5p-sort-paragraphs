@@ -1,6 +1,7 @@
-// Import required classes
 import SortParagraphsContent from './h5p-sort-paragraphs-content.js';
 import Util from './h5p-sort-paragraphs-util.js';
+
+import '@styles/h5p-sort-paragraphs.scss';
 
 /**
  * Main class.
@@ -13,7 +14,7 @@ export default class SortParagraphs extends H5P.Question {
    * @param {object} [extras] Saved state, metadata, etc.
    */
   constructor(params, contentId, extras = {}) {
-    super('sort-paragraphs'); // CSS class selector for content's iframe
+    super('sort-paragraphs', { theme: true }); // CSS class selector for content's iframe
 
     /*
      * this.params.behaviour.enableSolutionsButton and this.params.behaviour.enableRetry
@@ -224,29 +225,51 @@ export default class SortParagraphs extends H5P.Question {
    */
   addButtons() {
     // Check answer button
-    this.addButton('check-answer', this.params.l10n.checkAnswer, () => {
-      this.checkAnswer();
-    }, true, {
-      'aria-label': this.params.a11y.check,
-    }, {
-      contentData: this.extras,
-      textIfSubmitting: this.params.l10n.submitAnswer,
-    });
+    this.addButton(
+      'check-answer',
+      this.params.l10n.checkAnswer,
+      () => {
+        this.checkAnswer();
+      },
+      true,
+      { 'aria-label': this.params.a11y.check },
+      {
+        contentData: this.extras,
+        textIfSubmitting: this.params.l10n.submitAnswer,
+        icon: 'check',
+      },
+    );
 
     // Show solution button
-    this.addButton('show-solution', this.params.l10n.showSolution, () => {
-      this.hideButton('show-solution');
-      this.showSolutions();
-    }, false, {
-      'aria-label': this.params.a11y.showSolution,
-    }, {});
+    this.addButton(
+      'show-solution',
+      this.params.l10n.showSolution,
+      () => {
+        this.hideButton('show-solution');
+        this.showSolutions();
+      },
+      false,
+      { 'aria-label': this.params.a11y.showSolution },
+      {
+        icon: 'show-solutions',
+        styleType: 'secondary',
+      },
+    );
 
     // Retry button
-    this.addButton('try-again', this.params.l10n.tryAgain, () => {
-      this.resetTask();
-    }, false, {
-      'aria-label': this.params.a11y.retry,
-    }, {});
+    this.addButton(
+      'try-again',
+      this.params.l10n.tryAgain,
+      () => {
+        this.resetTask();
+      },
+      false,
+      { 'aria-label': this.params.a11y.retry },
+      {
+        icon: 'retry',
+        styleType: 'secondary',
+      },
+    );
   }
 
   /**
