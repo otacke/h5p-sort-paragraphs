@@ -433,6 +433,8 @@ export default class SortParagraphs extends H5P.Question {
    * Check answer.
    */
   checkAnswer() {
+    this.content.setAnswerGiven(true);
+
     if (this.viewState === SortParagraphs.VIEW_STATES.task) {
       // checkAnswer was not triggered to recreate previous state
       this.trigger(this.getXAPIAnswerEvent());
@@ -447,7 +449,6 @@ export default class SortParagraphs extends H5P.Question {
 
     setTimeout(() => {
       this.content.disable();
-      this.content.setAnswerGiven(true);
 
       this.hideButton('check-answer');
 
