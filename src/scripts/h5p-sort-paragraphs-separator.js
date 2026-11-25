@@ -68,13 +68,11 @@ export default class SortParagraphsSeparator {
    * @param {HTMLElement} scoreExplanation H5P Question score explanation.
    */
   showScoreExplanation(scoreExplanation) {
-    if (
-      this.content.classList.contains('h5p-question-plus-one') ||
-      this.content.classList.contains('h5p-question-minus-one')
-    ) {
+    if (this.scoreExplanation) {
       return; // Skip, already contains score explanation
     }
 
+    this.scoreExplanation = scoreExplanation;
     this.content.appendChild(scoreExplanation);
   }
 
@@ -82,11 +80,11 @@ export default class SortParagraphsSeparator {
    * Remove H5P Question score explanation.
    */
   hideScoreExplanation() {
-    const scoreExplanation =
-      this.content.querySelector('.h5p-question-plus-one-container, .h5p-question-minus-one-container');
-
-    if (scoreExplanation) {
-      this.content.removeChild(scoreExplanation);
-    }
+    /*
+     * Keep reference instead of querying DOM, because H5P.Question.ScorePoints
+     * may or may not wrap the score element in a container depending on version.
+     */
+    this.scoreExplanation?.remove();
+    delete this.scoreExplanation;
   }
 }
